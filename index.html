@@ -370,6 +370,14 @@ textarea{font:inherit;font-size:.95rem;width:100%;min-height:84px;padding:10px;b
 .qf-nav{display:flex;justify-content:space-between;gap:10px;padding:12px 18px;border-top:1px solid var(--line);background:var(--surface-2)}
 .qf-nav .btn:disabled{opacity:.4;cursor:default}
 .view[data-sess="6"] .btn.pri{background:var(--c6);border-color:var(--c6)}
+.qtools{display:flex;flex-wrap:wrap;align-items:center;gap:8px;justify-content:flex-end}
+.qtools .qt-msg{font-family:var(--f-mono);font-size:.76rem;color:var(--muted)}
+.qtools [hidden]{display:none!important}
+.btn.danger{background:var(--bad);border-color:var(--bad);color:var(--accent-ink);font-weight:600}
+.btn.danger:hover{filter:brightness(1.08)}
+.btn .ico{display:inline-block;margin-right:6px}
+.btn:disabled{opacity:.45;cursor:default}
+.qf-nav .mid{display:flex;gap:10px}
 #qReport{border:1px solid var(--c6);border-radius:8px;background:var(--surface);padding:16px 18px;display:flex;flex-direction:column;gap:10px;box-shadow:0 0 0 3px var(--accent-soft)}
 .qr-h{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px}
 .qr-t{font-family:var(--f-display);font-weight:700;font-size:1.3rem}
@@ -395,7 +403,13 @@ textarea{font:inherit;font-size:.95rem;width:100%;min-height:84px;padding:10px;b
   .sw-brand{flex-direction:column;gap:2px}
   .qo-tag{grid-column:2;justify-self:start;margin:0 0 8px 12px}
   .qf-nav{padding:10px 14px}
+  .qf-nav{flex-wrap:wrap}
   .qf-nav .btn{flex:1}
+  .qf-nav #qRedo{order:-1;flex-basis:100%}
+  .qtools{justify-content:stretch}
+  .qtools > .btn,.qtools .qt-confirm{flex:1 1 100%}
+  .qtools .qt-confirm{display:flex;flex-wrap:wrap;gap:8px}
+  .qtools .qt-confirm .btn{flex:1}
   .term-body .rv{grid-template-columns:minmax(0,1fr);gap:0;margin-bottom:4px}
 }
 
@@ -1501,6 +1515,7 @@ textarea{font:inherit;font-size:.95rem;width:100%;min-height:84px;padding:10px;b
   <div class="qhero">
     <div class="sw" id="qSwitch"></div>
     <div id="qStats"></div>
+    <div class="qtools" id="qTools"></div>
   </div>
 
   <div id="qFrame"></div>
@@ -2220,6 +2235,7 @@ function qStats(){
    <div class="qs no"><span>NACK · erros</span><b>${no}</b></div>
    <div class="qs"><span>Taxa de acerto</span><b>${done?rate+"%":"–"}</b></div>
    <div class="qbar" aria-hidden="true">${QQ.map((_,i)=>`<i class="${qState(i)}"></i>`).join("")}</div>`;
+  qToolsRender();
   const rep=document.getElementById("qReport");
   if(done===20){
     const wrong=QQ.map((_,i)=>i).filter(i=>p[i]===false);
@@ -2245,15 +2261,28 @@ function qRender(){
      <div class="qres-sec"><span class="qres-l">▸ Pegadinha</span><p>${esc(it.t)}</p></div>
      <div class="qres-sec rs"><span class="qres-l">▸ Resolução do material</span>${it.r}</div></div>`:`<p class="qf-hint">Escolha uma alternativa. No teclado: A a D para responder, ← e → para trocar de frame.</p>`}
    </div>
-   <footer class="qf-nav"><button class="btn" id="qPrev" ${qCur===0?"disabled":""}>◀ Frame anterior</button><button class="btn pri" id="qNext">${qCur===19?"Ver relatório":"Próximo frame ▶"}</button></footer></article>`;
+   <footer class="qf-nav"><button class="btn" id="qPrev" ${qCur===0?"disabled":""}>◀ Frame anterior</button>${answered?`<button class="btn" id="qRedo"><span class="ico">↺</span>Refazer esta questão</button>`:""}<button class="btn pri" id="qNext">${qCur===19?"Ver relatório":"Próximo frame ▶"}</button></footer></article>`;
   document.querySelectorAll("#qFrame .qo").forEach(b=>b.onclick=()=>qAnswer(+b.dataset.k));
   document.getElementById("qPrev").onclick=()=>qGo(qCur-1,false);
+  const redo=document.getElementById("qRedo"); if(redo) redo.onclick=qRedoOne;
   document.getElementById("qNext").onclick=()=>{ if(qCur===19){ const r=document.getElementById("qReport"); if(!r.hidden) r.scrollIntoView({behavior:"smooth",block:"start"}); else { const f=QQ.findIndex((_,i)=>qState(i)==="off"); if(f>=0) qGo(f,true); } } else qGo(qCur+1,false); };
   qStats();
 }
 function qAnswer(k){
   const p=qp(); if(p["c"+qCur]!==undefined) return;
   p["c"+qCur]=k; p[qCur]=(k===QQ[qCur].a); save(); updateProgress(); qRender();
+}
+function qRedoOne(){ const p=qp(); delete p[qCur]; delete p["c"+qCur]; save(); updateProgress(); qRender(); }
+function qToolsRender(){
+  const p=qp(); const n=QQ.filter((_,i)=>p[i]!==undefined).length; const box=document.getElementById("qTools");
+  box.innerHTML=`<span class="qt-msg">${n? n+" de 20 respondidas" : "Nenhuma questão respondida ainda"}</span>
+   <button class="btn" id="qResetBtn" ${n?"":"disabled"}><span class="ico">↺</span>Refazer simulado</button>
+   <span class="qt-confirm" hidden><span class="qt-msg">Apagar as ${n} respostas e começar do zero?</span><button class="btn sm danger" id="qResetYes">Sim, refazer</button><button class="btn sm" id="qResetNo">Cancelar</button></span>`;
+  const btn=box.querySelector("#qResetBtn"), cf=box.querySelector(".qt-confirm");
+  const cnt=box.querySelector(".qt-msg");
+  btn.onclick=()=>{ btn.hidden=true; cnt.hidden=true; cf.hidden=false; box.querySelector("#qResetYes").focus(); };
+  box.querySelector("#qResetNo").onclick=()=>{ cf.hidden=true; btn.hidden=false; cnt.hidden=false; btn.focus(); };
+  box.querySelector("#qResetYes").onclick=qReset;
 }
 function qGo(i,scroll){ if(i<0||i>19) return; qCur=i; qRender(); if(scroll) document.getElementById("qFrame").scrollIntoView({behavior:"smooth",block:"start"}); }
 function qReset(){ PROG.questoes={}; save(); updateProgress(); qCur=0; qRender(); document.getElementById("qSwitch").scrollIntoView({behavior:"smooth",block:"start"}); }
