@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#101C24">
-<meta name="description" content="Roteiro de estudos de Redes de Computadores com explicações, exercícios e treino de cálculo de IP.">
+<meta name="description" content="Roteiro de estudos de Redes de Computadores com explicações, exercícios, cálculo de IP e simulado de 20 questões.">
 <title>Roteiro de Redes</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,7 +15,7 @@
 :root{
   --bg:#0B1319; --grid:#1A2832; --panel:#101C24; --surface:#13212A; --surface-2:#182A35; --ink:#DCE6EA; --muted:#8C9FA9; --line:#243743;
   --accent:#5AA6F0; --accent-ink:#06121C; --accent-soft:#14283A;
-  --c1:#F0913A; --c2:#47B76E; --c3:#5AA6F0; --c4:#C79465; --c5:#E6C24A;
+  --c1:#F0913A; --c2:#47B76E; --c3:#5AA6F0; --c4:#C79465; --c5:#E6C24A; --c6:#3FD0D9;
   --ok:#4FD18B; --ok-soft:#10301F; --bad:#F2877A; --bad-soft:#36191A; --warn:#E6B85A; --warn-soft:#33280F;
   --led-off:#2A3A44; --code:#0E1A21; --net:#5AA6F0; --host:#F0913A;
   --w-orange:#E07B1F; --w-green:#2E8B3E; --w-blue:#2563C9; --w-brown:#7A4A26; --w-white:#F4F4EE; --w-edge:#5E6E76;
@@ -23,17 +23,18 @@
   --f-body:"IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
   --f-mono:"JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
   --r:6px; color-scheme:dark;
+  --sw-bg:#141D23; --sw-hi:#1E2A32; --sw-well:#0C1317; --sw-edge:#2E3E48; --sw-ink:#D2DEE3; --sw-dim:#7D919B; --sw-jack:#05080A; --sw-pin:#3A4A54; --sw-ledoff:#26333B;
 }
 @media (prefers-color-scheme: light){ :root:not([data-theme="dark"]){
   --bg:#EDF1F3; --grid:#D3DCE1; --panel:#E3E9EC; --surface:#FFFFFF; --surface-2:#F4F7F8; --ink:#0F1E27; --muted:#55666F; --line:#CCD6DB;
   --accent:#1D5FAE; --accent-ink:#FFFFFF; --accent-soft:#E0EAF6;
-  --c1:#C2610F; --c2:#23803F; --c3:#1D5FAE; --c4:#7A4A26; --c5:#8E7000;
+  --c1:#C2610F; --c2:#23803F; --c3:#1D5FAE; --c4:#7A4A26; --c5:#8E7000; --c6:#0B7F89;
   --ok:#1D7748; --ok-soft:#DFF1E6; --bad:#AF3A2D; --bad-soft:#F7E3E0; --warn:#875800; --warn-soft:#FAEFD7;
   --led-off:#BFCBD1; --code:#E6ECEF; --net:#1D5FAE; --host:#C2610F; --w-edge:#9AA6AC; color-scheme:light }}
 :root[data-theme="light"]{
   --bg:#EDF1F3; --grid:#D3DCE1; --panel:#E3E9EC; --surface:#FFFFFF; --surface-2:#F4F7F8; --ink:#0F1E27; --muted:#55666F; --line:#CCD6DB;
   --accent:#1D5FAE; --accent-ink:#FFFFFF; --accent-soft:#E0EAF6;
-  --c1:#C2610F; --c2:#23803F; --c3:#1D5FAE; --c4:#7A4A26; --c5:#8E7000;
+  --c1:#C2610F; --c2:#23803F; --c3:#1D5FAE; --c4:#7A4A26; --c5:#8E7000; --c6:#0B7F89;
   --ok:#1D7748; --ok-soft:#DFF1E6; --bad:#AF3A2D; --bad-soft:#F7E3E0; --warn:#875800; --warn-soft:#FAEFD7;
   --led-off:#BFCBD1; --code:#E6ECEF; --net:#1D5FAE; --host:#C2610F; --w-edge:#9AA6AC; color-scheme:light }
 
@@ -58,7 +59,7 @@ code,.mono{font-family:var(--f-mono);font-size:.9em}
 code{background:var(--code);padding:.08em .35em;border-radius:4px;border:1px solid var(--line)}
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
-.view[data-sess="1"]{--sc:var(--c1)} .view[data-sess="2"]{--sc:var(--c2)} .view[data-sess="3"]{--sc:var(--c3)} .view[data-sess="4"]{--sc:var(--c4)} .view[data-sess="5"]{--sc:var(--c5)}
+.view[data-sess="1"]{--sc:var(--c1)} .view[data-sess="2"]{--sc:var(--c2)} .view[data-sess="3"]{--sc:var(--c3)} .view[data-sess="4"]{--sc:var(--c4)} .view[data-sess="5"]{--sc:var(--c5)} .view[data-sess="6"]{--sc:var(--c6)}
 
 .app{display:grid;grid-template-columns:286px minmax(0,1fr);gap:40px;max-width:1260px;margin:0 auto;padding-block:24px 64px}
 
@@ -282,6 +283,122 @@ textarea{font:inherit;font-size:.95rem;width:100%;min-height:84px;padding:10px;b
 .calc label{display:flex;flex-direction:column;gap:4px;font-size:.8rem;color:var(--muted)}
 .err{color:var(--bad);font-size:.92rem}
 
+/* ---------- questões para estudo: switch de 20 portas + captura de pacotes ---------- */
+.qhero{display:grid;gap:14px}
+.sw{background:linear-gradient(180deg,var(--sw-hi),var(--sw-bg) 38%);border:1px solid var(--sw-edge);border-radius:8px;padding:12px 16px 14px;color:var(--sw-ink);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 10px 24px -14px rgba(0,0,0,.6);position:relative}
+.sw::before,.sw::after{content:"";position:absolute;top:50%;width:8px;height:8px;margin-top:-4px;border-radius:50%;background:var(--sw-edge);box-shadow:inset 0 0 0 2px var(--sw-bg)}
+.sw::before{left:5px} .sw::after{right:5px}
+.sw-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:12px;padding:0 6px}
+.sw-brand{font-family:var(--f-display);font-weight:700;font-size:1.05rem;letter-spacing:.08em;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.sw-brand small{font-family:var(--f-mono);font-weight:400;font-size:.68rem;letter-spacing:.06em;color:var(--sw-dim);text-transform:uppercase}
+.sw-leds{display:flex;gap:14px;font-family:var(--f-mono);font-size:.64rem;color:var(--sw-dim)}
+.sw-leds span{display:flex;align-items:center;gap:5px}
+.sw-leds i{width:6px;height:6px;border-radius:50%;background:var(--ok);box-shadow:0 0 6px var(--ok)}
+.sw-leds i.sys{background:var(--c6);box-shadow:0 0 6px var(--c6);animation:sysb 2.4s ease-in-out infinite}
+@keyframes sysb{50%{opacity:.35}}
+.sw-body{display:flex;gap:16px;align-items:stretch;padding:0 6px}
+.sw-ports{flex:1;display:grid;grid-template-rows:repeat(2,auto);grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:6px 6px;
+  background:var(--sw-well);border-radius:5px;padding:8px;border:1px solid var(--sw-edge)}
+.sp{font:inherit;background:none;border:0;padding:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--sw-dim);min-width:0}
+.sp:nth-child(even){flex-direction:column-reverse}
+.sp-n{font-family:var(--f-mono);font-size:.62rem;line-height:1}
+.sp-jack{position:relative;width:100%;max-width:40px;aspect-ratio:1.25;background:var(--sw-jack);border-radius:3px;box-shadow:inset 0 0 0 1px #000,inset 0 2px 3px rgba(0,0,0,.8);transition:box-shadow .15s}
+.sp-jack::before{content:"";position:absolute;left:22%;right:22%;top:18%;bottom:14%;background:var(--sw-pin);
+  clip-path:polygon(0 0,100% 0,100% 64%,74% 64%,74% 100%,26% 100%,26% 64%,0 64%);opacity:.8}
+.sp-led{position:absolute;top:6%;width:16%;height:10%;border-radius:1px;background:var(--sw-ledoff)}
+.sp-led.l{left:7%} .sp-led.r{right:7%}
+.sp[data-state="ok"] .sp-led{background:var(--ok);box-shadow:0 0 6px var(--ok)}
+.sp[data-state="ok"] .sp-led.r{animation:act 1.6s steps(2) infinite}
+.sp[data-state="no"] .sp-led{background:var(--bad);box-shadow:0 0 6px var(--bad)}
+@keyframes act{50%{opacity:.25}}
+.sp:hover .sp-jack{box-shadow:inset 0 0 0 1px var(--c6),inset 0 2px 3px rgba(0,0,0,.8)}
+.sp[aria-current="true"] .sp-jack{box-shadow:0 0 0 2px var(--c6),0 0 12px -2px var(--c6),inset 0 2px 3px rgba(0,0,0,.8)}
+.sp[aria-current="true"] .sp-n{color:var(--c6);font-weight:600}
+.sw-up{display:flex;flex-direction:column;gap:6px;justify-content:center}
+.sfp{width:84px;border:1px solid var(--sw-edge);background:var(--sw-well);border-radius:4px;padding:6px 8px;display:flex;justify-content:space-between;align-items:center;font-family:var(--f-mono)}
+.sfp span{font-size:.62rem;color:var(--sw-dim);letter-spacing:.08em}
+.sfp b{font-size:1.15rem;font-variant-numeric:tabular-nums}
+.sfp.ok b{color:var(--ok)} .sfp.no b{color:var(--bad)}
+.sw-legend{display:flex;flex-wrap:wrap;gap:12px;margin-top:10px;padding:0 6px;font-family:var(--f-mono);font-size:.62rem;color:var(--sw-dim)}
+.sw-legend span{display:flex;align-items:center;gap:5px}
+.lg{width:9px;height:6px;border-radius:1px;background:var(--sw-ledoff)}
+.lg.ok{background:var(--ok)} .lg.no{background:var(--bad)} .lg.cur{background:transparent;box-shadow:0 0 0 2px var(--c6)}
+#qStats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.qs{border:1px solid var(--line);background:var(--surface);border-radius:var(--r);padding:8px 12px;display:flex;flex-direction:column;gap:2px}
+.qs span{font-family:var(--f-mono);font-size:.62rem;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
+.qs b{font-family:var(--f-mono);font-size:1.35rem;font-variant-numeric:tabular-nums;line-height:1.2}
+.qs b small{font-size:.7em;color:var(--muted);font-weight:400}
+.qs.ok b{color:var(--ok)} .qs.no b{color:var(--bad)}
+.qbar{grid-column:1 / -1;display:grid;grid-template-columns:repeat(20,minmax(0,1fr));gap:3px}
+.qbar i{height:6px;border-radius:1px;background:var(--line)}
+.qbar i.ok{background:var(--ok)} .qbar i.no{background:var(--bad)}
+.qf{border:1px solid var(--line);border-radius:8px;background:var(--surface);overflow:hidden;scroll-margin-top:90px}
+#qFrame{scroll-margin-top:90px}
+.qf-h{display:flex;flex-wrap:wrap;align-items:center;gap:0;background:var(--code);border-bottom:1px solid var(--line);font-family:var(--f-mono);font-size:.72rem;color:var(--muted)}
+.qf-h > span{padding:9px 14px;border-right:1px solid var(--line)}
+.qf-no{color:var(--c6);font-weight:600;font-size:.8rem;letter-spacing:.05em}
+.qf-no small{color:var(--muted);font-weight:400}
+.qf-f b{color:var(--ink);font-weight:600}
+.qf-flag{margin-left:auto;border-right:0!important;color:var(--bad);font-weight:600;letter-spacing:.1em;display:flex;align-items:center;gap:6px}
+.qf-flag::before{content:"";width:22px;height:8px;background:linear-gradient(90deg,var(--bad) 0 30%,transparent 30% 35%,var(--bad) 35% 65%,transparent 65% 70%,var(--bad) 70%)}
+.qf-body{padding:18px 18px 16px;display:flex;flex-direction:column;gap:14px;border-left:3px solid var(--c6)}
+.qf-q{font-size:1.05rem;font-weight:500;white-space:pre-line;line-height:1.55}
+.qf-opts{display:flex;flex-direction:column;gap:6px}
+.qo{font:inherit;text-align:left;display:grid;grid-template-columns:34px minmax(0,1fr) auto;align-items:center;gap:0;padding:0;border:1px solid var(--line);border-radius:4px;background:var(--surface-2);color:var(--ink);cursor:pointer;overflow:hidden}
+.qo-k{align-self:stretch;display:grid;place-items:center;font-family:var(--f-mono);font-weight:600;font-size:.85rem;color:var(--muted);background:var(--code);border-right:1px solid var(--line)}
+.qo-t{padding:10px 12px;font-size:.95rem}
+.qo-tag{margin-right:10px;font-family:var(--f-mono);font-size:.62rem;text-transform:uppercase;letter-spacing:.06em;padding:2px 6px;border-radius:3px;white-space:nowrap}
+.qo-tag.ok{background:var(--ok);color:var(--accent-ink)} .qo-tag.no{background:var(--bad);color:var(--accent-ink)}
+.qo:hover:not(:disabled){border-color:var(--c6)}
+.qo:hover:not(:disabled) .qo-k{color:var(--c6)}
+.qo:disabled{cursor:default}
+.qo.right{border-color:var(--ok);background:var(--ok-soft)} .qo.right .qo-k{background:var(--ok);color:var(--accent-ink);border-color:var(--ok)}
+.qo.wrong{border-color:var(--bad);background:var(--bad-soft)} .qo.wrong .qo-k{background:var(--bad);color:var(--accent-ink);border-color:var(--bad)}
+.qf-hint{font-family:var(--f-mono);font-size:.72rem;color:var(--muted)}
+.qres{border:1px solid var(--line);border-radius:6px;overflow:hidden;background:var(--code)}
+.qres-h{padding:10px 14px;font-weight:500;border-bottom:1px solid var(--line)}
+.qres.ok .qres-h{background:var(--ok-soft)} .qres.no .qres-h{background:var(--bad-soft)}
+.qres-h .sig{font-family:var(--f-mono);font-size:.7rem;font-weight:600;padding:1px 6px;border-radius:3px;margin-right:8px;letter-spacing:.05em;color:var(--accent-ink)}
+.qres.ok .sig{background:var(--ok)} .qres.no .sig{background:var(--bad)}
+.qres-sec{padding:12px 14px;display:flex;flex-direction:column;gap:6px;font-size:.95rem}
+.qres-sec + .qres-sec{border-top:1px dashed var(--line)}
+.qres-l{font-family:var(--f-mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--warn)}
+.qres-sec.rs .qres-l{color:var(--c6)}
+.qres-sec ul,.qres-sec ol{margin:0;padding-left:1.3em;display:flex;flex-direction:column;gap:3px}
+.qres-sec p + p{margin-top:2px}
+.qf-nav{display:flex;justify-content:space-between;gap:10px;padding:12px 18px;border-top:1px solid var(--line);background:var(--surface-2)}
+.qf-nav .btn:disabled{opacity:.4;cursor:default}
+.view[data-sess="6"] .btn.pri{background:var(--c6);border-color:var(--c6)}
+#qReport{border:1px solid var(--c6);border-radius:8px;background:var(--surface);padding:16px 18px;display:flex;flex-direction:column;gap:10px;box-shadow:0 0 0 3px var(--accent-soft)}
+.qr-h{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px}
+.qr-t{font-family:var(--f-display);font-weight:700;font-size:1.3rem}
+.qr-s{font-family:var(--f-mono);font-size:1.1rem;color:var(--c6);font-weight:600}
+.qr-w{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.qr-w > span{font-family:var(--f-mono);font-size:.72rem;color:var(--muted);width:100%}
+.term-body .rv{display:grid;grid-template-columns:24ch minmax(0,1fr);gap:8px}
+.term-body .rv .k{color:var(--c6)}
+.term-body .rv .k::before{content:"› ";color:var(--muted)}
+@media (max-width:600px){
+  .sw{padding:10px 10px 12px}
+  .sw-body{flex-direction:column;gap:10px}
+  .sw-ports{gap:5px 3px;padding:6px}
+  .sp-n{font-size:.56rem}
+  .sw-up{flex-direction:row}
+  .sfp{flex:1;width:auto}
+  #qStats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .qf-h > span{padding:7px 10px}
+  .qf-flag{margin-left:0}
+  .qf-body{padding:14px}
+  .qo{grid-template-columns:30px minmax(0,1fr)}
+  .qo-k{grid-row:span 2}
+  .sw-brand{flex-direction:column;gap:2px}
+  .qo-tag{grid-column:2;justify-self:start;margin:0 0 8px 12px}
+  .qf-nav{padding:10px 14px}
+  .qf-nav .btn{flex:1}
+  .term-body .rv{grid-template-columns:minmax(0,1fr);gap:0;margin-bottom:4px}
+}
+
 /* ---------- celular ---------- */
 .drawer-top{display:none;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px;padding-bottom:10px;border-bottom:1px dashed var(--line)}
 .drawer-top b{font-family:var(--f-mono);font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
@@ -384,7 +501,7 @@ textarea{font:inherit;font-size:.95rem;width:100%;min-height:84px;padding:10px;b
 <!-- ============ INÍCIO ============ -->
 <div class="view" id="v-inicio" data-sess="" data-layers="">
   <div class="hero">
-    <span class="tagline">Redes de Computadores · 10 aulas · 5 sessões</span>
+    <span class="tagline">Redes de Computadores · 10 aulas · 5 sessões · 20 questões</span>
     <h1>Roteiro de <span>Redes</span></h1>
     <p class="lede">Do sinal elétrico no cabo até o cálculo de sub-rede. Cada módulo traz a explicação dos slides, os pontos que mais caem em prova e exercícios com correção na hora. O último módulo ensina o cálculo de IP passo a passo.</p>
     <div class="link-anim" aria-hidden="true"><span>PC</span><div class="wire"><span class="pkt"></span><span class="pkt b"></span></div><span>PROVA</span></div>
@@ -1372,6 +1489,38 @@ textarea{font:inherit;font-size:.95rem;width:100%;min-height:84px;padding:10px;b
   <div class="pager" data-pager="ip"></div>
 </div>
 
+<!-- ============ QUESTÕES PARA ESTUDO ============ -->
+<div class="view" id="v-questoes" data-sess="6" data-layers="" hidden>
+  <div class="head">
+    <span class="eyebrow">Extra · Simulado</span>
+    <h2>Questões para Estudo</h2>
+    <div class="meta"><span class="chip">20 questões</span><span class="chip">Múltipla escolha</span><span class="chip">Dificuldade: difícil</span><span class="chip">Com resolução</span></div>
+    <p class="lede">As 20 perguntas do material de estudo, reescritas como múltipla escolha difícil: alternativas parecidas, cenários práticos e pegadinhas. Ao responder, aparece a resolução do material e o motivo da pegadinha. Cada questão é uma porta do switch: clique em qualquer porta para ir direto a ela.</p>
+  </div>
+
+  <div class="qhero">
+    <div class="sw" id="qSwitch"></div>
+    <div id="qStats"></div>
+  </div>
+
+  <div id="qFrame"></div>
+  <div id="qReport" hidden></div>
+
+  <section class="blk">
+    <h3>Revisão final: o que mais memorizar</h3>
+    <div class="term">
+      <div class="term-bar"><span class="dots"><i></i><i></i><i></i></span><span>aluno@lab-redes: ~/prova</span></div>
+      <div class="term-body" id="qRev"></div>
+    </div>
+    <div class="callout">
+      <span class="ct">Dica para a prova</span>
+      <p>Leia cada pergunta, tente responder sem olhar e depois confira a resposta. Dê atenção especial às diferenças entre <b>IPv4 e IPv6</b>, <b>DNS e DNS reverso</b>, <b>UTP e STP</b> e às <b>quatro camadas do TCP/IP</b>.</p>
+    </div>
+  </section>
+
+  <div class="pager" data-pager="questoes"></div>
+</div>
+
   </main>
 </div>
 <nav class="mbar" id="mbar" aria-label="Navegação entre módulos"></nav>
@@ -1389,14 +1538,16 @@ const MODS = [
   {id:"par-trancado", n:7, t:"Par Trançado", s:3},
   {id:"cabeamento", n:8, t:"Cabeamento Estruturado", s:3},
   {id:"wifi", n:9, t:"Padrão 802.11", s:4},
-  {id:"ip", n:10, t:"Endereçamento e Cálculo IP", s:5}
+  {id:"ip", n:10, t:"Endereçamento e Cálculo IP", s:5},
+  {id:"questoes", n:11, t:"Questões para Estudo", s:6}
 ];
 const SESS = [
   {n:1, t:"Fundamentos", d:"O que é comunicar dados e como as camadas organizam tudo.", mods:["comunicacao","osi","tcpip"]},
   {n:2, t:"Tipos de rede e equipamentos", d:"Como classificar redes e qual equipamento atua em cada camada.", mods:["lans-wans","interconexao"]},
   {n:3, t:"Camadas 1 e 2 na prática", d:"Ethernet, o cabo par trançado e as normas de cabeamento.", mods:["ethernet","par-trancado","cabeamento"]},
   {n:4, t:"Redes sem fio", d:"O padrão 802.11, seus modos e serviços.", mods:["wifi"]},
-  {n:5, t:"Endereçamento IP", d:"Binário, classes, máscara, CIDR e cálculo de rede, broadcast e hosts.", mods:["ip"]}
+  {n:5, t:"Endereçamento IP", d:"Binário, classes, máscara, CIDR e cálculo de rede, broadcast e hosts.", mods:["ip"]},
+  {n:6, t:"Questões para Estudo", d:"Simulado com 20 questões difíceis de múltipla escolha, com a resolução do material de estudo.", mods:["questoes"]}
 ];
 
 /* ---------- QUESTÕES ---------- */
@@ -1566,12 +1717,12 @@ function modRight(id){ const p=PROG[id]||{}; return Object.values(p).filter(v=>v
 
 /* ---------- NAV ---------- */
 const nav=document.getElementById("sidenav");
-const SC=["","var(--c1)","var(--c2)","var(--c3)","var(--c4)","var(--c5)"];
+const SC=["","var(--c1)","var(--c2)","var(--c3)","var(--c4)","var(--c5)","var(--c6)"];
 const SCSTRIPE=["",false,false,false,false,false];
 function buildNav(){
   let h=`<div class="navgroup"><a class="navlink" href="#inicio" data-nav="inicio" style="--cc:var(--accent)"><span class="port"><span class="led"></span></span><span class="n">00</span><span>Início e roteiro</span><span></span></a></div>`;
   SESS.forEach(s=>{
-    h+=`<div class="navgroup" style="--cc:${SC[s.n]}"><span class="lbl"><i class="cable"></i>Sessão ${s.n} · ${s.t}</span>`;
+    h+=`<div class="navgroup" style="--cc:${SC[s.n]}"><span class="lbl"><i class="cable"></i>${s.n===6?"Extra":"Sessão "+s.n} · ${s.t}</span>`;
     s.mods.forEach(id=>{ const m=MODS.find(x=>x.id===id);
       h+=`<a class="navlink" href="#${id}" data-nav="${id}"><span class="port"><span class="led"></span></span><span class="n">${String(m.n).padStart(2,"0")}</span><span>${m.t}</span><span class="pg" data-pg="${id}"></span></a>`; });
     h+=`</div>`;
@@ -1599,11 +1750,11 @@ const menuBtn=document.getElementById("menuBtn");
 menuBtn.addEventListener("click",()=>setDrawer(nav.dataset.open!=="true"));
 
 function buildSessions(){
-  document.getElementById("sessCards").innerHTML=SESS.map(s=>`<div class="sess" style="--cc:${SC[s.n]}"><span class="cbl"></span><div class="in"><span class="sn">SESSÃO ${s.n}</span><h3>${s.t}</h3><p>${s.d}</p><ol start="${MODS.find(m=>m.id===s.mods[0]).n}">${s.mods.map(id=>{const m=MODS.find(x=>x.id===id);return `<li><a href="#${id}">${m.t}</a></li>`}).join("")}</ol></div></div>`).join("");
+  document.getElementById("sessCards").innerHTML=SESS.map(s=>`<div class="sess" style="--cc:${SC[s.n]}"><span class="cbl"></span><div class="in"><span class="sn">${s.n===6?"EXTRA · SIMULADO":"SESSÃO "+s.n}</span><h3>${s.t}</h3><p>${s.d}</p><ol start="${MODS.find(m=>m.id===s.mods[0]).n}">${s.mods.map(id=>{const m=MODS.find(x=>x.id===id);return `<li><a href="#${id}">${m.t}</a></li>`}).join("")}</ol></div></div>`).join("");
   // terminal: o roteiro como um traceroute
-  const HOP=[["sessao-1.fundamentos","comunicação · OSI · TCP/IP"],["sessao-2.redes-e-equip","LAN/WAN · topologias · switch/roteador"],["sessao-3.camadas-1-e-2","Ethernet · par trançado · cabeamento"],["sessao-4.sem-fio","IEEE 802.11"],["sessao-5.enderecamento-ip","binário · máscara · sub-rede"]];
-  let t=`<div class="tl"><span class="pr">aluno@lab-redes:~$</span> traceroute prova-de-redes</div><div class="tl dim">traceroute to prova-de-redes (192.168.10.75), 5 hops max, 10 módulos</div>`;
-  SESS.forEach((s,i)=>{ const n=s.mods.length; t+=`<a class="hop" href="#${s.mods[0]}" style="--hc:${SC[s.n]}"><span>${s.n}</span><span class="hn">${HOP[i][0]}</span><span class="hm">${n} ${n>1?"módulos":"módulo"}</span><span class="hd dim">${HOP[i][1]}</span></a>`; });
+  const HOP=[["sessao-1.fundamentos","comunicação · OSI · TCP/IP"],["sessao-2.redes-e-equip","LAN/WAN · topologias · switch/roteador"],["sessao-3.camadas-1-e-2","Ethernet · par trançado · cabeamento"],["sessao-4.sem-fio","IEEE 802.11"],["sessao-5.enderecamento-ip","binário · máscara · sub-rede"],["extra.questoes-p-estudo","simulado difícil com resolução"]];
+  let t=`<div class="tl"><span class="pr">aluno@lab-redes:~$</span> traceroute prova-de-redes</div><div class="tl dim">traceroute to prova-de-redes (192.168.10.75), 6 hops max, 10 módulos + simulado</div>`;
+  SESS.forEach((s,i)=>{ const n=s.mods.length; t+=`<a class="hop" href="#${s.mods[0]}" style="--hc:${SC[s.n]}"><span>${s.n}</span><span class="hn">${HOP[i][0]}</span><span class="hm">${s.n===6?"20 questões":n+" "+(n>1?"módulos":"módulo")}</span><span class="hd dim">${HOP[i][1]}</span></a>`; });
   t+=`<div class="tl"><span class="pr">aluno@lab-redes:~$</span> <span class="cursor">&nbsp;</span></div>`;
   document.getElementById("termBody").innerHTML=t;
 }
@@ -1641,7 +1792,7 @@ function route(){
   const prev = i>0 ? MODS[i-1] : (i===0 ? {id:"inicio",t:"Início"} : null);
   const next = i<MODS.length-1 ? MODS[i+1] : null;
   const lk=(x,cls,k)=> x ? `<a class="${cls}" href="#${x.id}"><span class="k">${k}</span><span class="t">${x.t}</span></a>` : `<a class="${cls}" aria-hidden="true" tabindex="-1"><span class="k">${k}</span><span class="t">–</span></a>`;
-  document.getElementById("mbar").innerHTML = lk(prev,"pv","← anterior") + `<span class="pos">${m?String(m.n).padStart(2,"0"):"00"}/10</span>` + lk(next,"nx","próximo →");
+  document.getElementById("mbar").innerHTML = lk(prev,"pv","← anterior") + `<span class="pos">${m?String(m.n).padStart(2,"0"):"00"}/${MODS.length}</span>` + lk(next,"nx","próximo →");
   window.scrollTo(0,0);
 }
 window.addEventListener("hashchange", route);
@@ -1936,12 +2087,190 @@ function runCalc(){
 document.getElementById("cBtn").addEventListener("click",runCalc);
 ["cIp","cMask"].forEach(id=>document.getElementById(id).addEventListener("keydown",e=>{ if(e.key==="Enter") runCalc(); }));
 
+/* ---------- QUESTÕES PARA ESTUDO (material de estudo, 20 questões) ---------- */
+const QQ=[
+ {tag:"IP", q:"Sobre o endereço IP, assinale a alternativa correta:",
+  o:["É gravado de fábrica na placa de rede e identifica fisicamente o equipamento, por isso nunca muda","É um número que identifica um dispositivo conectado a uma rede, permitindo que ele se comunique e troque informações pela internet ou por redes locais","É usado apenas na internet; dentro de uma rede local a comunicação depende somente do nome do computador","É o nome de domínio do dispositivo, que o NAT converte em número para acessar a internet"],
+  a:1,
+  t:"A alternativa A descreve o endereço MAC, não o IP. O IP também é usado em redes locais (C está errada), e quem traduz nome em número é o DNS, não o NAT (D).",
+  r:"<p>O endereço IP (Internet Protocol) é um número que identifica um dispositivo conectado a uma rede. Ele permite que os dispositivos se comuniquem e troquem informações pela internet ou por redes locais.</p>"},
+ {tag:"IPv4 x IPv6", q:"Qual alternativa relaciona corretamente o tamanho dos endereços e o principal motivo da criação do IPv6?",
+  o:["IPv4 tem 32 bits; IPv6 tem 64 bits e foi criado principalmente para substituir o DNS","IPv4 tem 64 bits (cerca de 4,3 bilhões de endereços); IPv6 tem 128 bits e foi criado para aumentar a velocidade das conexões","IPv4 tem 32 bits (cerca de 4,3 bilhões de endereços); IPv6 tem 128 bits e foi criado principalmente pelo esgotamento dos endereços IPv4","IPv4 tem 128 bits; IPv6 tem 32 bits, mas escritos em hexadecimal"],
+  a:2,
+  t:"Os números parecidos são a armadilha: 4,3 bilhões só fecha com 32 bits (2³² ≈ 4,3 bilhões). O motivo do IPv6 é a falta de endereços, não velocidade nem DNS.",
+  r:"<p>O IPv4 utiliza 32 bits e possui aproximadamente 4,3 bilhões de endereços. Já o IPv6 utiliza 128 bits, permitindo uma quantidade muito maior de endereços.</p><p>O IPv6 foi desenvolvido principalmente devido ao esgotamento dos endereços IPv4 e à necessidade de suportar o crescimento da internet.</p>"},
+ {tag:"IPv4", q:"Qual descrição da estrutura e da representação de um endereço IPv4 está correta?",
+  o:["32 bits divididos em quatro octetos de 8 bits, representados por quatro números de 0 a 255 separados por pontos, como 192.168.1.10","Quatro octetos de 8 bits, cada um de 0 a 256, separados por dois-pontos, como 192:168:1:256","Oito grupos de 16 bits em hexadecimal separados por pontos, como 2001.0db8.85a3.0000","Quatro grupos de 4 bits, cada um de 0 a 15, como 12.8.1.10"],
+  a:0,
+  t:"Com 8 bits o maior valor é 255 (11111111), nunca 256. Dois-pontos e hexadecimal são características do IPv6.",
+  r:"<p>Um endereço IPv4 possui 32 bits, divididos em quatro grupos de 8 bits (octetos).</p><p>É representado por quatro números separados por pontos, variando de 0 a 255.</p><p>Exemplo: 192.168.1.10.</p>"},
+ {tag:"Classes", q:"Analise as afirmativas sobre classes de endereços IPv4:\nI. A classe A é usada tradicionalmente em redes muito grandes.\nII. A classe D é destinada a transmissões multicast.\nIII. A classe E é usada em redes de médio porte.\nIV. Hoje o endereçamento usa principalmente o CIDR, que substituiu a divisão tradicional por classes.\nEstão corretas:",
+  o:["Apenas I e III","Apenas I, II e IV","Apenas II, III e IV","I, II, III e IV"],
+  a:1,
+  t:"A III troca as classes: redes de médio porte são da classe B. A classe E é reservada para uso experimental.",
+  r:"<p>São divisões tradicionais dos endereços IPv4, organizadas de acordo com o tamanho das redes.</p><ul><li><b>Classe A:</b> utilizada tradicionalmente em redes muito grandes.</li><li><b>Classe B:</b> utilizada em redes de médio porte.</li><li><b>Classe C:</b> utilizada em redes menores.</li><li><b>Classe D:</b> destinada a transmissões multicast.</li><li><b>Classe E:</b> reservada para uso experimental.</li></ul><p>Atualmente, o endereçamento utiliza principalmente o sistema CIDR, que substituiu a divisão tradicional por classes.</p>"},
+ {tag:"Máscara", q:"Um computador tem o IP 192.168.1.10 com máscara 255.255.255.0. Qual é o papel dessa máscara?",
+  o:["Traduzir o IP privado 192.168.1.10 em um IP público para acessar a internet","Criptografar o endereço para que outros hosts da rede não consigam lê-lo","Indicar o endereço do servidor DNS que o computador deve consultar","Identificar qual parte do IP representa a rede e qual parte representa o dispositivo, permitindo dividir a rede em sub-redes"],
+  a:3,
+  t:"Cada alternativa errada descreve outro serviço que o computador também recebe: tradução de endereço é o NAT, e o endereço do DNS vem do DHCP. A máscara só separa rede de host.",
+  r:"<p>A máscara de sub-rede identifica qual parte do endereço IP representa a rede e qual parte representa os dispositivos.</p><p>Ela permite dividir uma rede em sub-redes, organizar os dispositivos e controlar a comunicação.</p><p>Exemplo: 255.255.255.0.</p>"},
+ {tag:"Público x privado", q:"Qual conjunto contém APENAS endereços IP privados, ou seja, não roteáveis diretamente pela internet?",
+  o:["192.168.1.1, 10.0.0.1 e 172.16.0.1","192.168.1.1, 8.8.8.8 e 10.0.0.1","172.32.0.1, 10.0.0.1 e 192.168.1.1","8.8.8.8, 172.16.0.1 e 192.169.0.1"],
+  a:0,
+  t:"A faixa privada 172 vai só de 172.16 a 172.31, então 172.32.0.1 é público. 192.169 também não é privado (só 192.168), e 8.8.8.8 é um IP público.",
+  r:"<p><b>IP público</b> é um endereço utilizado para identificar uma rede ou dispositivo na internet, sendo roteável globalmente. Exemplo: 8.8.8.8.</p><p><b>IP privado</b> é utilizado dentro de redes locais, como residências e empresas, não sendo roteável diretamente pela internet. Exemplos: 192.168.1.1, 10.0.0.1 e 172.16.0.1.</p>"},
+ {tag:"NAT", q:"Em uma casa, notebook, celular e TV acessam a internet ao mesmo tempo, mas o provedor entregou um único IP público. Qual tecnologia torna isso possível?",
+  o:["DNS, que dá um nome diferente a cada aparelho para que a internet os diferencie","DHCP, que entrega um IP público diferente para cada aparelho da casa","NAT, que traduz os IPs privados da rede local no IP público (e vice-versa), permitindo que todos compartilhem o mesmo IP público","DNS reverso, que converte o IP público em vários IPs privados"],
+  a:2,
+  t:"O DHCP entrega IPs privados dentro de casa, não IPs públicos. O DNS e o DNS reverso tratam de nomes, não de compartilhar endereços.",
+  r:"<p>NAT é uma tecnologia que traduz endereços IP privados em endereços IP públicos e vice-versa.</p><p>Ele permite que vários dispositivos de uma rede local compartilhem um mesmo endereço IP público para acessar a internet.</p>"},
+ {tag:"NAT", q:"Sobre o funcionamento do NAT (Network Address Translation), é INCORRETO afirmar:",
+  o:["Ele modifica os endereços IP nos pacotes que passam pelo roteador","Ele permite que dispositivos com IP privado acessem a internet usando um IP público","Ele ajuda a reduzir a necessidade de endereços IPv4 públicos","Ele elimina a necessidade do IPv6, pois cria um novo IP público para cada dispositivo da rede"],
+  a:3,
+  t:"Repare no INCORRETO. O NAT não cria endereços públicos: ele faz vários dispositivos compartilharem um. Por isso ele só adia a falta de IPv4, e o IPv6 continua necessário.",
+  r:"<p>NAT é a tradução de endereços de rede. Ele funciona modificando os endereços IP nos pacotes que passam pelo roteador.</p><p>Assim, vários dispositivos com IP privado conseguem acessar a internet utilizando um IP público. Também ajuda a reduzir a necessidade de endereços IPv4 públicos.</p>"},
+ {tag:"DNS", q:"Você digita www.google.com no navegador. Qual é o papel do DNS nesse momento?",
+  o:["Traduzir o IP privado do computador no IP público do roteador","Descobrir o nome de domínio a partir do endereço IP do servidor","Traduzir o nome www.google.com no endereço IP do servidor correspondente","Atribuir automaticamente um endereço IP ao computador para que ele navegue"],
+  a:2,
+  t:"A alternativa B descreve o DNS reverso, o caminho contrário (IP → nome). Atribuir IP é função do DHCP, e traduzir privado em público é o NAT.",
+  r:"<p>DNS significa Domain Name System (Sistema de Nomes de Domínio).</p><p>Sua função é traduzir nomes de sites em endereços IP, facilitando o acesso à internet.</p><p>Exemplo: ao digitar www.google.com, o DNS encontra o endereço IP correspondente ao servidor.</p>"},
+ {tag:"DNS", q:"Associe os componentes do DNS às suas funções:\n(1) Servidores raiz   (2) Servidores TLD   (3) Servidores autoritativos   (4) Resolvedores DNS\n( ) Gerenciam extensões como .com, .org e .br\n( ) Armazenam as informações oficiais dos domínios\n( ) Recebem as consultas dos usuários e procuram o IP correspondente\n( ) Indicam quais servidores são responsáveis pelos domínios de nível superior\nA sequência correta, de cima para baixo, é:",
+  o:["1, 3, 4, 2","2, 3, 4, 1","2, 4, 3, 1","3, 2, 1, 4"],
+  a:1,
+  t:"A confusão comum é entre raiz e TLD. O TLD cuida da extensão (.com, .br); a raiz só aponta quem são os servidores TLD. Quem guarda o dado oficial é o autoritativo.",
+  r:"<ul><li><b>Servidores raiz:</b> indicam quais servidores são responsáveis pelos domínios de nível superior.</li><li><b>Servidores TLD:</b> gerenciam extensões como .com, .org e .br.</li><li><b>Servidores autoritativos:</b> armazenam as informações oficiais dos domínios.</li><li><b>Resolvedores DNS:</b> recebem as consultas dos usuários e procuram o endereço IP correspondente.</li></ul>"},
+ {tag:"DNS reverso", q:"Um servidor de e-mail recebe uma conexão vinda do IP 200.10.20.9 e quer verificar a qual nome de domínio esse IP está associado antes de aceitar a mensagem. Qual recurso ele usa?",
+  o:["DNS reverso, que descobre o nome de domínio associado a um endereço IP","DNS comum, que transforma o nome de domínio em endereço IP","NAT, que traduz o endereço IP em nome de domínio","Servidor TLD, que guarda o nome associado a cada IP do mundo"],
+  a:0,
+  t:"O dado de partida é um IP e o que se quer é um nome: esse é o caminho inverso, o DNS reverso. O NAT nunca trabalha com nomes.",
+  r:"<p>DNS reverso é o processo de descobrir o nome de domínio associado a um endereço IP.</p><p>Enquanto o DNS comum transforma um nome em IP, o DNS reverso faz o caminho contrário.</p><p>É utilizado principalmente em verificações de servidores de e-mail, diagnósticos e segurança de redes.</p>"},
+ {tag:"DNS", q:"O que permite ao DNS atender milhões de usuários e acompanhar o crescimento da internet?",
+  o:["Um único servidor central de grande porte que guarda todos os nomes do mundo","O uso de NAT em todos os servidores DNS para economizar endereços","Cada computador guardar localmente a lista completa de todos os sites","A organização hierárquica e distribuída dos nomes, com servidores espalhados e cache, que reduz consultas repetidas"],
+  a:3,
+  t:"Um servidor único seria um ponto central de falha e de congestionamento. A escalabilidade vem justamente de distribuir (hierarquia + vários servidores) e de reaproveitar respostas (cache).",
+  r:"<p>O DNS organiza os nomes dos sites de forma hierárquica e distribuída, permitindo que milhões de usuários acessem sites sem precisar memorizar endereços IP.</p><p>Também utiliza servidores distribuídos e cache para melhorar a velocidade, reduzir consultas repetidas e facilitar o crescimento da internet.</p>"},
+ {tag:"Cabeamento", q:"Qual afirmação define melhor o cabeamento estruturado e sua importância?",
+  o:["Sistema organizado de cabos, conectores e equipamentos para transmitir dados, voz e outros sinais, que facilita instalação, manutenção, organização e expansão da rede","Qualquer ligação de cabos feita conforme a necessidade do momento, sem projeto prévio","Tipo de cabo blindado usado exclusivamente em data centers","Conjunto de protocolos que organiza o tráfego na camada de rede"],
+  a:0,
+  t:"\"Estruturado\" é justamente o contrário de ligar cabos conforme a necessidade. E ele não é um tipo de cabo nem um protocolo: é um sistema completo.",
+  r:"<p>Cabeamento estruturado é um sistema organizado de cabos, conectores e equipamentos utilizados para transmitir dados, voz e outros sinais.</p><p>Sua importância está em facilitar a instalação, manutenção, organização e expansão das redes, proporcionando maior segurança e eficiência.</p>"},
+ {tag:"Cabeamento", q:"Qual componente do cabeamento estruturado ORGANIZA E DISTRIBUI as conexões, e qual ARMAZENA E ORGANIZA os equipamentos, respectivamente?",
+  o:["Rack e patch panel","Backbone e tomada de telecomunicações","Patch panel e rack","Conector e backbone"],
+  a:2,
+  t:"A ordem é a pegadinha: a alternativa A tem os dois componentes certos, mas invertidos. O patch panel distribui as conexões; o rack é o gabinete que guarda os equipamentos (inclusive o patch panel).",
+  r:"<ul><li><b>Cabos:</b> transportam os dados entre os dispositivos.</li><li><b>Patch panels:</b> organizam e distribuem as conexões.</li><li><b>Racks:</b> armazenam e organizam os equipamentos.</li><li><b>Tomadas de telecomunicações:</b> permitem conectar computadores e outros dispositivos.</li><li><b>Conectores:</b> realizam as conexões entre os cabos e equipamentos.</li><li><b>Backbone:</b> conecta os principais pontos de distribuição da rede.</li></ul>"},
+ {tag:"Normas", q:"Quais são exemplos de normas de cabeamento estruturado, e por que elas são importantes?",
+  o:["IEEE 802.11 e IPv6, porque garantem a velocidade do Wi-Fi","ANSI/TIA-568 e ISO/IEC 11801, porque garantem qualidade, segurança, padronização, compatibilidade e melhor desempenho","TCP/IP e DNS, porque garantem a tradução de nomes em endereços","ANSI/TIA-568 e HTTP, porque garantem a criptografia dos dados nos cabos"],
+  a:1,
+  t:"A alternativa D começa certa (ANSI/TIA-568) e erra no par: HTTP é protocolo de aplicação. IEEE 802.11, IPv6, TCP/IP e DNS são protocolos e padrões de rede, não normas de cabeamento.",
+  r:"<p>São padrões técnicos que estabelecem regras para instalação, organização e funcionamento do cabeamento.</p><p>Exemplos: ANSI/TIA-568 e ISO/IEC 11801.</p><p>São importantes porque garantem qualidade, segurança, padronização, compatibilidade e melhor desempenho da rede.</p>"},
+ {tag:"UTP x STP", q:"Uma fábrica com muitos motores elétricos, e portanto forte interferência eletromagnética, vai receber pontos de rede. Qual é a escolha mais adequada?",
+  o:["UTP, porque é mais barato e flexível e o trançado dos pares elimina qualquer interferência","STP, que dispensa aterramento porque a blindagem sozinha já protege o cabo","UTP, porque, sem blindagem metálica, não há metal para conduzir a interferência","STP, porque a blindagem protege contra interferências eletromagnéticas, desde que instalado com aterramento adequado"],
+  a:3,
+  t:"A alternativa B quase acerta, mas a blindagem do STP precisa de aterramento adequado para funcionar. E o trançado do UTP reduz o ruído, mas não elimina qualquer interferência.",
+  r:"<p><b>UTP</b> é um cabo de par trançado sem blindagem metálica. É mais barato, flexível e utilizado em redes comuns.</p><p><b>STP</b> possui blindagem que ajuda a proteger contra interferências eletromagnéticas.</p><p>O UTP é indicado para ambientes comuns, enquanto o STP é recomendado para locais com maior presença de interferências, desde que instalado com aterramento adequado.</p>"},
+ {tag:"Backbone", q:"No cabeamento estruturado, o backbone é:",
+  o:["O cabo que liga o computador à tomada da área de trabalho","A estrutura principal de conexão da rede, que interliga os principais equipamentos, racks, andares e setores","Um software que monitora o tráfego e bloqueia acessos indevidos","O conector RJ-45 usado nas pontas dos patch cords"],
+  a:1,
+  t:"A alternativa A descreve o patch cord ou o cabeamento horizontal, que ficam na ponta da rede. O backbone é a \"espinha dorsal\" que liga as partes principais entre si.",
+  r:"<p>Backbone é a estrutura principal de conexão de uma rede.</p><p>Sua função é interligar os principais equipamentos, racks, andares e setores de uma empresa, permitindo a comunicação entre diferentes partes da rede.</p>"},
+ {tag:"Topologia", q:"Sobre as topologias usadas em redes, assinale a alternativa correta:",
+  o:["No barramento, cada dispositivo tem seu próprio cabo até um switch central","No anel, todos os dispositivos compartilham um único cabo principal","Na estrela, todos os dispositivos se conectam a um equipamento central, como um switch, e ela é a mais utilizada no cabeamento estruturado moderno","O anel é a topologia mais usada hoje no cabeamento estruturado, por ser a mais fácil de manter"],
+  a:2,
+  t:"As alternativas A e B trocam as definições: cabo próprio até um switch é a estrela, e cabo único compartilhado é o barramento. No anel, os dispositivos formam um círculo.",
+  r:"<p>Topologia é a forma como os dispositivos e cabos estão organizados e conectados em uma rede.</p><ul><li><b>Estrela:</b> todos os dispositivos se conectam a um equipamento central, como um switch.</li><li><b>Barramento:</b> todos os dispositivos compartilham um único cabo principal.</li><li><b>Anel:</b> os dispositivos são conectados formando um círculo.</li></ul><p>No cabeamento estruturado moderno, a topologia estrela é a mais utilizada.</p>"},
+ {tag:"Projeto", q:"Qual sequência representa a ordem correta para planejar e implementar um sistema de cabeamento estruturado?",
+  o:["Levantar necessidades → analisar ambiente e dispositivos → escolher cabos e equipamentos → elaborar o projeto → instalar → identificar conexões → testar → documentar","Escolher os cabos → instalar → elaborar o projeto → levantar necessidades → testar → documentar","Levantar necessidades → instalar → elaborar o projeto → identificar conexões → documentar → testar","Analisar o ambiente → instalar → levantar necessidades → testar → escolher equipamentos → documentar"],
+  a:0,
+  t:"A alternativa C começa certa, mas instala antes de projetar e documenta antes de testar. A regra é: planejar antes de instalar, e documentar só no fim, já com os testes feitos.",
+  r:"<ol><li>Levantar as necessidades da rede.</li><li>Analisar o ambiente e a quantidade de dispositivos.</li><li>Escolher os cabos e equipamentos adequados.</li><li>Elaborar o projeto e definir os pontos de conexão.</li><li>Instalar os cabos e equipamentos.</li><li>Identificar e organizar as conexões.</li><li>Realizar testes para verificar o funcionamento.</li><li>Documentar toda a instalação.</li></ol>"},
+ {tag:"TCP/IP", q:"No modelo TCP/IP de quatro camadas, em quais camadas atuam, respectivamente, o DNS, o UDP e o IP?",
+  o:["Transporte, Aplicação e Acesso à rede","Aplicação, Internet e Transporte","Internet, Transporte e Aplicação","Aplicação, Transporte e Internet"],
+  a:3,
+  t:"O DNS é um serviço usado por aplicações, então fica na camada de Aplicação, mesmo sendo \"de rede\". UDP é Transporte (junto com o TCP), e o IP é a própria camada Internet.",
+  r:"<p>TCP/IP é um conjunto de protocolos que permite a comunicação entre dispositivos conectados em redes e na internet. Ele é dividido em quatro camadas:</p><ol><li><b>Aplicação:</b> permite o funcionamento de serviços como HTTP, DNS e e-mail.</li><li><b>Transporte:</b> controla a comunicação entre dispositivos, utilizando protocolos como TCP e UDP.</li><li><b>Internet:</b> realiza o endereçamento e o roteamento dos pacotes utilizando IP.</li><li><b>Acesso à rede:</b> permite a transmissão dos dados pelo meio físico ou enlace de comunicação.</li></ol><p>Sua função é permitir que diferentes dispositivos e sistemas consigam se comunicar através das redes.</p>"}
+];
+Q.questoes={mc:QQ, disc:[]};
+const REV=[["IP","identifica os dispositivos na rede"],["IPv4","32 bits"],["IPv6","128 bits"],["Máscara","identifica a parte da rede e a dos dispositivos"],["NAT","traduz endereços IP"],["DNS","transforma nomes em endereços IP"],["DNS reverso","transforma IP em nome"],["Cabeamento estruturado","organiza a infraestrutura de comunicação"],["UTP","sem blindagem"],["STP","com blindagem"],["Backbone","estrutura principal da rede"],["Topologia estrela","dispositivos conectados a um ponto central"],["TCP/IP","conjunto de protocolos de comunicação"]];
+
+let qCur=0;
+function qp(){ return PROG.questoes||(PROG.questoes={}); }
+function qState(i){ const p=qp(); return p[i]===true?"ok":(p[i]===false?"no":"off"); }
+function buildQuestoes(){
+  // painel do switch: portas ímpares em cima, pares embaixo, como num switch real
+  const ports=QQ.map((it,i)=>`<button class="sp" data-q="${i}" aria-label="Questão ${i+1}: ${esc(it.tag)}"><span class="sp-n">${String(i+1).padStart(2,"0")}</span><span class="sp-jack"><span class="sp-led l"></span><span class="sp-led r"></span></span></button>`).join("");
+  document.getElementById("qSwitch").innerHTML=`
+   <div class="sw-top"><span class="sw-brand">LAB-SW-20<small>Questões para Estudo · 20 portas</small></span><span class="sw-leds"><span><i class="pwr"></i>PWR</span><span><i class="sys"></i>SYS</span></span></div>
+   <div class="sw-body"><div class="sw-ports">${ports}</div>
+    <div class="sw-up"><div class="sfp ok"><span>ACK</span><b id="sfpOk">0</b></div><div class="sfp no"><span>NACK</span><b id="sfpNo">0</b></div></div></div>
+   <div class="sw-legend"><span><i class="lg off"></i>não respondida</span><span><i class="lg ok"></i>acertou</span><span><i class="lg no"></i>errou</span><span><i class="lg cur"></i>questão atual</span></div>`;
+  document.getElementById("qSwitch").addEventListener("click",e=>{ const b=e.target.closest(".sp"); if(b) qGo(+b.dataset.q, true); });
+  document.getElementById("qRev").innerHTML=`<div class="tl"><span class="pr">aluno@lab-redes:~$</span> cat revisao-final.txt</div>`+REV.map(([k,v])=>`<div class="rv"><span class="k">${esc(k)}</span><span>${esc(v)}</span></div>`).join("")+`<div class="tl"><span class="pr">aluno@lab-redes:~$</span> <span class="cursor">&nbsp;</span></div>`;
+  const first=QQ.findIndex((_,i)=>qState(i)==="off"); qCur= first<0?0:first;
+  qRender();
+}
+function qStats(){
+  const p=qp(); let ok=0,no=0; QQ.forEach((_,i)=>{ if(p[i]===true) ok++; else if(p[i]===false) no++; });
+  const done=ok+no, rate=done?Math.round(ok*100/done):0;
+  document.getElementById("sfpOk").textContent=ok; document.getElementById("sfpNo").textContent=no;
+  document.querySelectorAll("#qSwitch .sp").forEach(b=>{ const i=+b.dataset.q; b.dataset.state=qState(i); if(i===qCur) b.setAttribute("aria-current","true"); else b.removeAttribute("aria-current"); });
+  document.getElementById("qStats").innerHTML=`
+   <div class="qs"><span>Frames respondidos</span><b>${done}<small>/20</small></b></div>
+   <div class="qs ok"><span>ACK · acertos</span><b>${ok}</b></div>
+   <div class="qs no"><span>NACK · erros</span><b>${no}</b></div>
+   <div class="qs"><span>Taxa de acerto</span><b>${done?rate+"%":"–"}</b></div>
+   <div class="qbar" aria-hidden="true">${QQ.map((_,i)=>`<i class="${qState(i)}"></i>`).join("")}</div>`;
+  const rep=document.getElementById("qReport");
+  if(done===20){
+    const wrong=QQ.map((_,i)=>i).filter(i=>p[i]===false);
+    const verdict= ok>=18?"Link estável: você está pronto para a prova.": ok>=14?"Boa conexão, com alguma perda de pacotes. Revise as erradas.":"Muita perda de pacotes. Releia os módulos e refaça o simulado.";
+    rep.hidden=false;
+    rep.innerHTML=`<div class="qr-h"><span class="qr-t">Captura concluída</span><span class="qr-s">${ok}/20 ACK · ${rate}%</span></div><p>${verdict}</p>
+     ${wrong.length?`<div class="qr-w"><span>Revisar frames com NACK:</span>${wrong.map(i=>`<button class="btn sm" data-qgo="${i}">${String(i+1).padStart(2,"0")} · ${esc(QQ[i].tag)}</button>`).join("")}</div>`:""}
+     <div class="actions"><button class="btn" id="qResetAll">Refazer o simulado</button></div>`;
+    rep.querySelectorAll("[data-qgo]").forEach(b=>b.onclick=()=>qGo(+b.dataset.qgo,true));
+    document.getElementById("qResetAll").onclick=qReset;
+  } else { rep.hidden=true; rep.innerHTML=""; }
+}
+function qRender(){
+  const it=QQ[qCur], p=qp(), ans=p["c"+qCur], answered=ans!==undefined;
+  const opts=it.o.map((o,k)=>{ let cls="", tag="";
+    if(answered){ if(k===it.a){cls="right";tag=`<span class="qo-tag ok">correta</span>`;} else if(k===ans){cls="wrong";tag=`<span class="qo-tag no">sua resposta</span>`;} }
+    return `<button class="qo ${cls}" data-k="${k}" ${answered?"disabled":""}><span class="qo-k">${L[k]}</span><span class="qo-t">${esc(o)}</span>${tag}</button>`; }).join("");
+  const ok=answered && ans===it.a;
+  document.getElementById("qFrame").innerHTML=`<article class="qf">
+   <header class="qf-h"><span class="qf-no">FRAME ${String(qCur+1).padStart(2,"0")}<small>/20</small></span><span class="qf-f">PROTO <b>${esc(it.tag)}</b></span><span class="qf-f">ALT <b>4</b></span><span class="qf-flag">DIFÍCIL</span></header>
+   <div class="qf-body"><p class="qf-q">${esc(it.q)}</p><div class="qf-opts">${opts}</div>
+   ${answered?`<div class="qres ${ok?"ok":"no"}"><div class="qres-h"><span class="sig">${ok?"ACK":"NACK"}</span>${ok?"Correto.":"Não é essa."} Resposta correta: <b>${L[it.a]}</b></div>
+     <div class="qres-sec"><span class="qres-l">▸ Pegadinha</span><p>${esc(it.t)}</p></div>
+     <div class="qres-sec rs"><span class="qres-l">▸ Resolução do material</span>${it.r}</div></div>`:`<p class="qf-hint">Escolha uma alternativa. No teclado: A a D para responder, ← e → para trocar de frame.</p>`}
+   </div>
+   <footer class="qf-nav"><button class="btn" id="qPrev" ${qCur===0?"disabled":""}>◀ Frame anterior</button><button class="btn pri" id="qNext">${qCur===19?"Ver relatório":"Próximo frame ▶"}</button></footer></article>`;
+  document.querySelectorAll("#qFrame .qo").forEach(b=>b.onclick=()=>qAnswer(+b.dataset.k));
+  document.getElementById("qPrev").onclick=()=>qGo(qCur-1,false);
+  document.getElementById("qNext").onclick=()=>{ if(qCur===19){ const r=document.getElementById("qReport"); if(!r.hidden) r.scrollIntoView({behavior:"smooth",block:"start"}); else { const f=QQ.findIndex((_,i)=>qState(i)==="off"); if(f>=0) qGo(f,true); } } else qGo(qCur+1,false); };
+  qStats();
+}
+function qAnswer(k){
+  const p=qp(); if(p["c"+qCur]!==undefined) return;
+  p["c"+qCur]=k; p[qCur]=(k===QQ[qCur].a); save(); updateProgress(); qRender();
+}
+function qGo(i,scroll){ if(i<0||i>19) return; qCur=i; qRender(); if(scroll) document.getElementById("qFrame").scrollIntoView({behavior:"smooth",block:"start"}); }
+function qReset(){ PROG.questoes={}; save(); updateProgress(); qCur=0; qRender(); document.getElementById("qSwitch").scrollIntoView({behavior:"smooth",block:"start"}); }
+document.addEventListener("keydown",e=>{
+  const v=document.getElementById("v-questoes"); if(!v||v.hidden||e.target.matches("input,textarea")||e.metaKey||e.ctrlKey||e.altKey) return;
+  const key=e.key.toLowerCase(); const map={a:0,b:1,c:2,d:3,"1":0,"2":1,"3":2,"4":3};
+  if(key in map){ qAnswer(map[key]); }
+  else if(e.key==="ArrowRight"){ qGo(qCur+1,false); }
+  else if(e.key==="ArrowLeft"){ qGo(qCur-1,false); }
+});
+
 /* ---------- INIT ---------- */
 document.querySelectorAll("[data-topo]").forEach(s=>s.innerHTML=topo(s.dataset.topo));
 buildPins(); buildSessions(); buildPagers(); buildLayerMeters();
 Object.keys(Q).forEach(renderQuiz);
 buildMaskTable(); buildExamples(); buildBits(); renderBin(); renderIpMc(); renderIpEx(); newGen(); paintStreak(); runCalc();
-labelTables(); buildNav(); route();
+buildQuestoes(); labelTables(); buildNav(); route();
 })();
 </script>
 
