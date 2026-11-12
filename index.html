@@ -16,7 +16,7 @@
 :root{
   --bg:#0B1319; --grid:#1A2832; --panel:#101C24; --surface:#13212A; --surface-2:#182A35; --ink:#DCE6EA; --muted:#8C9FA9; --line:#243743;
   --accent:#5AA6F0; --accent-ink:#06121C; --accent-soft:#14283A;
-  --c1:#F0913A; --c2:#47B76E; --c3:#5AA6F0; --c4:#C79465; --c5:#E6C24A; --c6:#3FD0D9;
+  --c1:#F0913A; --c2:#47B76E; --c3:#5AA6F0; --c4:#C79465; --c5:#E6C24A; --c6:#3FD0D9; --br-g:#1FC45E; --br-y:#FFD21F;
   --ok:#4FD18B; --ok-soft:#10301F; --bad:#F2877A; --bad-soft:#36191A; --warn:#E6B85A; --warn-soft:#33280F;
   --led-off:#2A3A44; --code:#0E1A21; --net:#5AA6F0; --host:#F0913A;
   --w-orange:#E07B1F; --w-green:#2E8B3E; --w-blue:#2563C9; --w-brown:#7A4A26; --w-white:#F4F4EE; --w-edge:#5E6E76;
@@ -29,13 +29,13 @@
 @media (prefers-color-scheme: light){ :root:not([data-theme="dark"]){
   --bg:#EDF1F3; --grid:#D3DCE1; --panel:#E3E9EC; --surface:#FFFFFF; --surface-2:#F4F7F8; --ink:#0F1E27; --muted:#55666F; --line:#CCD6DB;
   --accent:#1D5FAE; --accent-ink:#FFFFFF; --accent-soft:#E0EAF6;
-  --c1:#C2610F; --c2:#23803F; --c3:#1D5FAE; --c4:#7A4A26; --c5:#8E7000; --c6:#0B7F89;
+  --c1:#C2610F; --c2:#23803F; --c3:#1D5FAE; --c4:#7A4A26; --c5:#8E7000; --c6:#0B7F89; --br-g:#0A8A3C; --br-y:#C99700;
   --ok:#1D7748; --ok-soft:#DFF1E6; --bad:#AF3A2D; --bad-soft:#F7E3E0; --warn:#875800; --warn-soft:#FAEFD7;
   --led-off:#BFCBD1; --code:#E6ECEF; --net:#1D5FAE; --host:#C2610F; --w-edge:#9AA6AC; color-scheme:light }}
 :root[data-theme="light"]{
   --bg:#EDF1F3; --grid:#D3DCE1; --panel:#E3E9EC; --surface:#FFFFFF; --surface-2:#F4F7F8; --ink:#0F1E27; --muted:#55666F; --line:#CCD6DB;
   --accent:#1D5FAE; --accent-ink:#FFFFFF; --accent-soft:#E0EAF6;
-  --c1:#C2610F; --c2:#23803F; --c3:#1D5FAE; --c4:#7A4A26; --c5:#8E7000; --c6:#0B7F89;
+  --c1:#C2610F; --c2:#23803F; --c3:#1D5FAE; --c4:#7A4A26; --c5:#8E7000; --c6:#0B7F89; --br-g:#0A8A3C; --br-y:#C99700;
   --ok:#1D7748; --ok-soft:#DFF1E6; --bad:#AF3A2D; --bad-soft:#F7E3E0; --warn:#875800; --warn-soft:#FAEFD7;
   --led-off:#BFCBD1; --code:#E6ECEF; --net:#1D5FAE; --host:#C2610F; --w-edge:#9AA6AC; color-scheme:light }
 
@@ -451,10 +451,10 @@ html:not(.locked) #gate:not(.ok){display:none}
 /* letreiro e letras animadas */
 .g-splash{padding-block:72px}
 .g-tick{position:absolute;left:0;right:0;overflow:hidden;background:var(--code);border-block:1px solid var(--line);padding:8px 0;
-  font-family:var(--f-display);font-weight:700;font-size:clamp(1.15rem,3vw,1.7rem);letter-spacing:.14em;line-height:1.2;color:var(--ok);text-shadow:0 0 10px var(--ok)}
+  font-family:var(--f-display);font-weight:700;font-size:clamp(1.15rem,3vw,1.7rem);letter-spacing:.14em;line-height:1.2;color:var(--br-g);text-shadow:0 0 10px var(--br-g)}
 .g-tick::after{content:"";position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(transparent 1px, var(--code) 1.7px);background-size:4px 4px;opacity:.5}
 .g-tick.t{top:calc(env(safe-area-inset-top, 0px) + 20px)}
-.g-tick.b{bottom:calc(env(safe-area-inset-bottom, 0px) + 20px);color:var(--c6);text-shadow:0 0 10px var(--c6)}
+.g-tick.b{bottom:calc(env(safe-area-inset-bottom, 0px) + 20px);color:var(--br-y);text-shadow:0 0 10px var(--br-y)}
 .g-tick .trk{display:flex;width:max-content;animation:gtick 6s linear infinite}
 .g-tick.b .trk{animation-direction:reverse}
 .g-tick .trk span{padding-right:1.1em;white-space:nowrap}
@@ -2418,8 +2418,8 @@ buildQuestoes(); labelTables(); buildNav(); route();
     var half=""; for(var i=0;i<10;i++) half+="<span>MITO!</span>";
     document.getElementById("gTickT").innerHTML=half+half;
     document.getElementById("gTickB").innerHTML=half+half;
-    // letras uma a uma, nas cores dos pares do cabo
-    var cores=["var(--c1)","var(--c2)","var(--c3)","var(--c5)","var(--c6)"], n=0, html="";
+    // letras uma a uma, alternando verde e amarelo
+    var cores=["var(--br-g)","var(--br-y)"], n=0, html="";
     "MITO! MITO! MITO!".split(" ").forEach(function(w){
       html+='<span class="w" aria-hidden="true">';
       w.split("").forEach(function(ch){ html+='<span class="l" style="--d:'+(n*70)+'ms;--lc:'+cores[n%cores.length]+'">'+ch+'</span>'; n++; });
