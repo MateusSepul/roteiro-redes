@@ -438,8 +438,8 @@ html:not(.locked) #gate:not(.ok){display:none}
 .g-err{min-height:1.4em;font-size:.82rem;color:var(--bad)}
 .g-hint{font-size:.72rem;color:var(--muted)}
 .g-splash{display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center;animation:gin .35s ease-out}
-@keyframes gin{from{opacity:0;transform:scale(.97)}}
-.g-splash img{max-width:min(420px,86vw);max-height:56vh;width:auto;height:auto;border-radius:8px;border:1px solid var(--line);box-shadow:0 18px 40px -18px rgba(0,0,0,.7);object-fit:cover}
+@keyframes gin{from{opacity:0}}
+.g-splash img{max-width:min(420px,86vw);max-height:38vh;width:auto;height:auto;border-radius:8px;border:1px solid var(--line);box-shadow:0 18px 40px -18px rgba(0,0,0,.7);object-fit:cover}
 .g-up{display:flex;flex-direction:column;align-items:center;gap:6px}
 .g-up b{font-family:var(--f-display);font-size:1.7rem;letter-spacing:.08em;color:var(--ok);display:flex;align-items:center;gap:10px}
 .g-up b i{width:12px;height:12px;border-radius:50%;background:var(--ok);box-shadow:0 0 12px var(--ok)}
@@ -448,6 +448,24 @@ html:not(.locked) #gate:not(.ok){display:none}
   #gForm{grid-template-columns:minmax(0,1fr)}
   #gForm .btn{min-height:44px}
 }
+/* letreiro e letras animadas */
+.g-splash{padding-block:72px}
+.g-tick{position:absolute;left:0;right:0;overflow:hidden;background:var(--code);border-block:1px solid var(--line);padding:8px 0;
+  font-family:var(--f-display);font-weight:700;font-size:clamp(1.15rem,3vw,1.7rem);letter-spacing:.14em;line-height:1.2;color:var(--ok);text-shadow:0 0 10px var(--ok)}
+.g-tick::after{content:"";position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(transparent 1px, var(--code) 1.7px);background-size:4px 4px;opacity:.5}
+.g-tick.t{top:calc(env(safe-area-inset-top, 0px) + 20px)}
+.g-tick.b{bottom:calc(env(safe-area-inset-bottom, 0px) + 20px);color:var(--c6);text-shadow:0 0 10px var(--c6)}
+.g-tick .trk{display:flex;width:max-content;animation:gtick 6s linear infinite}
+.g-tick.b .trk{animation-direction:reverse}
+.g-tick .trk span{padding-right:1.1em;white-space:nowrap}
+@keyframes gtick{to{transform:translateX(-50%)}}
+.g-mito{display:flex;flex-wrap:wrap;justify-content:center;gap:.05em .38em;font-family:var(--f-display);font-weight:700;font-size:clamp(2.6rem,9vw,5.6rem);line-height:1.05;letter-spacing:.02em}
+.g-mito .w{display:inline-flex}
+.g-mito .l{display:inline-block;color:var(--lc);text-shadow:0 0 18px var(--lc);
+  animation:gpop .55s cubic-bezier(.3,1.6,.5,1) var(--d) both, gwave 1.3s ease-in-out calc(var(--d) + .6s) infinite}
+@keyframes gpop{from{opacity:0;transform:translateY(46px) scale(.3) rotate(-14deg)}}
+@keyframes gwave{50%{transform:translateY(-12px)}}
+@media (max-width:600px){ .g-splash{padding-block:64px} }
 @media (prefers-reduced-motion: reduce){ #gate{transition:none} }
 
 /* ---------- celular ---------- */
@@ -556,7 +574,10 @@ html:not(.locked) #gate:not(.ok){display:none}
     </div>
   </div>
   <div class="g-splash" id="gSplash" hidden>
+    <div class="g-tick t" aria-hidden="true"><div class="trk" id="gTickT"></div></div>
+    <div class="g-tick b" aria-hidden="true"><div class="trk" id="gTickB"></div></div>
     <img id="gImg" alt="" hidden>
+    <div class="g-mito" id="gMito" role="img" aria-label="MITO! MITO! MITO!"></div>
     <div class="g-up"><b><i></i>ACESSO LIBERADO</b><span>%LINK-3-UPDOWN: Interface Gi0/1, changed state to up</span></div>
   </div>
 </div>
@@ -2393,8 +2414,20 @@ buildQuestoes(); labelTables(); buildNav(); route();
     img.onload=function(){ img.hidden=false; };
     img.onerror=function(){ img.remove(); };
     img.src="login.jpg";
+    // letreiros: duas metades iguais para o loop não ter emenda
+    var half=""; for(var i=0;i<10;i++) half+="<span>MITO!</span>";
+    document.getElementById("gTickT").innerHTML=half+half;
+    document.getElementById("gTickB").innerHTML=half+half;
+    // letras uma a uma, nas cores dos pares do cabo
+    var cores=["var(--c1)","var(--c2)","var(--c3)","var(--c5)","var(--c6)"], n=0, html="";
+    "MITO! MITO! MITO!".split(" ").forEach(function(w){
+      html+='<span class="w" aria-hidden="true">';
+      w.split("").forEach(function(ch){ html+='<span class="l" style="--d:'+(n*70)+'ms;--lc:'+cores[n%cores.length]+'">'+ch+'</span>'; n++; });
+      html+="</span>";
+    });
+    document.getElementById("gMito").innerHTML=html;
     sp.hidden=false;
-    setTimeout(function(){ gate.classList.add("out"); setTimeout(function(){ gate.remove(); }, 480); }, 2000);
+    setTimeout(function(){ gate.classList.add("out"); setTimeout(function(){ gate.remove(); }, 480); }, 3500);
   }
 })();
 </script>
