@@ -10,4 +10,4 @@ O site é um único arquivo (`index.html`), sem dependências de build.
 
 ## Acesso
 
-O site pede uma senha antes de abrir (verificada por hash SHA-256 no navegador). Depois do login aparece por 2 segundos uma tela de "acesso liberado"; se existir um arquivo `login.jpg` na raiz do repositório, ele é exibido nessa tela.
+O site pede uma senha antes de abrir (verificada por hash SHA-256 no navegador). Depois do login aparece por 2 segundos uma tela de "acesso liberado"; se existir um arquivo `login.jpg` na raiz do repositório, ele é exibido nessa tela
