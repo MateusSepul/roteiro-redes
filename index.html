@@ -16,7 +16,7 @@
 :root{
   --bg:#0B1319; --grid:#1A2832; --panel:#101C24; --surface:#13212A; --surface-2:#182A35; --ink:#DCE6EA; --muted:#8C9FA9; --line:#243743;
   --accent:#5AA6F0; --accent-ink:#06121C; --accent-soft:#14283A;
-  --c1:#F0913A; --c2:#47B76E; --c3:#5AA6F0; --c4:#C79465; --c5:#E6C24A; --c6:#3FD0D9; --br-g:#1FC45E; --br-y:#FFD21F;
+  --c1:#F0913A; --c2:#47B76E; --c3:#5AA6F0; --c4:#C79465; --c5:#E6C24A; --c6:#3FD0D9;
   --ok:#4FD18B; --ok-soft:#10301F; --bad:#F2877A; --bad-soft:#36191A; --warn:#E6B85A; --warn-soft:#33280F;
   --led-off:#2A3A44; --code:#0E1A21; --net:#5AA6F0; --host:#F0913A;
   --w-orange:#E07B1F; --w-green:#2E8B3E; --w-blue:#2563C9; --w-brown:#7A4A26; --w-white:#F4F4EE; --w-edge:#5E6E76;
@@ -29,13 +29,13 @@
 @media (prefers-color-scheme: light){ :root:not([data-theme="dark"]){
   --bg:#EDF1F3; --grid:#D3DCE1; --panel:#E3E9EC; --surface:#FFFFFF; --surface-2:#F4F7F8; --ink:#0F1E27; --muted:#55666F; --line:#CCD6DB;
   --accent:#1D5FAE; --accent-ink:#FFFFFF; --accent-soft:#E0EAF6;
-  --c1:#C2610F; --c2:#23803F; --c3:#1D5FAE; --c4:#7A4A26; --c5:#8E7000; --c6:#0B7F89; --br-g:#0A8A3C; --br-y:#C99700;
+  --c1:#C2610F; --c2:#23803F; --c3:#1D5FAE; --c4:#7A4A26; --c5:#8E7000; --c6:#0B7F89;
   --ok:#1D7748; --ok-soft:#DFF1E6; --bad:#AF3A2D; --bad-soft:#F7E3E0; --warn:#875800; --warn-soft:#FAEFD7;
   --led-off:#BFCBD1; --code:#E6ECEF; --net:#1D5FAE; --host:#C2610F; --w-edge:#9AA6AC; color-scheme:light }}
 :root[data-theme="light"]{
   --bg:#EDF1F3; --grid:#D3DCE1; --panel:#E3E9EC; --surface:#FFFFFF; --surface-2:#F4F7F8; --ink:#0F1E27; --muted:#55666F; --line:#CCD6DB;
   --accent:#1D5FAE; --accent-ink:#FFFFFF; --accent-soft:#E0EAF6;
-  --c1:#C2610F; --c2:#23803F; --c3:#1D5FAE; --c4:#7A4A26; --c5:#8E7000; --c6:#0B7F89; --br-g:#0A8A3C; --br-y:#C99700;
+  --c1:#C2610F; --c2:#23803F; --c3:#1D5FAE; --c4:#7A4A26; --c5:#8E7000; --c6:#0B7F89;
   --ok:#1D7748; --ok-soft:#DFF1E6; --bad:#AF3A2D; --bad-soft:#F7E3E0; --warn:#875800; --warn-soft:#FAEFD7;
   --led-off:#BFCBD1; --code:#E6ECEF; --net:#1D5FAE; --host:#C2610F; --w-edge:#9AA6AC; color-scheme:light }
 
@@ -439,7 +439,6 @@ html:not(.locked) #gate:not(.ok){display:none}
 .g-hint{font-size:.72rem;color:var(--muted)}
 .g-splash{display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center;animation:gin .35s ease-out}
 @keyframes gin{from{opacity:0}}
-.g-splash img{max-width:min(420px,86vw);max-height:38vh;width:auto;height:auto;border-radius:8px;border:1px solid var(--line);box-shadow:0 18px 40px -18px rgba(0,0,0,.7);object-fit:cover}
 .g-up{display:flex;flex-direction:column;align-items:center;gap:6px}
 .g-up b{font-family:var(--f-display);font-size:1.7rem;letter-spacing:.08em;color:var(--ok);display:flex;align-items:center;gap:10px}
 .g-up b i{width:12px;height:12px;border-radius:50%;background:var(--ok);box-shadow:0 0 12px var(--ok)}
@@ -448,24 +447,48 @@ html:not(.locked) #gate:not(.ok){display:none}
   #gForm{grid-template-columns:minmax(0,1fr)}
   #gForm .btn{min-height:44px}
 }
-/* letreiro e letras animadas */
-.g-splash{padding-block:72px}
-.g-tick{position:absolute;left:0;right:0;overflow:hidden;background:var(--code);border-block:1px solid var(--line);padding:8px 0;
-  font-family:var(--f-display);font-weight:700;font-size:clamp(1.15rem,3vw,1.7rem);letter-spacing:.14em;line-height:1.2;color:var(--br-g);text-shadow:0 0 10px var(--br-g)}
-.g-tick::after{content:"";position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(transparent 1px, var(--code) 1.7px);background-size:4px 4px;opacity:.5}
-.g-tick.t{top:calc(env(safe-area-inset-top, 0px) + 20px)}
-.g-tick.b{bottom:calc(env(safe-area-inset-bottom, 0px) + 20px);color:var(--br-y);text-shadow:0 0 10px var(--br-y)}
-.g-tick .trk{display:flex;width:max-content;animation:gtick 6s linear infinite}
-.g-tick.b .trk{animation-direction:reverse}
-.g-tick .trk span{padding-right:1.1em;white-space:nowrap}
-@keyframes gtick{to{transform:translateX(-50%)}}
-.g-mito{display:flex;flex-wrap:wrap;justify-content:center;gap:.05em .38em;font-family:var(--f-display);font-weight:700;font-size:clamp(2.6rem,9vw,5.6rem);line-height:1.05;letter-spacing:.02em}
-.g-mito .w{display:inline-flex}
-.g-mito .l{display:inline-block;color:var(--lc);text-shadow:0 0 18px var(--lc);
-  animation:gpop .55s cubic-bezier(.3,1.6,.5,1) var(--d) both, gwave 1.3s ease-in-out calc(var(--d) + .6s) infinite}
-@keyframes gpop{from{opacity:0;transform:translateY(46px) scale(.3) rotate(-14deg)}}
-@keyframes gwave{50%{transform:translateY(-12px)}}
-@media (max-width:600px){ .g-splash{padding-block:64px} }
+/* handshake TCP: cliente e servidor ligados por um link; SYN, SYN-ACK e ACK viajam pelo cabo */
+.g-splash{width:min(640px,100%);gap:18px}
+.hs-t{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
+.hs{width:100%;display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:0}
+.hs-node{position:relative;width:118px;display:flex;flex-direction:column;align-items:center;gap:4px;padding:12px 8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface)}
+.hs-node svg{width:42px;height:34px;color:var(--ink)}
+.hs-node b{font-family:var(--f-display);font-size:.95rem}
+.hs-node small{font-family:var(--f-mono);font-size:.64rem;color:var(--muted);overflow-wrap:anywhere}
+.hs-led{position:absolute;top:8px;right:8px;width:7px;height:7px;border-radius:50%;background:var(--ok);box-shadow:0 0 8px var(--ok);animation:hsled .01s linear var(--d) both}
+@keyframes hsled{from{background:var(--led-off);box-shadow:none}}
+.hs-link{position:relative;height:56px}
+.hs-wire{position:absolute;left:0;right:0;top:50%;height:4px;margin-top:-2px;background:repeating-linear-gradient(90deg,var(--line) 0 8px,transparent 8px 12px);border-radius:2px}
+.hs-wire::after{content:"";position:absolute;inset:0;border-radius:2px;background:repeating-linear-gradient(90deg,var(--ok) 0 10px,transparent 10px 14px);box-shadow:0 0 10px var(--ok);
+  transform-origin:left;animation:hsup .5s ease-out 3s both, hsflow .6s linear 3.5s infinite}
+@keyframes hsup{from{transform:scaleX(0)}}
+@keyframes hsflow{to{background-position:14px 0}}
+.pk{position:absolute;top:50%;left:100%;transform:translate(-50%,-50%);opacity:0;font-family:var(--f-mono);font-size:.68rem;font-weight:600;letter-spacing:.04em;white-space:nowrap;
+  padding:3px 8px;border-radius:4px;color:var(--accent-ink);box-shadow:0 0 14px -2px currentColor}
+.pk.syn{background:var(--c1);animation:pkR .75s ease-in-out .9s both}
+.pk.sa{background:var(--c3);animation:pkL .75s ease-in-out 1.75s both}
+.pk.ack{background:var(--ok);animation:pkR .75s ease-in-out 2.6s both}
+@keyframes pkR{0%{left:0;opacity:0}12%{opacity:1}88%{opacity:1}100%{left:100%;opacity:0}}
+@keyframes pkL{0%{left:100%;opacity:0}12%{opacity:1}88%{opacity:1}100%{left:0;opacity:0}}
+.hs-log{width:100%;text-align:left;margin:0;padding:12px 14px;border:1px solid var(--line);border-radius:6px;background:var(--code);font-family:var(--f-mono);font-size:.74rem;line-height:1.75;color:var(--muted)}
+.hs-log div{display:grid;grid-template-columns:7ch 6ch minmax(0,1fr);gap:8px;animation:hsln .25s ease-out var(--d) both}
+.hs-log .ts{color:var(--muted);opacity:.7}
+.hs-log .pr{color:var(--c6);font-weight:600}
+.hs-log b{color:var(--ink);font-weight:500}
+.hs-log .okk{color:var(--ok)}
+@keyframes hsln{from{opacity:0;transform:translateY(4px)}}
+.g-splash .g-up{animation:hsln .35s ease-out 3.2s both}
+@media (max-width:600px){
+  .hs-node{width:106px;padding:10px 5px 8px}
+  .hs-node small{font-size:.56rem;white-space:nowrap;letter-spacing:-.01em}
+  .hs-t{font-size:.64rem;letter-spacing:.08em;text-align:center}
+  .g-up b{font-size:clamp(1.15rem,6.4vw,1.5rem);white-space:nowrap;letter-spacing:.05em}
+  .hs-node svg{width:34px;height:28px}
+  .hs-log{font-size:.68rem;padding:10px}
+  .hs-log div{grid-template-columns:5ch minmax(0,1fr)}
+  .hs-log .ts{display:none}
+  .pk{font-size:.6rem;padding:2px 6px}
+}
 @media (prefers-reduced-motion: reduce){ #gate{transition:none} }
 
 /* ---------- celular ---------- */
@@ -574,11 +597,26 @@ html:not(.locked) #gate:not(.ok){display:none}
     </div>
   </div>
   <div class="g-splash" id="gSplash" hidden>
-    <div class="g-tick t" aria-hidden="true"><div class="trk" id="gTickT"></div></div>
-    <div class="g-tick b" aria-hidden="true"><div class="trk" id="gTickB"></div></div>
-    <img id="gImg" alt="" hidden>
-    <div class="g-mito" id="gMito" role="img" aria-label="MITO! MITO! MITO!"></div>
-    <div class="g-up"><b><i></i>ACESSO LIBERADO</b><span>%LINK-3-UPDOWN: Interface Gi0/1, changed state to up</span></div>
+    <span class="hs-t">Estabelecendo conexão · TCP 3-way handshake</span>
+    <div class="hs" aria-hidden="true">
+      <div class="hs-node"><i class="hs-led" style="--d:.15s"></i>
+        <svg viewBox="0 0 42 34" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="3" width="34" height="21" rx="2"/><path d="M15 31h12M21 24v7"/></svg>
+        <b>Você</b><small>192.168.10.75</small></div>
+      <div class="hs-link"><div class="hs-wire"></div><span class="pk syn">SYN</span><span class="pk sa">SYN-ACK</span><span class="pk ack">ACK</span></div>
+      <div class="hs-node"><i class="hs-led" style="--d:1.7s"></i>
+        <svg viewBox="0 0 42 34" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="2" width="28" height="9" rx="1.5"/><rect x="7" y="12.5" width="28" height="9" rx="1.5"/><rect x="7" y="23" width="28" height="9" rx="1.5"/><path d="M12 6.5h2M12 17h2M12 27.5h2"/></svg>
+        <b>Servidor</b><small>roteiro-de-redes</small></div>
+    </div>
+    <div class="hs-log" aria-hidden="true">
+      <div style="--d:.1s"><span class="ts">00.10s</span><span class="pr">LINK</span><span><b>Gi0/1</b> changed state to up</span></div>
+      <div style="--d:.45s"><span class="ts">00.45s</span><span class="pr">DHCP</span><span>ACK <b>192.168.10.75/24</b> gw 192.168.10.1</span></div>
+      <div style="--d:.75s"><span class="ts">00.75s</span><span class="pr">DNS</span><span>roteiro-de-redes → <b>192.168.10.20</b></span></div>
+      <div style="--d:1s"><span class="ts">01.00s</span><span class="pr">TCP</span><span>→ <b>SYN</b> seq=0</span></div>
+      <div style="--d:1.85s"><span class="ts">01.85s</span><span class="pr">TCP</span><span>← <b>SYN-ACK</b> seq=0 ack=1</span></div>
+      <div style="--d:2.7s"><span class="ts">02.70s</span><span class="pr">TCP</span><span>→ <b>ACK</b> ack=1</span></div>
+      <div style="--d:3.1s"><span class="ts">03.10s</span><span class="pr">TCP</span><span class="okk">ESTABLISHED · porta 443</span></div>
+    </div>
+    <div class="g-up"><b><i></i>ACESSO LIBERADO</b><span>conexão estabelecida com o roteiro de estudos</span></div>
   </div>
 </div>
 
@@ -2410,24 +2448,8 @@ buildQuestoes(); labelTables(); buildNav(); route();
   function splash(){
     gate.classList.add("ok"); root.classList.remove("locked");
     box.hidden=true;
-    var sp=document.getElementById("gSplash"), img=document.getElementById("gImg");
-    img.onload=function(){ img.hidden=false; };
-    img.onerror=function(){ img.remove(); };
-    img.src="login.jpg";
-    // letreiros: duas metades iguais para o loop não ter emenda
-    var half=""; for(var i=0;i<10;i++) half+="<span>MITO!</span>";
-    document.getElementById("gTickT").innerHTML=half+half;
-    document.getElementById("gTickB").innerHTML=half+half;
-    // letras uma a uma, alternando verde e amarelo
-    var cores=["var(--br-g)","var(--br-y)"], n=0, html="";
-    "MITO! MITO! MITO!".split(" ").forEach(function(w){
-      html+='<span class="w" aria-hidden="true">';
-      w.split("").forEach(function(ch){ html+='<span class="l" style="--d:'+(n*70)+'ms;--lc:'+cores[n%cores.length]+'">'+ch+'</span>'; n++; });
-      html+="</span>";
-    });
-    document.getElementById("gMito").innerHTML=html;
-    sp.hidden=false;
-    setTimeout(function(){ gate.classList.add("out"); setTimeout(function(){ gate.remove(); }, 480); }, 3500);
+    document.getElementById("gSplash").hidden=false;
+    setTimeout(function(){ gate.classList.add("out"); setTimeout(function(){ gate.remove(); }, 480); }, 4300);
   }
 })();
 </script>
