@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#101C24">
 <meta name="description" content="Roteiro de estudos de Redes de Computadores com explicações, exercícios, cálculo de IP e simulado de 20 questões.">
 <title>Roteiro de Redes</title>
-<script>try{if(sessionStorage.getItem("rr-auth")!=="1")document.documentElement.classList.add("locked");}catch(e){document.documentElement.classList.add("locked");}</script>
+<script>try{if(sessionStorage.getItem("rr-intro")!=="1")document.documentElement.classList.add("locked");}catch(e){document.documentElement.classList.add("locked");}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
@@ -418,35 +418,19 @@ textarea{font:inherit;font-size:.95rem;width:100%;min-height:84px;padding:10px;b
 html.locked body{overflow:hidden}
 html.locked .app, html.locked .mbar{visibility:hidden}
 html:not(.locked) #gate:not(.ok){display:none}
+#gate{cursor:pointer}
 #gate{position:fixed;inset:0;z-index:200;display:grid;place-items:center;background-color:var(--bg);
   background-image:radial-gradient(var(--grid) 1px, transparent 1.2px);background-size:22px 22px;
   padding:calc(env(safe-area-inset-top, 0px) + 16px) max(16px, env(safe-area-inset-right, 0px)) calc(env(safe-area-inset-bottom, 0px) + 16px) max(16px, env(safe-area-inset-left, 0px));
   transition:opacity .45s ease}
 #gate.out{opacity:0;pointer-events:none}
-.g-box{width:min(520px,100%);border:1px solid var(--line);border-radius:8px;background:var(--code);overflow:hidden;box-shadow:0 18px 40px -20px rgba(0,0,0,.6)}
-.g-box.shake{animation:gshake .35s}
-@keyframes gshake{20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
-.g-body{padding:18px 20px 20px;display:flex;flex-direction:column;gap:14px;font-family:var(--f-mono)}
-.g-title{font-family:var(--f-display);font-size:1.6rem;font-weight:700}
-.g-title span{color:var(--accent)}
-.g-log{margin:0;font-family:var(--f-mono);font-size:.8rem;line-height:1.7;color:var(--muted);white-space:pre-wrap}
-.g-log b{color:var(--ink);font-weight:600}
-#gForm{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px;align-items:center}
-#gForm label{font-size:.9rem;color:var(--c2)}
-#gForm input{font-family:var(--f-mono);font-size:16px;padding:9px 12px;border-radius:4px;border:1px solid var(--line);background:var(--surface);color:var(--ink);width:100%;letter-spacing:.15em}
-#gForm input:focus{border-color:var(--accent);outline:none;box-shadow:0 0 0 3px var(--accent-soft)}
-.g-err{min-height:1.4em;font-size:.82rem;color:var(--bad)}
-.g-hint{font-size:.72rem;color:var(--muted)}
 .g-splash{display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center;animation:gin .35s ease-out}
 @keyframes gin{from{opacity:0}}
 .g-up{display:flex;flex-direction:column;align-items:center;gap:6px}
 .g-up b{font-family:var(--f-display);font-size:1.7rem;letter-spacing:.08em;color:var(--ok);display:flex;align-items:center;gap:10px}
 .g-up b i{width:12px;height:12px;border-radius:50%;background:var(--ok);box-shadow:0 0 12px var(--ok)}
 .g-up span{font-family:var(--f-mono);font-size:.76rem;color:var(--muted);overflow-wrap:anywhere}
-@media (max-width:600px){
-  #gForm{grid-template-columns:minmax(0,1fr)}
-  #gForm .btn{min-height:44px}
-}
+.g-skip{position:absolute;right:max(16px, env(safe-area-inset-right, 0px));bottom:calc(env(safe-area-inset-bottom, 0px) + 16px)}
 /* handshake TCP: cliente e servidor ligados por um link; SYN, SYN-ACK e ACK viajam pelo cabo */
 .g-splash{width:min(640px,100%);gap:18px}
 .hs-t{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
@@ -579,24 +563,9 @@ html:not(.locked) #gate:not(.ok){display:none}
 </head>
 <body>
 
-<div id="gate" role="dialog" aria-modal="true" aria-labelledby="gTitle">
-  <div class="g-box" id="gBox">
-    <div class="term-bar"><span class="dots"><i></i><i></i><i></i></span><span>console 0 · LAB-SW-20</span></div>
-    <div class="g-body">
-      <h1 class="g-title" id="gTitle">Roteiro de <span>Redes</span></h1>
-      <pre class="g-log">LAB-SW-20 con0 is now available
-
-<b>User Access Verification</b></pre>
-      <form id="gForm" autocomplete="off">
-        <label for="gPass">Password:</label>
-        <input type="password" id="gPass" autocomplete="current-password" spellcheck="false" autocapitalize="off">
-        <button class="btn pri" type="submit">Entrar</button>
-      </form>
-      <p class="g-err" id="gErr" aria-live="assertive"></p>
-      <p class="g-hint">Acesso restrito. Digite a senha para abrir o roteiro de estudos.</p>
-    </div>
-  </div>
-  <div class="g-splash" id="gSplash" hidden>
+<div id="gate" role="dialog" aria-modal="true" aria-label="Abertura: conexão com o roteiro de estudos">
+  <button class="btn sm g-skip" id="gSkip" type="button">Pular ›</button>
+  <div class="g-splash" id="gSplash">
     <span class="hs-t">Estabelecendo conexão · TCP 3-way handshake</span>
     <div class="hs" aria-hidden="true">
       <div class="hs-node"><i class="hs-led" style="--d:.15s"></i>
@@ -616,7 +585,7 @@ html:not(.locked) #gate:not(.ok){display:none}
       <div style="--d:2.7s"><span class="ts">02.70s</span><span class="pr">TCP</span><span>→ <b>ACK</b> ack=1</span></div>
       <div style="--d:3.1s"><span class="ts">03.10s</span><span class="pr">TCP</span><span class="okk">ESTABLISHED · porta 443</span></div>
     </div>
-    <div class="g-up"><b><i></i>ACESSO LIBERADO</b><span>conexão estabelecida com o roteiro de estudos</span></div>
+    <div class="g-up"><b><i></i>CONECTADO</b><span>conexão estabelecida com o roteiro de estudos</span></div>
   </div>
 </div>
 
@@ -2424,33 +2393,17 @@ buildQuestoes(); labelTables(); buildNav(); route();
 <script>
 (function(){
   "use strict";
-  var H="5569f35e7970ceac1447b929c2502d16981f76faa9583c35881a1a0dd9c64d7e"; // SHA-256 da senha
   var root=document.documentElement, gate=document.getElementById("gate");
   if(!root.classList.contains("locked")){ gate.remove(); return; }
-  var form=document.getElementById("gForm"), inp=document.getElementById("gPass"), err=document.getElementById("gErr"), box=document.getElementById("gBox");
-  setTimeout(function(){ inp.focus(); }, 60);
-  function sha(s){
-    return crypto.subtle.digest("SHA-256", new TextEncoder().encode(s)).then(function(b){
-      return Array.prototype.map.call(new Uint8Array(b), function(x){ return x.toString(16).padStart(2,"0"); }).join("");
-    });
-  }
-  function deny(msg){ err.textContent=msg; box.classList.remove("shake"); void box.offsetWidth; box.classList.add("shake"); inp.select(); }
-  form.addEventListener("submit", function(e){
-    e.preventDefault();
-    if(!inp.value){ deny("% Digite a senha."); return; }
-    if(!(window.crypto && crypto.subtle)){ deny("% Este navegador não permite verificar a senha aqui. Abra o site pelo endereço https."); return; }
-    sha(inp.value).then(function(h){
-      if(h!==H){ deny("% Access denied: senha incorreta. Tente de novo."); return; }
-      try{ sessionStorage.setItem("rr-auth","1"); }catch(_){}
-      splash();
-    }, function(){ deny("% Não foi possível verificar a senha. Recarregue a página."); });
-  });
-  function splash(){
-    gate.classList.add("ok"); root.classList.remove("locked");
-    box.hidden=true;
-    document.getElementById("gSplash").hidden=false;
-    setTimeout(function(){ gate.classList.add("out"); setTimeout(function(){ gate.remove(); }, 480); }, 4300);
-  }
+  try{ sessionStorage.setItem("rr-intro","1"); }catch(_){}
+  gate.classList.add("ok"); root.classList.remove("locked");
+  var done=false;
+  function fim(){ if(done) return; done=true; gate.classList.add("out"); setTimeout(function(){ gate.remove(); document.removeEventListener("keydown",tecla); }, 480); }
+  function tecla(e){ if(e.key==="Escape"||e.key==="Enter"||e.key===" "){ e.preventDefault(); fim(); } }
+  gate.addEventListener("click", fim);
+  document.addEventListener("keydown", tecla);
+  setTimeout(function(){ var b=document.getElementById("gSkip"); if(b) b.focus({preventScroll:true}); }, 50);
+  setTimeout(fim, 4300);
 })();
 </script>
 

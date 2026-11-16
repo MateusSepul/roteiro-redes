@@ -8,6 +8,6 @@ A aba **Questões para Estudo** traz um simulado com 20 questões difíceis de m
 
 O site é um único arquivo (`index.html`), sem dependências de build.
 
-## Acesso
+## Abertura
 
-O site pede uma senha antes de abrir (verificada por hash SHA-256 no navegador). Depois do login, uma animação de cerca de 4 segundos mostra o handshake TCP de 3 vias (SYN, SYN-ACK, ACK) entre o seu computador e o servidor, com o log de link, DHCP e DNS, até a conexão ficar estabelecida.
+Ao abrir o site (uma vez por sessão), uma animação de cerca de 4 segundos mostra o handshake TCP de 3 vias (SYN, SYN-ACK, ACK) entre o seu computador e o servidor, com o log de link, DHCP e DNS. Dá para pular clicando na tela, no botão "Pular" ou apertando Esc.
