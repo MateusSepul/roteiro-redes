@@ -6,6 +6,8 @@ Cada módulo tem explicação, pontos-chave para a prova e exercícios com corre
 
 A aba **Questões para Estudo** traz um simulado com 20 questões difíceis de múltipla escolha (IP, IPv4/IPv6, NAT, DNS, cabeamento estruturado e TCP/IP), cada uma com a resolução do material de estudo e a explicação da pegadinha.
 
+A aba **Questionário Extra** traz as 26 perguntas dissertativas do questionário da aula (endereçamento IP, NAT, DNS, cabeamento estruturado, TCP/IP e equipamentos de interconexão). Cada uma tem campo para escrever a resposta (salvo no navegador), resposta-modelo, palavras-chave que não podem faltar e autoavaliação.
+
 O site é um único arquivo (`index.html`), sem dependências de build.
 
 ## Abertura
