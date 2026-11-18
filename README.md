@@ -8,6 +8,8 @@ A aba **Questões para Estudo** traz um simulado com 20 questões difíceis de m
 
 A aba **Questionário Extra** traz as 26 perguntas do questionário da aula (endereçamento IP, NAT, DNS, cabeamento estruturado, TCP/IP e equipamentos de interconexão) em múltipla escolha difícil. Ao responder, aparecem a pegadinha, a pergunta original, as palavras-chave de uma boa resposta escrita e a resposta-modelo.
 
+A aba **Questionário Original** traz as mesmas 26 perguntas com o enunciado exatamente igual ao do professor, em múltipla escolha: as alternativas são respostas completas, uma correta e três quase certas. Ao responder, mostra por que as outras estão erradas, as palavras-chave e a resposta-modelo.
+
 O site é um único arquivo (`index.html`), sem dependências de build.
 
 ## Acesso e abertura

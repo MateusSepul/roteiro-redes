@@ -379,7 +379,7 @@ textarea{font:inherit;font-size:.95rem;width:100%;min-height:84px;padding:10px;b
 .btn .ico{display:inline-block;margin-right:6px}
 .btn:disabled{opacity:.45;cursor:default}
 .qf-nav .mid{display:flex;gap:10px}
-#qReport,#xReport{border:1px solid var(--c6);border-radius:8px;background:var(--surface);padding:16px 18px;display:flex;flex-direction:column;gap:10px;box-shadow:0 0 0 3px var(--accent-soft)}
+#qReport,#xReport,#oReport{border:1px solid var(--c6);border-radius:8px;background:var(--surface);padding:16px 18px;display:flex;flex-direction:column;gap:10px;box-shadow:0 0 0 3px var(--accent-soft)}
 .qr-h{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px}
 .qr-t{font-family:var(--f-display);font-weight:700;font-size:1.3rem}
 .qr-s{font-family:var(--f-mono);font-size:1.1rem;color:var(--c6);font-weight:600}
@@ -507,10 +507,10 @@ html:not(.locked) #gate:not(.ok){display:none}
 .sp.sfpq[data-state="ok"] .sp-led{background:var(--ok);box-shadow:0 0 6px var(--ok)}
 .sp.sfpq[data-state="no"] .sp-led{background:var(--bad);box-shadow:0 0 6px var(--bad)}
 .qbar.x26{grid-template-columns:repeat(26,minmax(0,1fr))}
-#xStats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+#xStats,#oStats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
 .xg{margin-top:10px;display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 12px}
 .xg small{font-family:var(--f-mono);font-size:.7rem;font-weight:400;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
-#xFrame{scroll-margin-top:90px}
+#xFrame,#oFrame{scroll-margin-top:90px}
 .qres-sec.og p{font-style:italic;color:var(--muted)}
 .qres-sec.kw .qres-l{color:var(--c5)}
 .xkw{display:flex;flex-wrap:wrap;gap:6px}
@@ -523,7 +523,7 @@ html:not(.locked) #gate:not(.ok){display:none}
   .sw-ports.x24{gap:5px 2px;padding:5px}
   .sw-up.sfps{flex-direction:row;justify-content:space-around}
   .sfp-cage{width:64px}
-  #xStats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  #xStats,#oStats{grid-template-columns:repeat(2,minmax(0,1fr))}
   .qres-sec.lk .btn{flex:1 1 auto}
 }
 
@@ -671,7 +671,7 @@ html:not(.locked) #gate:not(.ok){display:none}
 <!-- ============ INÍCIO ============ -->
 <div class="view" id="v-inicio" data-sess="" data-layers="">
   <div class="hero">
-    <span class="tagline">Redes de Computadores · 10 aulas · 5 sessões · 46 questões</span>
+    <span class="tagline">Redes de Computadores · 10 aulas · 5 sessões · 72 questões</span>
     <h1>Roteiro de <span>Redes</span></h1>
     <p class="lede">Do sinal elétrico no cabo até o cálculo de sub-rede. Cada módulo traz a explicação dos slides, os pontos que mais caem em prova e exercícios com correção na hora. O último módulo ensina o cálculo de IP passo a passo.</p>
     <div class="link-anim" aria-hidden="true"><span>PC</span><div class="wire"><span class="pkt"></span><span class="pkt b"></span></div><span>PROVA</span></div>
@@ -1713,6 +1713,27 @@ html:not(.locked) #gate:not(.ok){display:none}
   <div class="pager" data-pager="extra"></div>
 </div>
 
+<!-- ============ QUESTIONÁRIO ORIGINAL ============ -->
+<div class="view" id="v-original" data-sess="6" data-layers="" hidden>
+  <div class="head">
+    <span class="eyebrow">Extra · Perguntas exatas da aula</span>
+    <h2>Questionário Original</h2>
+    <div class="meta"><span class="chip">26 questões</span><span class="chip">Enunciado igual ao do professor</span><span class="chip">Múltipla escolha</span><span class="chip">Dificuldade: difícil</span></div>
+    <p class="lede">As 26 perguntas do questionário com o enunciado exatamente como no slide. As alternativas são respostas completas: uma correta e três quase certas, com um erro de conceito, de troca de termos ou de detalhe. Ao responder, aparecem o motivo de cada alternativa errada, as palavras-chave e a resposta-modelo.</p>
+  </div>
+
+  <div class="qhero">
+    <div class="sw" id="oSwitch"></div>
+    <div id="oStats"></div>
+    <div class="qtools" id="oTools"></div>
+  </div>
+
+  <div id="oFrame"></div>
+  <div id="oReport" hidden></div>
+
+  <div class="pager" data-pager="original"></div>
+</div>
+
   </main>
 </div>
 <nav class="mbar" id="mbar" aria-label="Navegação entre módulos"></nav>
@@ -1732,7 +1753,8 @@ const MODS = [
   {id:"wifi", n:9, t:"Padrão 802.11", s:4},
   {id:"ip", n:10, t:"Endereçamento e Cálculo IP", s:5},
   {id:"questoes", n:11, t:"Questões para Estudo", s:6},
-  {id:"extra", n:12, t:"Questionário Extra", s:6}
+  {id:"extra", n:12, t:"Questionário Extra", s:6},
+  {id:"original", n:13, t:"Questionário Original", s:6}
 ];
 const SESS = [
   {n:1, t:"Fundamentos", d:"O que é comunicar dados e como as camadas organizam tudo.", mods:["comunicacao","osi","tcpip"]},
@@ -1740,7 +1762,7 @@ const SESS = [
   {n:3, t:"Camadas 1 e 2 na prática", d:"Ethernet, o cabo par trançado e as normas de cabeamento.", mods:["ethernet","par-trancado","cabeamento"]},
   {n:4, t:"Redes sem fio", d:"O padrão 802.11, seus modos e serviços.", mods:["wifi"]},
   {n:5, t:"Endereçamento IP", d:"Binário, classes, máscara, CIDR e cálculo de rede, broadcast e hosts.", mods:["ip"]},
-  {n:6, t:"Questões e simulados", d:"Simulado com 20 questões difíceis e o questionário extra da aula com 26 questões, todos em múltipla escolha com resolução.", mods:["questoes","extra"]}
+  {n:6, t:"Questões e simulados", d:"Simulado com 20 questões difíceis e o questionário da aula em duas versões de 26 questões (com cenários e com o enunciado original), todos em múltipla escolha com resolução.", mods:["questoes","extra","original"]}
 ];
 
 /* ---------- QUESTÕES ---------- */
@@ -1945,9 +1967,9 @@ menuBtn.addEventListener("click",()=>setDrawer(nav.dataset.open!=="true"));
 function buildSessions(){
   document.getElementById("sessCards").innerHTML=SESS.map(s=>`<div class="sess" style="--cc:${SC[s.n]}"><span class="cbl"></span><div class="in"><span class="sn">${s.n===6?"EXTRA · SIMULADO":"SESSÃO "+s.n}</span><h3>${s.t}</h3><p>${s.d}</p><ol start="${MODS.find(m=>m.id===s.mods[0]).n}">${s.mods.map(id=>{const m=MODS.find(x=>x.id===id);return `<li><a href="#${id}">${m.t}</a></li>`}).join("")}</ol></div></div>`).join("");
   // terminal: o roteiro como um traceroute
-  const HOP=[["sessao-1.fundamentos","comunicação · OSI · TCP/IP"],["sessao-2.redes-e-equip","LAN/WAN · topologias · switch/roteador"],["sessao-3.camadas-1-e-2","Ethernet · par trançado · cabeamento"],["sessao-4.sem-fio","IEEE 802.11"],["sessao-5.enderecamento-ip","binário · máscara · sub-rede"],["extra.questoes-e-simulados","simulado + questionário da aula"]];
-  let t=`<div class="tl"><span class="pr">aluno@lab-redes:~$</span> traceroute prova-de-redes</div><div class="tl dim">traceroute to prova-de-redes (192.168.10.75), 6 hops max, 10 módulos + 46 questões</div>`;
-  SESS.forEach((s,i)=>{ const n=s.mods.length; t+=`<a class="hop" href="#${s.mods[0]}" style="--hc:${SC[s.n]}"><span>${s.n}</span><span class="hn">${HOP[i][0]}</span><span class="hm">${s.n===6?"46 questões":n+" "+(n>1?"módulos":"módulo")}</span><span class="hd dim">${HOP[i][1]}</span></a>`; });
+  const HOP=[["sessao-1.fundamentos","comunicação · OSI · TCP/IP"],["sessao-2.redes-e-equip","LAN/WAN · topologias · switch/roteador"],["sessao-3.camadas-1-e-2","Ethernet · par trançado · cabeamento"],["sessao-4.sem-fio","IEEE 802.11"],["sessao-5.enderecamento-ip","binário · máscara · sub-rede"],["extra.questoes-e-simulados","simulado + questionários da aula"]];
+  let t=`<div class="tl"><span class="pr">aluno@lab-redes:~$</span> traceroute prova-de-redes</div><div class="tl dim">traceroute to prova-de-redes (192.168.10.75), 6 hops max, 10 módulos + 72 questões</div>`;
+  SESS.forEach((s,i)=>{ const n=s.mods.length; t+=`<a class="hop" href="#${s.mods[0]}" style="--hc:${SC[s.n]}"><span>${s.n}</span><span class="hn">${HOP[i][0]}</span><span class="hm">${s.n===6?"72 questões":n+" "+(n>1?"módulos":"módulo")}</span><span class="hd dim">${HOP[i][1]}</span></a>`; });
   t+=`<div class="tl"><span class="pr">aluno@lab-redes:~$</span> <span class="cursor">&nbsp;</span></div>`;
   document.getElementById("termBody").innerHTML=t;
 }
@@ -2748,12 +2770,158 @@ document.addEventListener("keydown",e=>{
   if(key in map) xAnswer(map[key]); else if(e.key==="ArrowRight") xGo(xCur+1,false); else if(e.key==="ArrowLeft") xGo(xCur-1,false);
 });
 
+/* ---------- QUESTIONÁRIO ORIGINAL: enunciado igual ao do professor, alternativas de resposta ---------- */
+const ORIG=[
+ {o:["É o endereço físico gravado de fábrica na placa de rede, usado para identificar o fabricante; é importante porque nunca muda.","É um número que identifica um dispositivo conectado a uma rede; é importante porque permite que os dispositivos se localizem e troquem informações em redes locais e na internet.","É o nome do dispositivo na rede, como www.exemplo.com; é importante porque dispensa o uso de endereços numéricos.","É um protocolo de criptografia; é importante porque protege os dados que trafegam entre os dispositivos da rede."],
+  a:1, t:"A alternativa A descreve o endereço MAC, e a C descreve um nome de domínio, que é tarefa do DNS. O IP não criptografa nada (alternativa D)."},
+ {o:["IPv4 usa 64 bits e IPv6 usa 128 bits; o IPv6 foi criado para aumentar a velocidade das conexões.","IPv4 usa 32 bits e IPv6 usa 64 bits; o IPv6 foi criado para substituir o DNS.","IPv4 usa 32 bits (cerca de 4,3 bilhões de endereços) e IPv6 usa 128 bits; o IPv6 foi criado para eliminar a necessidade de máscara de sub-rede.","IPv4 usa 32 bits (cerca de 4,3 bilhões de endereços) e IPv6 usa 128 bits; o IPv6 foi criado principalmente pelo esgotamento dos endereços IPv4."],
+  a:3, t:"A alternativa C tem os números certos e o motivo errado. O IPv6 nasceu porque os endereços IPv4 acabaram, não por velocidade, DNS ou máscara."},
+ {o:["Possui 32 bits divididos em quatro octetos de 8 bits, representados por quatro números de 0 a 255 separados por pontos, como 192.168.1.10.","Possui 32 bits divididos em quatro octetos de 8 bits, representados por quatro números de 0 a 256 separados por pontos, como 192.168.1.256.","Possui 128 bits divididos em oito grupos, representados em hexadecimal e separados por dois-pontos, como 2001:db8::1.","Possui 48 bits divididos em seis grupos, representados em hexadecimal e separados por hífens, como 00-1A-2B-3C-4D-5E."],
+  a:0, t:"A B erra só o limite: com 8 bits o máximo é 255, nunca 256. A C descreve o IPv6, e a D descreve o endereço MAC."},
+ {o:["São faixas definidas pelo último octeto do IP; a classe A é para redes pequenas, a B para médias e a C para redes muito grandes.","São níveis de segurança do endereço; a classe A é a mais protegida e a classe E é aberta ao público.","São divisões tradicionais dos endereços conforme o tamanho da rede: A para redes muito grandes, B para médias, C para pequenas, D para multicast e E experimental; hoje o CIDR substituiu essa divisão.","São divisões tradicionais dos endereços conforme o tamanho da rede: A para redes muito grandes, B para médias, C para pequenas, D experimental e E para multicast; ainda são o sistema principal usado hoje."],
+  a:2, t:"A D troca D e E (multicast é a D, experimental é a E) e esquece o CIDR. A classe é definida pelo 1º octeto, não pelo último, e a A é a das redes grandes."},
+ {o:["É um endereço que esconde o IP do computador na internet, funcionando como o NAT.","É um valor, como 255.255.255.0, que identifica qual parte do IP representa a rede e qual representa os dispositivos, permitindo dividir a rede em sub-redes.","É um valor, como 255.255.255.0, que indica o endereço do roteador (gateway) para onde os pacotes devem ser enviados.","É o endereço do servidor DNS, usado para traduzir nomes de sites em endereços IP."],
+  a:1, t:"A C usa o exemplo certo, mas confunde máscara com gateway. A máscara só separa a parte de rede da parte de host; gateway e DNS são outras configurações."},
+ {o:["IP público é usado dentro de casas e empresas (ex.: 192.168.1.1); IP privado é roteável na internet (ex.: 8.8.8.8).","IP público pertence a órgãos do governo (ex.: 10.0.0.1); IP privado pertence a empresas (ex.: 8.8.8.8).","IP público é roteável na internet (ex.: 8.8.8.8); IP privado é usado em redes locais (ex.: 172.32.0.1 e 192.169.1.1).","IP público identifica uma rede ou dispositivo na internet e é roteável globalmente (ex.: 8.8.8.8); IP privado é usado em redes locais e não é roteável na internet (ex.: 192.168.1.1, 10.0.0.1, 172.16.0.1)."],
+  a:3, t:"A C tem o conceito certo, mas os exemplos estão fora das faixas privadas: a faixa 172 vai só até 172.31, e a 192 é só 192.168. A A inverte os conceitos."},
+ {o:["Arquitetura aberta, meio de transmissão e disposição física padronizados, aderência a padrões internacionais e projeto e instalação sistematizados; horizonte mínimo de 10 anos.","Arquitetura aberta, meio de transmissão e disposição física padronizados, aderência a padrões internacionais e projeto e instalação sistematizados; horizonte mínimo de 5 anos.","Arquitetura proprietária, uso de um único fabricante, cabos sem identificação e instalação conforme a necessidade; horizonte mínimo de 10 anos.","Uso exclusivo de fibra óptica, rede sem fio em todos os andares e servidores próprios; horizonte mínimo de 2 anos."],
+  a:0, t:"A B é idêntica à correta, menos no prazo. O projeto de um edifício comercial deve atender por no mínimo 10 anos."},
+ {o:["É um serviço que traduz nomes de sites em endereços IP, consultando servidores raiz e TLD.","É um protocolo que entrega automaticamente um IP público diferente para cada dispositivo da rede local.","É a tradução de endereços de rede: o roteador modifica os endereços IP dos pacotes, trocando IPs privados pelo IP público (e vice-versa), para que vários dispositivos compartilhem um mesmo IP público.","É a tradução de endereços de rede: o roteador troca o IP do site de destino pelo IP privado do computador, para que o site não saiba qual servidor respondeu."],
+  a:2, t:"A A descreve o DNS. A D começa certa, mas o NAT troca o endereço de origem privado pelo público, não o do site de destino. E o NAT não cria IPs públicos para cada aparelho (alternativa B)."},
+ {o:["É o Dynamic Name Service, que distribui endereços IP automaticamente aos dispositivos da rede.","É o Domain Name System (Sistema de Nomes de Domínio), que traduz nomes de sites em endereços IP; ao digitar www.google.com, ele encontra o IP do servidor correspondente.","É o Domain Name System, que traduz endereços IP privados em públicos para que a rede local acesse a internet.","É o Domain Name System, que armazena cópias das páginas dos sites para acelerar a navegação."],
+  a:1, t:"A A inventa a sigla e descreve o DHCP. A C descreve o NAT. O DNS guarda respostas \"nome → IP\" em cache, não as páginas (alternativa D)."},
+ {o:["Cliente, servidor e roteador: o cliente pede o site, o servidor envia a página e o roteador traduz o nome.","Servidores raiz (gerenciam .com, .org e .br), servidores TLD (guardam as informações oficiais dos domínios), servidores autoritativos (recebem as consultas dos usuários) e resolvedores (indicam os servidores de nível superior).","DHCP, NAT, gateway e máscara: cada um traduz uma parte do nome do site.","Servidores raiz (indicam os responsáveis pelos domínios de nível superior), servidores TLD (gerenciam extensões como .com, .org e .br), servidores autoritativos (armazenam as informações oficiais dos domínios) e resolvedores (recebem as consultas dos usuários e procuram o IP)."],
+  a:3, t:"A B usa os quatro nomes certos, mas com as funções embaralhadas. Confira: o TLD cuida da extensão, o autoritativo guarda o dado oficial e o resolvedor atende o usuário."},
+ {o:["É o processo de descobrir o nome de domínio associado a um endereço IP, o caminho contrário do DNS comum; é usado em verificações de servidores de e-mail, diagnósticos e segurança de redes.","É o processo de descobrir o endereço IP a partir do nome de domínio; é usado para abrir sites no navegador.","É o processo de traduzir um IP público em privado quando a resposta volta da internet; é usado pelo roteador com NAT.","É o processo de descobrir o nome de domínio associado a um endereço IP; é usado para atribuir endereços IP automaticamente aos computadores da rede."],
+  a:0, t:"A B descreve o DNS comum, e a C descreve o NAT. A D começa certa, mas erra a aplicação: atribuir IPs é tarefa do DHCP."},
+ {o:["Centralizando todos os nomes em um único servidor mundial, o que facilita a atualização dos endereços.","Obrigando cada computador a guardar a lista completa de sites, o que evita consultas pela rede.","Organizando os nomes de forma hierárquica e distribuída, com servidores espalhados e uso de cache, o que melhora a velocidade, reduz consultas repetidas e facilita o crescimento da internet.","Organizando os nomes de forma hierárquica, mas sem cache, para que toda consulta vá sempre até o servidor raiz e receba a informação mais atual."],
+  a:2, t:"A D tem a hierarquia certa, mas sem cache os servidores raiz seriam inundados de consultas. A escalabilidade vem de distribuir e de reaproveitar respostas, nunca de centralizar."},
+ {o:["É qualquer instalação de cabos feita conforme a necessidade; é importante porque é mais barata no curto prazo.","É um sistema organizado de cabos, conectores e equipamentos para transmitir dados, voz e outros sinais; é importante porque facilita instalação, manutenção, organização e expansão da rede, com mais segurança e eficiência.","É um tipo de cabo blindado usado em data centers; é importante porque elimina a necessidade de switches e roteadores.","É um conjunto de protocolos da camada de rede; é importante porque define as rotas dos pacotes na internet."],
+  a:1, t:"\"Estruturado\" é o contrário de instalar conforme a necessidade. E não se trata de um cabo nem de um protocolo, e sim de um sistema completo e organizado."},
+ {o:["Roteador, modem, servidor DNS e firewall.","Cabos, patch panels, racks e tomadas; o backbone não faz parte do cabeamento estruturado, pois é um equipamento ativo.","Cabos, patch panels (armazenam os equipamentos), racks (organizam e distribuem as conexões), tomadas de telecomunicações, conectores e backbone.","Cabos (transportam os dados), patch panels (organizam e distribuem as conexões), racks (armazenam os equipamentos), tomadas de telecomunicações, conectores e backbone (conecta os principais pontos de distribuição)."],
+  a:3, t:"A C lista os componentes certos, mas troca as funções de patch panel e rack. A B erra ao excluir o backbone, que é parte do cabeamento: ele não é um equipamento ativo."},
+ {o:["São padrões técnicos que estabelecem regras para instalação, organização e funcionamento do cabeamento, como ANSI/TIA-568 e ISO/IEC 11801; garantem qualidade, segurança, padronização, compatibilidade e desempenho.","São padrões técnicos de redes sem fio, como IEEE 802.11; garantem o alcance do sinal e a velocidade da conexão.","São padrões técnicos que estabelecem regras para o cabeamento, como ANSI/TIA-568 e HTTP; garantem a criptografia dos dados que passam pelos cabos.","São recomendações opcionais de cada fabricante, que mudam de marca para marca; garantem apenas a validade da garantia dos produtos."],
+  a:0, t:"A C começa bem, mas HTTP é protocolo de aplicação, e norma de cabeamento não criptografa nada. IEEE 802.11 é o padrão do Wi-Fi, não de cabeamento."},
+ {o:["UTP tem blindagem metálica e é usado em fábricas; STP não tem blindagem e é usado em escritórios comuns.","UTP e STP são iguais na construção; a única diferença é a cor da capa, usada para separar voz e dados.","UTP é par trançado sem blindagem, mais barato e flexível, indicado para ambientes comuns; STP tem blindagem contra interferências eletromagnéticas e é indicado para locais com mais interferência, desde que instalado com aterramento adequado.","UTP é par trançado sem blindagem, indicado para ambientes comuns; STP tem blindagem e é indicado para locais com interferência, dispensando aterramento porque a própria blindagem já protege o cabo."],
+  a:2, t:"A D erra só no detalhe do aterramento: a blindagem do STP precisa ser aterrada para funcionar. A A inverte as siglas (o U de UTP é de Unshielded, ou seja, sem blindagem)."},
+ {o:["É o cabo que liga cada computador à tomada da área de trabalho.","É a estrutura principal de conexão da rede, que interliga os principais equipamentos, racks, andares e setores, permitindo a comunicação entre diferentes partes da rede.","É o software que monitora e controla o tráfego da rede, bloqueando acessos indevidos.","É a estrutura principal da rede, formada pelos patch cords de cada estação de trabalho, que ligam os computadores ao switch do andar."],
+  a:1, t:"A D começa igual à correta, mas descreve a ponta da rede (patch cords e cabeamento horizontal). O backbone é o que liga racks, andares e setores entre si."},
+ {o:["É a velocidade máxima que o cabo suporta; as mais usadas são Cat5e e Cat6.","É a forma como os dispositivos estão organizados e conectados; a mais usada no cabeamento estruturado moderno é o anel, em que os dispositivos formam um círculo.","É a forma como os dispositivos estão organizados e conectados; a mais usada é o barramento, em que cada dispositivo tem um cabo próprio até um switch.","É a forma como os dispositivos e cabos estão organizados e conectados; as principais são estrela, barramento e anel, e a estrela (todos ligados a um equipamento central, como um switch) é a mais usada."],
+  a:3, t:"A C dá ao barramento a definição da estrela: o barramento usa um único cabo compartilhado. Cat5e e Cat6 são categorias de cabo, não topologias."},
+ {o:["Levantar as necessidades, analisar o ambiente e os dispositivos, escolher cabos e equipamentos, elaborar o projeto, instalar, identificar as conexões, testar e documentar.","Instalar os cabos, testar, levantar as necessidades, elaborar o projeto e documentar.","Levantar as necessidades, instalar os cabos, elaborar o projeto, documentar e, por último, testar.","Escolher os equipamentos mais baratos, instalar, identificar as conexões e testar; a documentação é opcional."],
+  a:0, t:"A C começa certa, mas instala antes de projetar e documenta antes de testar. A regra é planejar antes de instalar e documentar no fim, com os testes já feitos."},
+ {o:["É um único protocolo de criptografia, com duas camadas, usado apenas na internet.","É um conjunto de protocolos com sete camadas: Física, Enlace, Rede, Transporte, Sessão, Apresentação e Aplicação.","É um conjunto de protocolos com quatro camadas (Aplicação, Transporte, Internet e Acesso à rede) que permite a comunicação entre diferentes dispositivos e sistemas pelas redes e pela internet.","É um conjunto de protocolos com quatro camadas (Aplicação, Internet, Transporte e Física), em que o IP atua na camada de Transporte e o TCP na camada Internet."],
+  a:2, t:"A B descreve o modelo OSI, de 7 camadas. A D inverte: o TCP fica na camada de Transporte e o IP na camada Internet."},
+ {o:["Atuam na camada de enlace: leem o endereço MAC de cada quadro e só repassam o que é destinado a outro segmento, separando os domínios de colisão.","Atuam na camada física: regeneram e retransmitem o sinal para combater a atenuação (perda de força com a distância), o ruído e o eco; o hub repete o sinal para todas as portas, então todas as máquinas ligadas a ele ficam em um único domínio de colisão.","Atuam na camada física: regeneram o sinal para combater a atenuação; o hub envia cada sinal apenas para a porta de destino, por isso cada porta é um domínio de colisão separado.","Atuam na camada de rede: escolhem a melhor rota pelo IP de destino e eliminam a atenuação ao reduzir o número de saltos."],
+  a:1, t:"A C acerta a camada, mas descreve o hub como se fosse um switch. A A descreve ponte e switch. O hub repete tudo para todos, e é isso que forma o domínio de colisão único."},
+ {o:["São equipamentos da camada física que, assim como os repetidores, repassam todo sinal recebido; a tabela MAC serve apenas para registrar o fabricante de cada placa.","São equipamentos da camada de rede que usam a tabela de roteamento, com endereços IP, para decidir o caminho de cada pacote.","São equipamentos da camada de enlace que usam a tabela MAC para repassar cada quadro a todos os segmentos, garantindo que nenhum se perca.","São equipamentos da camada de enlace que, ao contrário dos repetidores, leem o MAC de destino: pela tabela MAC, se o destino está no mesmo segmento o quadro não atravessa (é filtrado), e se está no outro é encaminhado, separando os domínios de colisão."],
+  a:3, t:"A C acerta a camada, mas a ponte não repassa tudo a todos: ela filtra, e é justamente isso que a diferencia do repetidor. A B descreve um roteador."},
+ {o:["No cascateamento, as pontes são ligadas em sequência e o tráfego entre as pontas atravessa os segmentos intermediários, sobrecarregando-os; no backbone, todas se ligam a uma espinha dorsal que distribui o tráfego, evitando essa sobrecarga.","No cascateamento, todas as pontes se ligam a um cabo central que distribui o tráfego; no backbone, elas são ligadas em sequência, sobrecarregando os segmentos intermediários.","Os dois métodos têm o mesmo impacto, pois as pontes filtram todo o tráfego e nenhum segmento intermediário é afetado.","No cascateamento, só o primeiro segmento fica sobrecarregado; no backbone, todos os segmentos recebem todo o tráfego da rede, como num hub."],
+  a:0, t:"A B inverte as definições dos dois métodos. A ponte filtra só o tráfego local: o que vai de uma ponta à outra precisa atravessar os intermediários no cascateamento."},
+ {o:["O switch opera na camada física e repete cada quadro para todas as portas; cut-through e store-and-forward são apenas nomes comerciais do mesmo modo.","O switch opera na camada de enlace; no cut-through ele armazena o quadro inteiro e verifica o CRC, e no store-and-forward lê só o MAC de destino e já encaminha.","O switch opera na camada de enlace como uma ponte multiporta, encaminhando cada quadro só para a porta do MAC de destino; no cut-through lê apenas o MAC e já encaminha (baixa latência), e no store-and-forward armazena o quadro inteiro e verifica o CRC antes de encaminhar.","O switch opera na camada de rede usando endereços IP; o cut-through descarta quadros com erro e o store-and-forward encaminha sem verificar nada."],
+  a:2, t:"A B troca os dois modos. Para lembrar: o store-and-forward \"armazena e depois encaminha\", e por isso consegue checar o CRC."},
+ {o:["Operam na camada de enlace (2), usando o endereço MAC e a tabela MAC para entregar quadros dentro da mesma rede local.","Operam na camada de rede (3): leem o IP de destino, consultam a tabela de roteamento (montada manualmente ou por protocolos de roteamento) para escolher o caminho e encaminham o pacote; são essenciais porque interligam redes diferentes, como as WANs e a internet.","Operam na camada física (1), amplificando o sinal entre redes distantes; são essenciais porque regeneram o sinal ao longo da internet.","Operam na camada de rede (3) e usam a tabela de roteamento, mas só funcionam dentro de uma mesma rede local; por isso a internet usa switches para ligar redes diferentes."],
+  a:1, t:"A D acerta a camada, mas inverte os papéis: é o switch que fica dentro da rede local, e o roteador é quem liga redes diferentes. A A descreve o switch."},
+ {o:["São repetidores especiais que amplificam o sinal entre redes de arquiteturas diferentes.","São o mesmo que pontes: ligam duas LANs compatíveis na camada de enlace usando a tabela MAC.","São elementos das camadas superiores que bloqueiam a comunicação entre redes de arquiteturas diferentes, por segurança.","São os elementos de interconexão mais complexos: atuam nas camadas superiores e possuem duas pilhas de protocolos (por exemplo, OSI e uma arquitetura proprietária), convertendo formatos, endereços e protocolos para compatibilizar as duas redes."],
+  a:3, t:"A C acerta as camadas, mas o gateway faz o oposto de bloquear: ele traduz para permitir a comunicação. A ponte só funciona entre redes compatíveis na camada de enlace."}
+];
+const OQ=ORIG.map((m,i)=>Object.assign({q:EX[i].q, tag:EX[i].tag, k:EX[i].k, r:EX[i].r, sim:EX[i].sim, mod:EX[i].mod}, m));
+Q.original={mc:OQ, disc:[]};
+
+/* motor genérico de múltipla escolha com switch de 26 portas */
+function makeSwitchQuiz(cfg){
+  const D=cfg.data, N=D.length, P=cfg.prefix, $=id=>document.getElementById(P+id);
+  let cur=0;
+  const st=()=>PROG[cfg.key]||(PROG[cfg.key]={});
+  const state=i=>{ const p=st(); return p[i]===true?"ok":(p[i]===false?"no":"off"); };
+  function build(){
+    const rj=D.slice(0,24).map((it,i)=>`<button class="sp" data-p="${i}" aria-label="Questão ${i+1}: ${esc(it.tag)}"><span class="sp-n">${String(i+1).padStart(2,"0")}</span><span class="sp-jack"><span class="sp-led l"></span><span class="sp-led r"></span></span></button>`).join("");
+    const sfp=[24,25].map(i=>`<button class="sp sfpq" data-p="${i}" aria-label="Questão ${i+1}: ${esc(D[i].tag)}"><span class="sfp-cage"><span class="sp-led c"></span></span><span class="sp-n">${i+1} · SFP</span></button>`).join("");
+    $("Switch").innerHTML=`
+     <div class="sw-top"><span class="sw-brand">${cfg.brand}<small>${cfg.sub}</small></span><span class="sw-leds"><span><i class="pwr"></i>PWR</span><span><i class="sys"></i>SYS</span></span></div>
+     <div class="sw-body"><div class="sw-ports x24">${rj}</div><div class="sw-up sfps">${sfp}</div></div>
+     <div class="sw-legend"><span><i class="lg off"></i>não respondida</span><span><i class="lg ok"></i>acertou</span><span><i class="lg no"></i>errou</span><span><i class="lg cur"></i>questão atual</span></div>`;
+    $("Switch").addEventListener("click",e=>{ const b=e.target.closest("[data-p]"); if(b) go(+b.dataset.p,true); });
+    const f=D.findIndex((_,i)=>state(i)==="off"); cur=f<0?0:f;
+    render();
+    document.addEventListener("keydown",e=>{
+      const v=document.getElementById("v-"+cfg.view); if(!v||v.hidden||e.target.matches("input,textarea")||e.metaKey||e.ctrlKey||e.altKey) return;
+      const k=e.key.toLowerCase(), m={a:0,b:1,c:2,d:3,"1":0,"2":1,"3":2,"4":3};
+      if(k in m) answer(m[k]); else if(e.key==="ArrowRight") go(cur+1,false); else if(e.key==="ArrowLeft") go(cur-1,false);
+    });
+  }
+  function stats(){
+    const p=st(); let ok=0,no=0; D.forEach((_,i)=>{ if(p[i]===true) ok++; else if(p[i]===false) no++; });
+    const done=ok+no, rate=done?Math.round(ok*100/done):0;
+    $("Switch").querySelectorAll("[data-p]").forEach(b=>{ const i=+b.dataset.p; b.dataset.state=state(i); if(i===cur) b.setAttribute("aria-current","true"); else b.removeAttribute("aria-current"); });
+    $("Stats").innerHTML=`
+     <div class="qs"><span>Respondidas</span><b>${done}<small>/${N}</small></b></div>
+     <div class="qs ok"><span>ACK · acertos</span><b>${ok}</b></div>
+     <div class="qs no"><span>NACK · erros</span><b>${no}</b></div>
+     <div class="qs"><span>Taxa de acerto</span><b>${done?rate+"%":"–"}</b></div>
+     <div class="qbar x26" aria-hidden="true">${D.map((_,i)=>`<i class="${state(i)}"></i>`).join("")}</div>`;
+    const box=$("Tools");
+    box.innerHTML=`<span class="qt-msg">${done? done+" de "+N+" respondidas" : "Nenhuma questão respondida ainda"}</span>
+     <button class="btn" data-r="ask" ${done?"":"disabled"}><span class="ico">↺</span>Refazer questionário</button>
+     <span class="qt-confirm" hidden><span class="qt-msg">Apagar as ${done} respostas e começar do zero?</span><button class="btn sm danger" data-r="yes">Sim, refazer</button><button class="btn sm" data-r="no">Cancelar</button></span>`;
+    const ask=box.querySelector('[data-r="ask"]'), cf=box.querySelector(".qt-confirm"), cnt=box.querySelector(".qt-msg");
+    ask.onclick=()=>{ ask.hidden=true; cnt.hidden=true; cf.hidden=false; box.querySelector('[data-r="yes"]').focus(); };
+    box.querySelector('[data-r="no"]').onclick=()=>{ cf.hidden=true; ask.hidden=false; cnt.hidden=false; ask.focus(); };
+    box.querySelector('[data-r="yes"]').onclick=reset;
+    const rep=$("Report");
+    if(done===N){
+      const wrong=D.map((_,i)=>i).filter(i=>p[i]===false);
+      const verdict= ok>=Math.ceil(N*.88)?"Link estável: você está pronto para a prova.": ok>=Math.ceil(N*.7)?"Boa conexão, com alguma perda de pacotes. Revise as erradas.":"Muita perda de pacotes. Releia os módulos e refaça o questionário.";
+      rep.hidden=false;
+      rep.innerHTML=`<div class="qr-h"><span class="qr-t">Captura concluída</span><span class="qr-s">${ok}/${N} ACK · ${rate}%</span></div><p>${verdict}</p>
+       ${wrong.length?`<div class="qr-w"><span>Revisar questões com NACK:</span>${wrong.map(i=>`<button class="btn sm" data-go="${i}">${String(i+1).padStart(2,"0")} · ${esc(D[i].tag)}</button>`).join("")}</div>`:""}
+       <div class="actions"><button class="btn" data-r="all">Refazer o questionário</button></div>`;
+      rep.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>go(+b.dataset.go,true));
+      rep.querySelector('[data-r="all"]').onclick=reset;
+    } else { rep.hidden=true; rep.innerHTML=""; }
+  }
+  function render(){
+    const it=D[cur], p=st(), ans=p["c"+cur], answered=ans!==undefined, ok=answered&&ans===it.a;
+    const opts=it.o.map((o,k)=>{ let cls="", tag="";
+      if(answered){ if(k===it.a){cls="right";tag=`<span class="qo-tag ok">correta</span>`;} else if(k===ans){cls="wrong";tag=`<span class="qo-tag no">sua resposta</span>`;} }
+      return `<button class="qo ${cls}" data-k="${k}" ${answered?"disabled":""}><span class="qo-k">${L[k]}</span><span class="qo-t">${esc(o)}</span>${tag}</button>`; }).join("");
+    const links=[];
+    if(it.sim) links.push(...it.sim.map(k=>`<button class="btn sm" data-sim="${k}">Treinar no simulado · Q${String(k+1).padStart(2,"0")}</button>`));
+    if(cfg.extraLink) links.push(`<button class="btn sm" data-ex="${cur}">Versão com cenário · Questionário Extra Q${String(cur+1).padStart(2,"0")}</button>`);
+    if(it.mod){ const m=MODS.find(x=>x.id===it.mod); links.push(`<a class="btn sm" href="#${it.mod}">Revisar: ${esc(m.t)}</a>`); }
+    $("Frame").innerHTML=`<article class="qf">
+     <header class="qf-h"><span class="qf-no">QUESTÃO ${String(cur+1).padStart(2,"0")}<small>/${N}</small></span><span class="qf-f">PROTO <b>${esc(it.tag)}</b></span><span class="qf-f">ALT <b>4</b></span><span class="qf-flag">DIFÍCIL</span></header>
+     <div class="qf-body"><p class="qf-q">${esc(it.q)}</p><div class="qf-opts">${opts}</div>
+     ${answered?`<div class="qres ${ok?"ok":"no"}"><div class="qres-h"><span class="sig">${ok?"ACK":"NACK"}</span>${ok?"Correto.":"Não é essa."} Resposta correta: <b>${L[it.a]}</b></div>
+       <div class="qres-sec"><span class="qres-l">▸ Por que as outras estão erradas</span><p>${esc(it.t)}</p></div>
+       <div class="qres-sec kw"><span class="qres-l">▸ Não pode faltar na resposta dissertativa</span><div class="xkw">${it.k.map(w=>`<i>${esc(w)}</i>`).join("")}</div></div>
+       <div class="qres-sec rs"><span class="qres-l">▸ Resposta-modelo</span>${it.r}</div>
+       ${links.length?`<div class="qres-sec lk"><div class="actions">${links.join("")}</div></div>`:""}</div>`
+     :`<p class="qf-hint">Escolha a resposta correta. No teclado: A a D para responder, ← e → para trocar de questão.</p>`}
+     </div>
+     <footer class="qf-nav"><button class="btn" data-n="prev" ${cur===0?"disabled":""}>◀ Anterior</button>${answered?`<button class="btn" data-n="redo"><span class="ico">↺</span>Refazer esta questão</button>`:""}<button class="btn pri" data-n="next">${cur===N-1?"Ver relatório":"Próxima ▶"}</button></footer></article>`;
+    const F=$("Frame");
+    F.querySelectorAll(".qo").forEach(b=>b.onclick=()=>answer(+b.dataset.k));
+    F.querySelectorAll("[data-sim]").forEach(b=>b.onclick=()=>{ const k=+b.dataset.sim; location.hash="questoes"; setTimeout(()=>qGo(k,true),80); });
+    F.querySelectorAll("[data-ex]").forEach(b=>b.onclick=()=>{ const k=+b.dataset.ex; location.hash="extra"; setTimeout(()=>xGo(k,true),80); });
+    F.querySelector('[data-n="prev"]').onclick=()=>go(cur-1,false);
+    const redo=F.querySelector('[data-n="redo"]'); if(redo) redo.onclick=()=>{ const p2=st(); delete p2[cur]; delete p2["c"+cur]; save(); updateProgress(); render(); };
+    F.querySelector('[data-n="next"]').onclick=()=>{ if(cur===N-1){ const r=$("Report"); if(!r.hidden) r.scrollIntoView({behavior:"smooth",block:"start"}); else { const f=D.findIndex((_,i)=>state(i)==="off"); if(f>=0) go(f,true); } } else go(cur+1,false); };
+    stats();
+  }
+  function answer(k){ const p=st(); if(p["c"+cur]!==undefined) return; p["c"+cur]=k; p[cur]=(k===D[cur].a); save(); updateProgress(); render(); }
+  function go(i,scroll){ if(i<0||i>N-1) return; cur=i; render(); if(scroll) $("Frame").scrollIntoView({behavior:"smooth",block:"start"}); }
+  function reset(){ PROG[cfg.key]={}; save(); updateProgress(); cur=0; render(); $("Switch").scrollIntoView({behavior:"smooth",block:"start"}); }
+  return {build, go};
+}
+const ORIGQ=makeSwitchQuiz({key:"original", view:"original", prefix:"o", data:OQ, brand:"LAB-SW-26B", sub:"Questionário Original · 24 portas + 2 uplinks", extraLink:true});
+
 /* ---------- INIT ---------- */
 document.querySelectorAll("[data-topo]").forEach(s=>s.innerHTML=topo(s.dataset.topo));
 buildPins(); buildSessions(); buildPagers(); buildLayerMeters();
 Object.keys(Q).forEach(renderQuiz);
 buildMaskTable(); buildExamples(); buildBits(); renderBin(); renderIpMc(); renderIpEx(); newGen(); paintStreak(); runCalc();
-buildQuestoes(); buildExtra(); labelTables(); buildNav(); route();
+buildQuestoes(); buildExtra(); ORIGQ.build(); labelTables(); buildNav(); route();
 })();
 </script>
 <script>
