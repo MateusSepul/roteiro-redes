@@ -379,7 +379,7 @@ textarea{font:inherit;font-size:.95rem;width:100%;min-height:84px;padding:10px;b
 .btn .ico{display:inline-block;margin-right:6px}
 .btn:disabled{opacity:.45;cursor:default}
 .qf-nav .mid{display:flex;gap:10px}
-#qReport{border:1px solid var(--c6);border-radius:8px;background:var(--surface);padding:16px 18px;display:flex;flex-direction:column;gap:10px;box-shadow:0 0 0 3px var(--accent-soft)}
+#qReport,#xReport{border:1px solid var(--c6);border-radius:8px;background:var(--surface);padding:16px 18px;display:flex;flex-direction:column;gap:10px;box-shadow:0 0 0 3px var(--accent-soft)}
 .qr-h{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px}
 .qr-t{font-family:var(--f-display);font-weight:700;font-size:1.3rem}
 .qr-s{font-family:var(--f-mono);font-size:1.1rem;color:var(--c6);font-weight:600}
@@ -491,46 +491,21 @@ html:not(.locked) #gate:not(.ok){display:none}
 #xStats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
 .xg{margin-top:10px;display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 12px}
 .xg small{font-family:var(--f-mono);font-size:.7rem;font-weight:400;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
-#xList{display:flex;flex-direction:column;gap:14px}
-.xq{border:1px solid var(--line);border-radius:8px;background:var(--surface);overflow:hidden;scroll-margin-top:90px;transition:box-shadow .3s}
-.xq.flash{animation:xflash 1.2s ease-out}
-@keyframes xflash{0%,30%{box-shadow:0 0 0 3px var(--c6)}100%{box-shadow:0 0 0 0 transparent}}
-.xq-h{display:flex;align-items:center;flex-wrap:wrap;background:var(--code);border-bottom:1px solid var(--line);font-family:var(--f-mono);font-size:.72rem;color:var(--muted)}
-.xq-h > span{padding:8px 14px;border-right:1px solid var(--line)}
-.xq-no{color:var(--c6);font-weight:600;font-size:.8rem;letter-spacing:.05em}
-.xq-tag{color:var(--ink)}
-.xq-st{margin-left:auto;border-right:0!important;font-weight:600;letter-spacing:.08em;display:flex;align-items:center;gap:6px}
-.xq-st::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--led-off)}
-.xq[data-state="ok"] .xq-st{color:var(--ok)} .xq[data-state="ok"] .xq-st::before{background:var(--ok);box-shadow:0 0 6px var(--ok)}
-.xq[data-state="no"] .xq-st{color:var(--bad)} .xq[data-state="no"] .xq-st::before{background:var(--bad);box-shadow:0 0 6px var(--bad)}
-.xq-b{padding:16px 18px;display:flex;flex-direction:column;gap:10px;border-left:3px solid var(--line)}
-.xq[data-state="ok"] .xq-b{border-left-color:var(--ok)} .xq[data-state="no"] .xq-b{border-left-color:var(--bad)}
-.xq-q{font-size:1.02rem;font-weight:500;line-height:1.55}
-.xq-l{font-family:var(--f-mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
-.xq textarea{min-height:96px}
-.xq .actions a.btn{text-decoration:none;display:inline-flex;align-items:center}
-.xq-m{border:1px solid var(--line);border-radius:6px;background:var(--code);overflow:hidden}
-.xq-kw{padding:12px 14px;border-bottom:1px dashed var(--line);display:flex;flex-direction:column;gap:8px}
-.xq-kw > span{font-family:var(--f-mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:var(--warn)}
-.xq-kw div{display:flex;flex-wrap:wrap;gap:6px}
-.xq-kw i{font-style:normal;font-family:var(--f-mono);font-size:.74rem;padding:3px 8px;border-radius:3px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
-.xq-ans{padding:12px 14px;display:flex;flex-direction:column;gap:8px;font-size:.95rem}
-.xq-ans::before{content:"▸ Resposta-modelo";font-family:var(--f-mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:var(--c6)}
-.xq-ans ul,.xq-ans ol{margin:0;padding-left:1.3em;display:flex;flex-direction:column;gap:3px}
-.xq-gr{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:12px 14px;border-top:1px solid var(--line);background:var(--surface-2)}
-.xq-gr > span{font-family:var(--f-mono);font-size:.74rem;color:var(--muted);margin-right:4px}
-.xq-gr .btn[data-xg="ok"].on{background:var(--ok);border-color:var(--ok);color:var(--accent-ink);font-weight:600}
-.xq-gr .btn[data-xg="no"].on{background:var(--bad);border-color:var(--bad);color:var(--accent-ink);font-weight:600}
+#xFrame{scroll-margin-top:90px}
+.qres-sec.og p{font-style:italic;color:var(--muted)}
+.qres-sec.kw .qres-l{color:var(--c5)}
+.xkw{display:flex;flex-wrap:wrap;gap:6px}
+.xkw i{font-style:normal;font-family:var(--f-mono);font-size:.74rem;padding:3px 8px;border-radius:3px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.qres-sec.lk{background:var(--surface-2)}
+.qres-sec.lk a.btn{text-decoration:none;display:inline-flex;align-items:center}
+.sp.sfpq[aria-current="true"] .sfp-cage{box-shadow:0 0 0 2px var(--c6),0 0 12px -2px var(--c6),inset 0 0 0 3px var(--sw-pin)}
+.sp.sfpq[aria-current="true"] .sp-n{color:var(--c6);font-weight:600}
 @media (max-width:600px){
   .sw-ports.x24{gap:5px 2px;padding:5px}
   .sw-up.sfps{flex-direction:row;justify-content:space-around}
   .sfp-cage{width:64px}
   #xStats{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .xq-h > span{padding:7px 10px}
-  .xq-b{padding:14px}
-  .xq-gr .btn{flex:1}
-  .xq-gr > span{width:100%}
-  .xq .actions .btn{flex:1 1 auto}
+  .qres-sec.lk .btn{flex:1 1 auto}
 }
 
 /* ---------- celular ---------- */
@@ -1687,8 +1662,8 @@ html:not(.locked) #gate:not(.ok){display:none}
   <div class="head">
     <span class="eyebrow">Extra · Questionário da aula</span>
     <h2>Questionário Extra</h2>
-    <div class="meta"><span class="chip">26 perguntas</span><span class="chip">Dissertativas</span><span class="chip">Com resposta-modelo</span><span class="chip">Autoavaliação</span></div>
-    <p class="lede">As 26 perguntas do questionário passado em aula. Escreva sua resposta, abra a resposta-modelo, confira as palavras-chave que não podem faltar e marque se você sabia ou precisa revisar. A pergunta 7 e as de 21 a 26 (equipamentos de interconexão) são novas; as demais também estão no simulado de múltipla escolha, com link para treinar.</p>
+    <div class="meta"><span class="chip">26 questões</span><span class="chip">Múltipla escolha</span><span class="chip">Dificuldade: difícil</span><span class="chip">Com resposta-modelo</span></div>
+    <p class="lede">As 26 perguntas do questionário passado em aula, em múltipla escolha difícil: cenários práticos, associações e alternativas quase certas. Ao responder, aparecem a pegadinha, a pergunta original do questionário, as palavras-chave que não podem faltar numa resposta escrita e a resposta-modelo. A questão 7 e as de 21 a 26 (equipamentos de interconexão) são assuntos novos; as outras cobrem os mesmos temas do simulado, mas com perguntas diferentes.</p>
   </div>
 
   <div class="qhero">
@@ -1697,7 +1672,8 @@ html:not(.locked) #gate:not(.ok){display:none}
     <div class="qtools" id="xTools"></div>
   </div>
 
-  <div id="xList"></div>
+  <div id="xFrame"></div>
+  <div id="xReport" hidden></div>
 
   <div class="pager" data-pager="extra"></div>
 </div>
@@ -1729,7 +1705,7 @@ const SESS = [
   {n:3, t:"Camadas 1 e 2 na prática", d:"Ethernet, o cabo par trançado e as normas de cabeamento.", mods:["ethernet","par-trancado","cabeamento"]},
   {n:4, t:"Redes sem fio", d:"O padrão 802.11, seus modos e serviços.", mods:["wifi"]},
   {n:5, t:"Endereçamento IP", d:"Binário, classes, máscara, CIDR e cálculo de rede, broadcast e hosts.", mods:["ip"]},
-  {n:6, t:"Questões e simulados", d:"Simulado com 20 questões difíceis de múltipla escolha e o questionário extra da aula, com 26 perguntas dissertativas e respostas-modelo.", mods:["questoes","extra"]}
+  {n:6, t:"Questões e simulados", d:"Simulado com 20 questões difíceis e o questionário extra da aula com 26 questões, todos em múltipla escolha com resolução.", mods:["questoes","extra"]}
 ];
 
 /* ---------- QUESTÕES ---------- */
@@ -2571,84 +2547,171 @@ const EX=[
 ];
 Q.extra={mc:EX, disc:[]};
 
-function xp(){ return PROG.extra||(PROG.extra={}); }
+/* versões de múltipla escolha (difíceis) das 26 perguntas do questionário extra */
+const EXMC=[
+ {mq:"Por que o endereço IP é essencial para que o seu computador, em casa, consiga trocar dados com um servidor na internet?",
+  o:["Porque criptografa os dados durante o envio, impedindo que sejam lidos no caminho","Porque substitui o endereço MAC, que deixa de ser usado depois que o computador recebe um IP","Porque identifica a rede e o dispositivo de destino, permitindo que os roteadores encaminhem os pacotes até a rede certa","Porque define a velocidade máxima da conexão contratada com o provedor"],
+  a:2, t:"O IP não criptografa nada nem define velocidade. E ele não substitui o MAC: dentro da rede local a entrega continua sendo feita pelo MAC, enquanto o IP diz para qual rede e qual dispositivo o pacote vai."},
+ {mq:"Qual endereço está no formato IPv6, e qual foi o principal motivo da criação dessa versão?",
+  o:["192.168.0.300, criado para aumentar a velocidade da internet","2001:0db8:85a3::8a2e:0370:7334, criado pelo esgotamento dos endereços IPv4","2001:0db8:85a3::8a2e:0370:7334, criado porque o NAT é proibido no IPv4","FF-FF-FF-FF-FF-FF, criado para permitir endereços de 48 bits"],
+  a:1, t:"A alternativa C tem o formato certo, mas o motivo errado: o NAT é justamente o \"remendo\" usado no IPv4. FF-FF-FF-FF-FF-FF é um endereço MAC (48 bits), e 192.168.0.300 nem é um IPv4 válido."},
+ {mq:"Quantos bits tem cada octeto de um IPv4, qual o maior valor possível em cada um e qual destes endereços é válido?",
+  o:["8 bits, máximo 255; 172.16.254.1 é válido","8 bits, máximo 256; 192.168.1.256 é válido","16 bits, máximo 65.535; 10.300.0.1 é válido","4 bits, máximo 15; 15.15.15.15 é o maior IPv4 possível"],
+  a:0, t:"Com 8 bits, o maior valor é 11111111 = 255, porque a contagem começa em 0 (são 256 valores, de 0 a 255). Por isso 256 e 300 nunca aparecem em um octeto."},
+ {mq:"O endereço 150.20.3.4 pertence a qual classe, e para que tipo de rede essa classe foi pensada?",
+  o:["Classe A, para redes muito grandes","Classe B, para redes de médio porte","Classe C, para redes pequenas","Classe D, para transmissões multicast"],
+  a:1, t:"A classe é decidida só pelo 1º octeto: 150 está entre 128 e 191, então é classe B. Quem decora \"192 = C\" costuma chutar C para qualquer número \"grande\"."},
+ {mq:"Com a máscara 255.255.255.0, os computadores 192.168.1.10 e 192.168.2.10 estão na mesma rede?",
+  o:["Sim, porque os dois começam com 192.168","Sim, porque a máscara só compara o último octeto","Não, porque o último octeto dos dois é igual (10), e isso causaria conflito","Não, porque a máscara indica que os três primeiros octetos são a rede, e eles diferem no terceiro (1 e 2)"],
+  a:3, t:"Com /24, a parte de rede são os três primeiros octetos inteiros: 192.168.1 e 192.168.2 são redes diferentes. O último octeto igual não causa conflito, porque cada um está em uma rede."},
+ {mq:"Qual afirmação sobre endereços IP públicos e privados está correta?",
+  o:["O mesmo IP privado, como 192.168.0.10, pode existir em milhares de casas ao mesmo tempo, porque não é roteado na internet","Um IP privado pode ser acessado diretamente de qualquer lugar da internet","8.8.8.8 é um IP privado, porque pertence a uma empresa (Google)","Endereços públicos só existem no IPv6"],
+  a:0, t:"\"Privado\" não quer dizer \"de uma empresa\": quer dizer não roteável na internet. Como cada rede local é isolada, todas podem reutilizar as mesmas faixas privadas, e é o NAT que faz a ponte com o IP público."},
+ {mq:"Quais são características fundamentais de um sistema de cabeamento estruturado, e qual o horizonte mínimo de planejamento para um edifício comercial?",
+  o:["Arquitetura proprietária de um único fabricante e projeto livre, sem normas; no mínimo 5 anos","Arquitetura aberta e padronizada; no mínimo 2 anos, quando os equipamentos costumam ser trocados","Arquitetura aberta, meio e disposição física padronizados, aderência a padrões internacionais e projeto sistematizado; no mínimo 10 anos","Padronização apenas dos computadores da rede; no mínimo 20 anos"],
+  a:2, t:"A alternativa B começa certa, mas erra o prazo: o cabeamento é planejado para durar mais que os equipamentos, por no mínimo 10 anos. Arquitetura proprietária é o oposto de arquitetura aberta."},
+ {mq:"O notebook 192.168.0.10 acessa um site. Ao passar pelo roteador com NAT, o que acontece com o pacote?",
+  o:["O IP de destino do site é trocado pelo IP privado do notebook","O roteador traduz o nome do site no IP do servidor","O roteador entrega ao notebook um IP público exclusivo para ele","O IP de origem privado é trocado pelo IP público do roteador, que guarda essa associação para devolver a resposta ao notebook"],
+  a:3, t:"O NAT mexe no endereço de origem (quem enviou), não no de destino. Traduzir nome em IP é função do DNS, e o NAT existe justamente para que o notebook não precise de um IP público próprio."},
+ {mq:"Se o servidor DNS configurado no computador parar de responder, o que acontece mais provavelmente?",
+  o:["O computador perde o endereço IP e a rede local para de funcionar","Os sites deixam de abrir pelo nome, mas um servidor ainda poderia ser acessado digitando diretamente o seu IP","A navegação continua normal, porque o DNS só é usado em e-mails","O cabo de rede deixa de transmitir sinal"],
+  a:1, t:"O DNS só traduz nomes. Sem ele, a conexão continua funcionando, mas o navegador não descobre o IP a partir do nome. Quem entrega o IP ao computador é o DHCP, não o DNS."},
+ {mq:"Ao procurar www.exemplo.com.br sem nada guardado em cache, em que ordem o resolvedor DNS costuma consultar os servidores?",
+  o:["Servidor raiz → servidor TLD (.br) → servidor autoritativo do domínio","Servidor autoritativo → servidor TLD → servidor raiz","Servidor TLD → servidor raiz → servidor autoritativo","Apenas o servidor raiz, que guarda o IP de todos os domínios"],
+  a:0, t:"A consulta desce a hierarquia: a raiz indica quem cuida do .br (TLD), o TLD indica quem é o autoritativo de exemplo.com.br, e o autoritativo dá a resposta oficial. A raiz não guarda o IP de todos os sites."},
+ {mq:"Qual par descreve corretamente o DNS comum e o DNS reverso?",
+  o:["Comum: IP → nome; reverso: nome → IP","Comum: IP privado → IP público; reverso: IP público → IP privado","Comum: nome → IP; reverso: IP → nome","Comum: usado em sites; reverso: usado pelo DHCP para atribuir IPs"],
+  a:2, t:"A alternativa A inverte os dois. A B descreve o NAT, não o DNS. O DNS reverso parte de um IP para descobrir o nome, o que é muito usado na verificação de servidores de e-mail."},
+ {mq:"Como o cache do DNS ajuda a internet a escalar para milhões de usuários?",
+  o:["Guardando cópias completas das páginas dos sites","Aumentando a velocidade de transmissão dos cabos","Garantindo que exista um único servidor central para todas as consultas","Guardando respostas recentes por um tempo, para não repetir as mesmas consultas aos servidores raiz, TLD e autoritativos"],
+  a:3, t:"O cache do DNS guarda a resposta \"nome → IP\", não o conteúdo das páginas. A escalabilidade vem de distribuir (vários servidores, em hierarquia) e de reaproveitar respostas, nunca de centralizar."},
+ {mq:"Qual situação mostra melhor a vantagem de um cabeamento estruturado?",
+  o:["Cada computador novo recebe um cabo direto até o switch, passado pelo caminho mais curto","Um setor muda de sala e basta remanejar patch cords no patch panel, sem passar cabos novos pelo prédio","Os cabos ficam sem identificação, para dificultar o acesso de pessoas não autorizadas","A rede deixa de precisar de switches e roteadores"],
+  a:1, t:"A alternativa A descreve a instalação improvisada, que vira um emaranhado. A vantagem do estruturado é a flexibilidade: pontos já previstos, identificados e organizados, que permitem mudanças sem obra."},
+ {mq:"Associe os componentes às suas funções:\n(1) Patch panel   (2) Rack   (3) Tomada de telecomunicações   (4) Backbone\n( ) Ponto onde o usuário conecta o computador\n( ) Conecta os principais pontos de distribuição da rede\n( ) Organiza e distribui as conexões\n( ) Armazena e organiza os equipamentos\nA sequência correta, de cima para baixo, é:",
+  o:["3, 4, 1, 2","3, 1, 4, 2","1, 4, 3, 2","3, 4, 2, 1"],
+  a:0, t:"A dupla que mais confunde é patch panel e rack: o patch panel distribui as conexões, e o rack é o gabinete que guarda os equipamentos, inclusive o próprio patch panel. A alternativa D inverte exatamente esses dois."},
+ {mq:"Por que seguir normas como a ANSI/TIA-568 e a ISO/IEC 11801 é importante?",
+  o:["Porque tornam obrigatório o uso de fibra óptica em todos os pontos","Porque dispensam os testes depois da instalação","Porque garantem que cabos e componentes de fabricantes diferentes funcionem juntos, com qualidade, segurança e desempenho previsíveis","Porque definem as senhas de acesso à rede Wi-Fi"],
+  a:2, t:"As normas não dispensam testes, que continuam sendo uma etapa obrigatória do projeto, nem impõem fibra em tudo. O ponto central é padronização e compatibilidade."},
+ {mq:"Num escritório comum, sem máquinas ou motores que gerem interferência, qual cabo é o mais indicado e por quê?",
+  o:["STP, porque deve ser usado em qualquer ambiente","STP sem aterramento, por ser o mais barato","UTP, porque possui blindagem metálica","UTP, por ser mais barato e flexível e suficiente para ambientes comuns"],
+  a:3, t:"A alternativa C troca as siglas: o U de UTP é de Unshielded, ou seja, sem blindagem. O STP fica reservado para ambientes com interferência, e sempre com aterramento adequado."},
+ {mq:"Num prédio de 5 andares com um rack por andar, qual parte do cabeamento interliga os racks dos andares entre si e à sala principal?",
+  o:["O backbone (cabeamento vertical)","O cabeamento horizontal","O patch cord da área de trabalho","A tomada de telecomunicações"],
+  a:0, t:"O horizontal vai da tomada até o rack do mesmo andar. O que sobe entre os andares e liga os racks à sala principal é o backbone, a espinha dorsal da rede."},
+ {mq:"Por que a topologia em estrela é a mais usada no cabeamento estruturado moderno?",
+  o:["Porque todos os dispositivos compartilham um único cabo, o que economiza material","Porque cada dispositivo tem seu próprio cabo até o equipamento central: se um cabo falha, só aquele dispositivo é afetado, e a manutenção é simples","Porque os dispositivos formam um círculo e o sinal passa por todos eles","Porque dispensa qualquer equipamento central"],
+  a:1, t:"As alternativas A e C descrevem o barramento e o anel. A estrela depende de um equipamento central, como um switch, e é exatamente isso que isola as falhas de cada cabo."},
+ {mq:"Na sequência de planejamento estudada, quais etapas vêm imediatamente ANTES e DEPOIS de \"instalar os cabos e equipamentos\"?",
+  o:["Antes: testar o funcionamento; depois: documentar","Antes: levantar as necessidades; depois: escolher os cabos","Antes: elaborar o projeto e definir os pontos; depois: identificar e organizar as conexões","Antes: escolher os cabos; depois: elaborar o projeto"],
+  a:2, t:"Projeto vem antes de instalar, e teste vem depois. A ordem completa é: necessidades → ambiente → cabos e equipamentos → projeto → instalação → identificação → testes → documentação."},
+ {mq:"Ao acessar um site, em qual camada do TCP/IP atua o HTTP, e em qual o pacote recebe o endereço IP de destino?",
+  o:["Transporte e Acesso à rede","Aplicação e Transporte","Internet e Aplicação","Aplicação e Internet"],
+  a:3, t:"HTTP é protocolo de aplicação. O endereçamento IP e o roteamento são a função da camada Internet. A camada de Transporte (TCP/UDP) fica entre as duas e cuida da conversa entre origem e destino."},
+ {mq:"Uma rede com 12 computadores ligados a um hub está lenta e com muitas colisões. Qual é a explicação correta?",
+  o:["O hub atua na camada física e repete o sinal para todas as portas, então todas as máquinas ficam em um único domínio de colisão","O hub atua na camada 3 e está roteando os pacotes pelo caminho errado","O hub lê os endereços MAC e separa os domínios de colisão, mas sua tabela está cheia","O problema é a atenuação, porque hubs nunca regeneram o sinal"],
+  a:0, t:"Quem lê MAC e separa domínios de colisão é a ponte ou o switch, não o hub. E o hub ativo regenera, sim, o sinal (é um repetidor multiporta). O problema é ele repetir tudo para todos."},
+ {mq:"Uma ponte recebe um quadro cujo MAC de destino, segundo sua tabela, está no MESMO segmento da origem. O que ela faz?",
+  o:["Repassa o quadro para todos os segmentos, como um repetidor","Não deixa o quadro passar para o outro lado (filtra), mantendo o tráfego local e os domínios de colisão separados","Consulta a tabela de roteamento usando o endereço IP","Amplifica o sinal e retransmite ao outro segmento"],
+  a:1, t:"Essa é a diferença central entre ponte e repetidor: a ponte decide pelo MAC e filtra o que é local. A alternativa C descreve um roteador, que trabalha com IP na camada 3."},
+ {mq:"Pontes ligadas em cascata (segmentos A–B–C–D): o segmento A envia muitos dados ao segmento D. Qual é o impacto?",
+  o:["Nenhum, porque as pontes filtram todo o tráfego","Só o segmento A fica sobrecarregado","Os segmentos e pontes intermediários (B e C) ficam sobrecarregados com tráfego que não é deles; num backbone, esse tráfego passaria pela espinha dorsal sem atravessá-los","Num backbone o problema seria o mesmo, porque o tráfego também passa por todos os segmentos"],
+  a:2, t:"A ponte filtra só o tráfego local. O tráfego de A para D precisa atravessar B e C no cascateamento. Essa é exatamente a vantagem do backbone: a espinha dorsal distribui o tráfego sem passar pelos outros segmentos."},
+ {mq:"Qual modo de comutação de switch descarta quadros com erro antes de encaminhá-los, e qual é o custo disso?",
+  o:["Cut-through, que verifica o CRC antes de ler o MAC, com latência maior","Store-and-forward, que lê apenas o MAC, com latência menor","Cut-through, que armazena o quadro inteiro, sem custo de desempenho","Store-and-forward, que armazena o quadro inteiro e verifica o CRC, ao custo de uma latência um pouco maior"],
+  a:3, t:"O cut-through só lê o MAC de destino e já encaminha: é rápido, mas pode repassar quadros com erro. Conferir o CRC exige ter o quadro inteiro, e é por isso que o store-and-forward é um pouco mais lento."},
+ {mq:"Por que um switch sozinho não leva a rede da escola até a internet, sendo necessário um roteador?",
+  o:["Porque o switch opera na camada 2 com endereços MAC dentro da rede local, e o roteador opera na camada 3, usando o IP de destino e a tabela de roteamento para encaminhar pacotes entre redes diferentes","Porque o switch não tem portas suficientes para a internet","Porque o roteador opera na camada 1 e amplifica o sinal até o provedor","Porque o switch usa endereços IP, e o roteador usa endereços MAC"],
+  a:0, t:"A alternativa D inverte as camadas. A questão não é quantidade de portas, e sim de camada: o switch entrega quadros dentro da LAN (MAC), e o roteador decide caminhos entre redes (IP)."},
+ {mq:"Uma empresa precisa interligar uma rede baseada no modelo OSI a uma rede de arquitetura proprietária, com protocolos totalmente diferentes. Qual equipamento resolve, e como?",
+  o:["Repetidor, que regenera o sinal entre as duas redes","Gateway, que possui as duas pilhas de protocolos e traduz os dados entre as arquiteturas nas camadas superiores","Ponte, que só deixa passar quadros com endereço MAC compatível","Hub ativo, que converte os protocolos ao repetir o sinal"],
+  a:1, t:"Repetidor e hub só repetem sinal (camada 1), e a ponte só funciona entre redes compatíveis na camada de enlace. Com arquiteturas diferentes, só um tradutor com as duas pilhas resolve: o gateway."}
+];
+EXMC.forEach((m,i)=>Object.assign(EX[i],m));
+
+let xCur=0;
+function xp(){ if(!PROG.extra||PROG.extra.v!==2){ PROG.extra={v:2}; } return PROG.extra; }
 function xState(i){ const p=xp(); return p[i]===true?"ok":(p[i]===false?"no":"off"); }
 function buildExtra(){
+  xp(); save();
   // 24 portas RJ-45 (Q1–Q24) + 2 uplinks SFP (Q25 e Q26), como num switch de 26 portas
-  const rj=EX.slice(0,24).map((it,i)=>`<button class="sp" data-x="${i}" aria-label="Pergunta ${i+1}: ${esc(it.tag)}"><span class="sp-n">${String(i+1).padStart(2,"0")}</span><span class="sp-jack"><span class="sp-led l"></span><span class="sp-led r"></span></span></button>`).join("");
-  const sfp=[24,25].map(i=>`<button class="sp sfpq" data-x="${i}" aria-label="Pergunta ${i+1}: ${esc(EX[i].tag)}"><span class="sfp-cage"><span class="sp-led c"></span></span><span class="sp-n">${i+1} · SFP</span></button>`).join("");
+  const rj=EX.slice(0,24).map((it,i)=>`<button class="sp" data-x="${i}" aria-label="Questão ${i+1}: ${esc(it.tag)}"><span class="sp-n">${String(i+1).padStart(2,"0")}</span><span class="sp-jack"><span class="sp-led l"></span><span class="sp-led r"></span></span></button>`).join("");
+  const sfp=[24,25].map(i=>`<button class="sp sfpq" data-x="${i}" aria-label="Questão ${i+1}: ${esc(EX[i].tag)}"><span class="sfp-cage"><span class="sp-led c"></span></span><span class="sp-n">${i+1} · SFP</span></button>`).join("");
   document.getElementById("xSwitch").innerHTML=`
    <div class="sw-top"><span class="sw-brand">LAB-SW-26<small>Questionário Extra · 24 portas + 2 uplinks</small></span><span class="sw-leds"><span><i class="pwr"></i>PWR</span><span><i class="sys"></i>SYS</span></span></div>
    <div class="sw-body"><div class="sw-ports x24">${rj}</div><div class="sw-up sfps">${sfp}</div></div>
-   <div class="sw-legend"><span><i class="lg off"></i>pendente</span><span><i class="lg ok"></i>eu sabia</span><span><i class="lg no"></i>preciso revisar</span></div>`;
-  document.getElementById("xSwitch").addEventListener("click",e=>{ const b=e.target.closest("[data-x]"); if(b) xGo(+b.dataset.x); });
-  // cartões agrupados por tema
-  let h="", last="";
-  EX.forEach((it,i)=>{
-    if(it.g!==last){ const ids=EX.map((x,j)=>x.g===it.g?j+1:null).filter(Boolean); let run=[]; for(let j=i;j<EX.length&&EX[j].g===it.g;j++) run.push(j+1);
-      h+=`<h3 class="xg">${esc(it.g)}<small>${run.length>1?`perguntas ${run[0]} a ${run[run.length-1]}`:`pergunta ${run[0]}`}${i>=20?" · novas":""}</small></h3>`; last=it.g; }
-    const links=[];
-    if(it.sim) links.push(...it.sim.map(k=>`<button class="btn sm" data-xsim="${k}">Treinar no simulado · Q${String(k+1).padStart(2,"0")}</button>`));
-    if(it.mod){ const m=MODS.find(x=>x.id===it.mod); links.push(`<a class="btn sm" href="#${it.mod}">Revisar: ${esc(m.t)}</a>`); }
-    h+=`<article class="xq" id="xq-${i}" data-state="off">
-      <header class="xq-h"><span class="xq-no">Q${String(i+1).padStart(2,"0")}</span><span class="xq-tag">${esc(it.tag)}</span><span class="xq-st"></span></header>
-      <div class="xq-b"><p class="xq-q">${esc(it.q)}</p>
-       <label class="xq-l" for="xa-${i}">Sua resposta</label>
-       <textarea id="xa-${i}" data-xt="${i}" placeholder="Escreva com suas palavras antes de abrir a resposta-modelo…"></textarea>
-       <div class="actions"><button class="btn pri" data-xshow="${i}">Ver resposta-modelo</button>${links.join("")}</div>
-       <div class="xq-m" hidden>
-        <div class="xq-kw"><span>Não pode faltar na resposta</span><div>${it.k.map(w=>`<i>${esc(w)}</i>`).join("")}</div></div>
-        <div class="xq-ans">${it.r}</div>
-        <div class="xq-gr"><span>Comparando com a sua resposta:</span><button class="btn" data-xg="ok" data-i="${i}">✔ Eu sabia</button><button class="btn" data-xg="no" data-i="${i}">✖ Preciso revisar</button></div>
-       </div></div></article>`;
-  });
-  const list=document.getElementById("xList"); list.innerHTML=h;
-  const p=xp();
-  list.querySelectorAll("textarea[data-xt]").forEach(t=>{ const v=p["t"+t.dataset.xt]; if(v) t.value=v; });
-  let tmr=null;
-  list.addEventListener("input",e=>{ const t=e.target.closest("textarea[data-xt]"); if(!t) return; xp()["t"+t.dataset.xt]=t.value; clearTimeout(tmr); tmr=setTimeout(()=>{ save(); xStats(); },400); });
-  list.addEventListener("click",e=>{
-    const s=e.target.closest("[data-xshow]");
-    if(s){ const card=s.closest(".xq"), m=card.querySelector(".xq-m"); m.hidden=!m.hidden; s.textContent=m.hidden?"Ver resposta-modelo":"Esconder resposta-modelo"; return; }
-    const g=e.target.closest("[data-xg]");
-    if(g){ const i=+g.dataset.i, P=xp(); P[i]=(g.dataset.xg==="ok"); save(); updateProgress(); xPaint(i); xStats(); return; }
-    const sm=e.target.closest("[data-xsim]");
-    if(sm){ const k=+sm.dataset.xsim; location.hash="questoes"; setTimeout(()=>qGo(k,true),80); }
-  });
-  EX.forEach((_,i)=>xPaint(i)); xStats();
-}
-function xPaint(i){
-  const st=xState(i), card=document.getElementById("xq-"+i); card.dataset.state=st;
-  card.querySelector(".xq-st").textContent= st==="ok"?"EU SABIA":(st==="no"?"REVISAR":"PENDENTE");
-  card.querySelectorAll("[data-xg]").forEach(b=>b.classList.toggle("on", (b.dataset.xg==="ok"&&st==="ok")||(b.dataset.xg==="no"&&st==="no")));
-  const port=document.querySelector(`#xSwitch [data-x="${i}"]`); if(port) port.dataset.state=st;
+   <div class="sw-legend"><span><i class="lg off"></i>não respondida</span><span><i class="lg ok"></i>acertou</span><span><i class="lg no"></i>errou</span><span><i class="lg cur"></i>questão atual</span></div>`;
+  document.getElementById("xSwitch").addEventListener("click",e=>{ const b=e.target.closest("[data-x]"); if(b) xGo(+b.dataset.x,true); });
+  const first=EX.findIndex((_,i)=>xState(i)==="off"); xCur= first<0?0:first;
+  xRender();
 }
 function xStats(){
-  const p=xp(); let ok=0,no=0,wr=0; EX.forEach((_,i)=>{ if(p[i]===true) ok++; else if(p[i]===false) no++; if((p["t"+i]||"").trim()) wr++; });
+  const p=xp(); let ok=0,no=0; EX.forEach((_,i)=>{ if(p[i]===true) ok++; else if(p[i]===false) no++; });
+  const done=ok+no, rate=done?Math.round(ok*100/done):0;
+  document.querySelectorAll("#xSwitch [data-x]").forEach(b=>{ const i=+b.dataset.x; b.dataset.state=xState(i); if(i===xCur) b.setAttribute("aria-current","true"); else b.removeAttribute("aria-current"); });
   document.getElementById("xStats").innerHTML=`
-   <div class="qs"><span>Autoavaliadas</span><b>${ok+no}<small>/26</small></b></div>
-   <div class="qs ok"><span>Eu sabia</span><b>${ok}</b></div>
-   <div class="qs no"><span>Preciso revisar</span><b>${no}</b></div>
-   <div class="qs"><span>Respostas escritas</span><b>${wr}<small>/26</small></b></div>
+   <div class="qs"><span>Respondidas</span><b>${done}<small>/26</small></b></div>
+   <div class="qs ok"><span>ACK · acertos</span><b>${ok}</b></div>
+   <div class="qs no"><span>NACK · erros</span><b>${no}</b></div>
+   <div class="qs"><span>Taxa de acerto</span><b>${done?rate+"%":"–"}</b></div>
    <div class="qbar x26" aria-hidden="true">${EX.map((_,i)=>`<i class="${xState(i)}"></i>`).join("")}</div>`;
-  const n=Object.keys(p).length, box=document.getElementById("xTools");
-  box.innerHTML=`<span class="qt-msg">${no?`${no} para revisar: use as portas vermelhas do switch para ir direto a elas`:"Seus textos ficam salvos neste navegador"}</span>
-   <button class="btn" id="xResetBtn" ${n?"":"disabled"}><span class="ico">↺</span>Refazer questionário</button>
-   <span class="qt-confirm" hidden><span class="qt-msg">Apagar suas respostas e autoavaliações?</span><button class="btn sm danger" id="xResetYes">Sim, apagar</button><button class="btn sm" id="xResetNo">Cancelar</button></span>`;
+  const box=document.getElementById("xTools");
+  box.innerHTML=`<span class="qt-msg">${done? done+" de 26 respondidas" : "Nenhuma questão respondida ainda"}</span>
+   <button class="btn" id="xResetBtn" ${done?"":"disabled"}><span class="ico">↺</span>Refazer questionário</button>
+   <span class="qt-confirm" hidden><span class="qt-msg">Apagar as ${done} respostas e começar do zero?</span><button class="btn sm danger" id="xResetYes">Sim, refazer</button><button class="btn sm" id="xResetNo">Cancelar</button></span>`;
   const btn=box.querySelector("#xResetBtn"), cf=box.querySelector(".qt-confirm"), cnt=box.querySelector(".qt-msg");
   btn.onclick=()=>{ btn.hidden=true; cnt.hidden=true; cf.hidden=false; box.querySelector("#xResetYes").focus(); };
   box.querySelector("#xResetNo").onclick=()=>{ cf.hidden=true; btn.hidden=false; cnt.hidden=false; btn.focus(); };
-  box.querySelector("#xResetYes").onclick=()=>{ PROG.extra={}; save(); updateProgress();
-    document.querySelectorAll("#xList textarea").forEach(t=>t.value="");
-    document.querySelectorAll("#xList .xq-m").forEach(m=>m.hidden=true);
-    document.querySelectorAll("#xList [data-xshow]").forEach(b=>b.textContent="Ver resposta-modelo");
-    EX.forEach((_,i)=>xPaint(i)); xStats(); document.getElementById("xSwitch").scrollIntoView({behavior:"smooth",block:"start"}); };
+  box.querySelector("#xResetYes").onclick=xReset;
+  const rep=document.getElementById("xReport");
+  if(done===26){
+    const wrong=EX.map((_,i)=>i).filter(i=>p[i]===false);
+    const verdict= ok>=23?"Link estável: você está pronto para a prova.": ok>=18?"Boa conexão, com alguma perda de pacotes. Revise as erradas.":"Muita perda de pacotes. Releia os módulos e refaça o questionário.";
+    rep.hidden=false;
+    rep.innerHTML=`<div class="qr-h"><span class="qr-t">Captura concluída</span><span class="qr-s">${ok}/26 ACK · ${rate}%</span></div><p>${verdict}</p>
+     ${wrong.length?`<div class="qr-w"><span>Revisar questões com NACK:</span>${wrong.map(i=>`<button class="btn sm" data-xgo="${i}">${String(i+1).padStart(2,"0")} · ${esc(EX[i].tag)}</button>`).join("")}</div>`:""}
+     <div class="actions"><button class="btn" id="xResetAll">Refazer o questionário</button></div>`;
+    rep.querySelectorAll("[data-xgo]").forEach(b=>b.onclick=()=>xGo(+b.dataset.xgo,true));
+    document.getElementById("xResetAll").onclick=xReset;
+  } else { rep.hidden=true; rep.innerHTML=""; }
 }
-function xGo(i){
-  const c=document.getElementById("xq-"+i); if(!c) return;
-  c.scrollIntoView({behavior:"smooth",block:"start"});
-  c.classList.remove("flash"); void c.offsetWidth; c.classList.add("flash");
+function xRender(){
+  const it=EX[xCur], p=xp(), ans=p["c"+xCur], answered=ans!==undefined, ok=answered&&ans===it.a;
+  const opts=it.o.map((o,k)=>{ let cls="", tag="";
+    if(answered){ if(k===it.a){cls="right";tag=`<span class="qo-tag ok">correta</span>`;} else if(k===ans){cls="wrong";tag=`<span class="qo-tag no">sua resposta</span>`;} }
+    return `<button class="qo ${cls}" data-k="${k}" ${answered?"disabled":""}><span class="qo-k">${L[k]}</span><span class="qo-t">${esc(o)}</span>${tag}</button>`; }).join("");
+  const links=[];
+  if(it.sim) links.push(...it.sim.map(k=>`<button class="btn sm" data-xsim="${k}">Treinar também no simulado · Q${String(k+1).padStart(2,"0")}</button>`));
+  if(it.mod){ const m=MODS.find(x=>x.id===it.mod); links.push(`<a class="btn sm" href="#${it.mod}">Revisar: ${esc(m.t)}</a>`); }
+  document.getElementById("xFrame").innerHTML=`<article class="qf">
+   <header class="qf-h"><span class="qf-no">QUESTÃO ${String(xCur+1).padStart(2,"0")}<small>/26</small></span><span class="qf-f">PROTO <b>${esc(it.tag)}</b></span><span class="qf-f">ALT <b>4</b></span>${xCur>=20||xCur===6?`<span class="qf-f"><b>NOVA</b></span>`:""}<span class="qf-flag">DIFÍCIL</span></header>
+   <div class="qf-body"><p class="qf-q">${esc(it.mq)}</p><div class="qf-opts">${opts}</div>
+   ${answered?`<div class="qres ${ok?"ok":"no"}"><div class="qres-h"><span class="sig">${ok?"ACK":"NACK"}</span>${ok?"Correto.":"Não é essa."} Resposta correta: <b>${L[it.a]}</b></div>
+     <div class="qres-sec"><span class="qres-l">▸ Pegadinha</span><p>${esc(it.t)}</p></div>
+     <div class="qres-sec og"><span class="qres-l">▸ Pergunta original do questionário</span><p>${esc(it.q)}</p></div>
+     <div class="qres-sec kw"><span class="qres-l">▸ Não pode faltar na resposta dissertativa</span><div class="xkw">${it.k.map(w=>`<i>${esc(w)}</i>`).join("")}</div></div>
+     <div class="qres-sec rs"><span class="qres-l">▸ Resposta-modelo</span>${it.r}</div>
+     ${links.length?`<div class="qres-sec lk"><div class="actions">${links.join("")}</div></div>`:""}</div>`
+   :`<p class="qf-hint">Escolha uma alternativa. No teclado: A a D para responder, ← e → para trocar de questão.</p>`}
+   </div>
+   <footer class="qf-nav"><button class="btn" id="xPrev" ${xCur===0?"disabled":""}>◀ Anterior</button>${answered?`<button class="btn" id="xRedo"><span class="ico">↺</span>Refazer esta questão</button>`:""}<button class="btn pri" id="xNext">${xCur===25?"Ver relatório":"Próxima ▶"}</button></footer></article>`;
+  const F=document.getElementById("xFrame");
+  F.querySelectorAll(".qo").forEach(b=>b.onclick=()=>xAnswer(+b.dataset.k));
+  F.querySelectorAll("[data-xsim]").forEach(b=>b.onclick=()=>{ const k=+b.dataset.xsim; location.hash="questoes"; setTimeout(()=>qGo(k,true),80); });
+  document.getElementById("xPrev").onclick=()=>xGo(xCur-1,false);
+  const redo=document.getElementById("xRedo"); if(redo) redo.onclick=()=>{ const P=xp(); delete P[xCur]; delete P["c"+xCur]; save(); updateProgress(); xRender(); };
+  document.getElementById("xNext").onclick=()=>{ if(xCur===25){ const r=document.getElementById("xReport"); if(!r.hidden) r.scrollIntoView({behavior:"smooth",block:"start"}); else { const f=EX.findIndex((_,i)=>xState(i)==="off"); if(f>=0) xGo(f,true); } } else xGo(xCur+1,false); };
+  xStats();
 }
+function xAnswer(k){ const p=xp(); if(p["c"+xCur]!==undefined) return; p["c"+xCur]=k; p[xCur]=(k===EX[xCur].a); save(); updateProgress(); xRender(); }
+function xGo(i,scroll){ if(i<0||i>25) return; xCur=i; xRender(); if(scroll) document.getElementById("xFrame").scrollIntoView({behavior:"smooth",block:"start"}); }
+function xReset(){ PROG.extra={v:2}; save(); updateProgress(); xCur=0; xRender(); document.getElementById("xSwitch").scrollIntoView({behavior:"smooth",block:"start"}); }
+document.addEventListener("keydown",e=>{
+  const v=document.getElementById("v-extra"); if(!v||v.hidden||e.target.matches("input,textarea")||e.metaKey||e.ctrlKey||e.altKey) return;
+  const key=e.key.toLowerCase(), map={a:0,b:1,c:2,d:3,"1":0,"2":1,"3":2,"4":3};
+  if(key in map) xAnswer(map[key]); else if(e.key==="ArrowRight") xGo(xCur+1,false); else if(e.key==="ArrowLeft") xGo(xCur-1,false);
+});
 
 /* ---------- INIT ---------- */
 document.querySelectorAll("[data-topo]").forEach(s=>s.innerHTML=topo(s.dataset.topo));
