@@ -10,6 +10,6 @@ A aba **Questionário Extra** traz as 26 perguntas do questionário da aula (end
 
 O site é um único arquivo (`index.html`), sem dependências de build.
 
-## Abertura
+## Acesso e abertura
 
-Ao abrir o site (uma vez por sessão), uma animação de cerca de 4 segundos mostra o handshake TCP de 3 vias (SYN, SYN-ACK, ACK) entre o seu computador e o servidor, com o log de link, DHCP e DNS. Dá para pular clicando na tela, no botão "Pular" ou apertando Esc.
+O site pede uma senha antes de abrir (verificada por hash SHA-256 no navegador); depois do login, o acesso fica liberado até fechar a aba. Em seguida, uma animação de cerca de 4 segundos mostra o handshake TCP de 3 vias (SYN, SYN-ACK, ACK) entre o seu computador e o servidor, com o log de link, DHCP e DNS. Dá para pular a animação clicando na tela, no botão "Pular" ou apertando Esc.
