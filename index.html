@@ -16,7 +16,7 @@
 :root{
   --bg:#0B1319; --grid:#1A2832; --panel:#101C24; --surface:#13212A; --surface-2:#182A35; --ink:#DCE6EA; --muted:#8C9FA9; --line:#243743;
   --accent:#5AA6F0; --accent-ink:#06121C; --accent-soft:#14283A;
-  --c1:#F0913A; --c2:#47B76E; --c3:#5AA6F0; --c4:#C79465; --c5:#E6C24A; --c6:#3FD0D9;
+  --c1:#F0913A; --c2:#47B76E; --c3:#5AA6F0; --c4:#C79465; --c5:#E6C24A; --c6:#3FD0D9; --c7:#FF7A8A;
   --ok:#4FD18B; --ok-soft:#10301F; --bad:#F2877A; --bad-soft:#36191A; --warn:#E6B85A; --warn-soft:#33280F;
   --led-off:#2A3A44; --code:#0E1A21; --net:#5AA6F0; --host:#F0913A;
   --w-orange:#E07B1F; --w-green:#2E8B3E; --w-blue:#2563C9; --w-brown:#7A4A26; --w-white:#F4F4EE; --w-edge:#5E6E76;
@@ -29,13 +29,13 @@
 @media (prefers-color-scheme: light){ :root:not([data-theme="dark"]){
   --bg:#EDF1F3; --grid:#D3DCE1; --panel:#E3E9EC; --surface:#FFFFFF; --surface-2:#F4F7F8; --ink:#0F1E27; --muted:#55666F; --line:#CCD6DB;
   --accent:#1D5FAE; --accent-ink:#FFFFFF; --accent-soft:#E0EAF6;
-  --c1:#C2610F; --c2:#23803F; --c3:#1D5FAE; --c4:#7A4A26; --c5:#8E7000; --c6:#0B7F89;
+  --c1:#C2610F; --c2:#23803F; --c3:#1D5FAE; --c4:#7A4A26; --c5:#8E7000; --c6:#0B7F89; --c7:#B4234A;
   --ok:#1D7748; --ok-soft:#DFF1E6; --bad:#AF3A2D; --bad-soft:#F7E3E0; --warn:#875800; --warn-soft:#FAEFD7;
   --led-off:#BFCBD1; --code:#E6ECEF; --net:#1D5FAE; --host:#C2610F; --w-edge:#9AA6AC; color-scheme:light }}
 :root[data-theme="light"]{
   --bg:#EDF1F3; --grid:#D3DCE1; --panel:#E3E9EC; --surface:#FFFFFF; --surface-2:#F4F7F8; --ink:#0F1E27; --muted:#55666F; --line:#CCD6DB;
   --accent:#1D5FAE; --accent-ink:#FFFFFF; --accent-soft:#E0EAF6;
-  --c1:#C2610F; --c2:#23803F; --c3:#1D5FAE; --c4:#7A4A26; --c5:#8E7000; --c6:#0B7F89;
+  --c1:#C2610F; --c2:#23803F; --c3:#1D5FAE; --c4:#7A4A26; --c5:#8E7000; --c6:#0B7F89; --c7:#B4234A;
   --ok:#1D7748; --ok-soft:#DFF1E6; --bad:#AF3A2D; --bad-soft:#F7E3E0; --warn:#875800; --warn-soft:#FAEFD7;
   --led-off:#BFCBD1; --code:#E6ECEF; --net:#1D5FAE; --host:#C2610F; --w-edge:#9AA6AC; color-scheme:light }
 
@@ -60,7 +60,7 @@ code,.mono{font-family:var(--f-mono);font-size:.9em}
 code{background:var(--code);padding:.08em .35em;border-radius:4px;border:1px solid var(--line)}
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
-.view[data-sess="1"]{--sc:var(--c1)} .view[data-sess="2"]{--sc:var(--c2)} .view[data-sess="3"]{--sc:var(--c3)} .view[data-sess="4"]{--sc:var(--c4)} .view[data-sess="5"]{--sc:var(--c5)} .view[data-sess="6"]{--sc:var(--c6)}
+.view[data-sess="1"]{--sc:var(--c1)} .view[data-sess="2"]{--sc:var(--c2)} .view[data-sess="3"]{--sc:var(--c3)} .view[data-sess="4"]{--sc:var(--c4)} .view[data-sess="5"]{--sc:var(--c5)} .view[data-sess="6"]{--sc:var(--c6)} .view[data-sess="7"]{--sc:var(--c7)}
 
 .app{display:grid;grid-template-columns:286px minmax(0,1fr);gap:40px;max-width:1260px;margin:0 auto;padding-block:24px 64px}
 
@@ -525,6 +525,111 @@ html:not(.locked) #gate:not(.ok){display:none}
   .sfp-cage{width:64px}
   #xStats,#oStats{grid-template-columns:repeat(2,minmax(0,1fr))}
   .qres-sec.lk .btn{flex:1 1 auto}
+}
+
+/* ---------- modo prova: pacotes, transmissão e medidor de sinal ---------- */
+.pv-go{font-size:.95rem;padding:11px 20px}
+#v-prova .btn.pri{background:var(--c7);border-color:var(--c7)}
+.pv-intro,.pv-boot,.pv-exam,.pv-tx,.pv-res{display:flex;flex-direction:column;gap:16px}
+.pv-intro .term-body .rv{grid-template-columns:14ch minmax(0,1fr)}
+.pv-intro .term-body .rv .k{color:var(--c7)}
+.pv-net{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:0}
+.pv-node{display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--surface);min-width:118px;text-align:center}
+.pv-node span{font-family:var(--f-display);font-weight:600;font-size:.92rem}
+.pv-node small{font-family:var(--f-mono);font-size:.66rem;color:var(--muted)}
+.pv-node.srv{border-color:var(--c7)}
+.pv-wire{position:relative;height:44px}
+.pv-wire::before{content:"";position:absolute;left:0;right:0;top:50%;height:3px;margin-top:-1.5px;background:repeating-linear-gradient(90deg,var(--line) 0 8px,transparent 8px 12px)}
+.pv-flow{position:absolute;left:0;right:0;top:50%;height:3px;margin-top:-1.5px;background:repeating-linear-gradient(90deg,var(--ok) 0 10px,transparent 10px 16px);box-shadow:0 0 8px var(--ok);animation:hsup .5s ease-out .5s both, hsflow .5s linear 1s infinite;transform-origin:left}
+.pv-boot .pv-log{max-width:620px}
+.pv-pk{position:absolute;top:50%;left:0;transform:translate(-50%,-50%);font-style:normal;font-family:var(--f-mono);font-size:.62rem;font-weight:600;padding:2px 6px;border-radius:3px;background:var(--c7);color:var(--accent-ink);opacity:0;
+  animation:pvpk .7s ease-in-out var(--d) both}
+@keyframes pvpk{0%{left:0;opacity:0}12%{opacity:1}88%{opacity:1}100%{left:100%;opacity:0}}
+.pv-top{display:flex;flex-direction:column;gap:8px;position:sticky;top:calc(env(safe-area-inset-top, 0px) + 8px);z-index:5;background:var(--bg);padding:8px 0;margin:-8px 0 0}
+.pv-slots{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:5px}
+.pv-slot{font:inherit;display:flex;flex-direction:column;align-items:center;gap:4px;padding:7px 2px 6px;border:1px solid var(--line);border-radius:4px;background:var(--surface);color:var(--muted);cursor:pointer;min-width:0}
+.pv-slot i{width:100%;max-width:34px;height:8px;border-radius:2px;background:var(--led-off);transition:background .2s,box-shadow .2s}
+.pv-slot span{font-family:var(--f-mono);font-size:.6rem;white-space:nowrap}
+.pv-slot.ans i{background:var(--c7);box-shadow:0 0 6px var(--c7)}
+.pv-slot.cur{border-color:var(--c7);color:var(--ink)}
+.pv-slot.cur span{font-weight:600}
+.pv-slot.wait i{animation:pvwait 1s ease-in-out infinite}
+@keyframes pvwait{50%{background:var(--muted)}}
+.pv-slot.ok{border-color:var(--ok);color:var(--ok)} .pv-slot.ok i{background:var(--ok);box-shadow:0 0 8px var(--ok)}
+.pv-slot.no{border-color:var(--bad);color:var(--bad)} .pv-slot.no i{background:var(--bad);box-shadow:0 0 8px var(--bad)}
+.pv-slot.blank{border-style:dashed} .pv-slot.blank i{background:transparent;border:1px dashed var(--bad)}
+.pv-slot.ok,.pv-slot.no,.pv-slot.blank{animation:pvland .35s ease-out}
+@keyframes pvland{from{transform:translateY(-6px);opacity:.3}}
+.pv-meta{display:flex;flex-wrap:wrap;gap:6px 18px;font-family:var(--f-mono);font-size:.74rem;color:var(--muted)}
+.pv-meta b{color:var(--ink);font-variant-numeric:tabular-nums}
+.qo.sel{border-color:var(--c7);background:var(--surface)}
+.qo.sel .qo-k{background:var(--c7);color:var(--accent-ink);border-color:var(--c7)}
+.qo-tag.sel{background:var(--c7);color:var(--accent-ink)}
+.qf-flag.pv-val{color:var(--c7)} .qf-flag.pv-val::before{background:linear-gradient(90deg,var(--c7) 0 30%,transparent 30% 35%,var(--c7) 35% 65%,transparent 65% 70%,var(--c7) 70%)}
+.pv-submit{display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-end;gap:10px;padding:12px 14px;border:1px dashed var(--c7);border-radius:8px;background:var(--surface)}
+.pv-submit .qt-msg{font-family:var(--f-mono);font-size:.8rem;color:var(--muted);margin-right:auto}
+.pv-status{font-family:var(--f-mono);font-size:.82rem;color:var(--c7)}
+.pv-live{display:grid;grid-template-columns:auto minmax(0,1fr);gap:18px;align-items:start}
+.pv-big{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.pv-grade{font-family:var(--f-display);font-weight:700;font-size:clamp(3rem,9vw,4.6rem);line-height:1;font-variant-numeric:tabular-nums;color:var(--ink)}
+.pv-grade.bump{animation:pvbump .3s ease-out}
+@keyframes pvbump{40%{transform:scale(1.12);color:var(--ok)}}
+.pv-big small{font-family:var(--f-mono);font-size:1rem;color:var(--muted)}
+.pv-eq{width:100%;font-family:var(--f-mono);font-size:.74rem;color:var(--muted)}
+.pv-live .pv-log{max-height:190px;overflow:auto;margin:0}
+.pv-log .pr.bad{color:var(--bad)}
+.pv-card{border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:18px;display:flex;flex-direction:column;gap:16px}
+.pv-res-top{display:grid;grid-template-columns:auto auto minmax(0,1fr);gap:24px;align-items:end}
+.pv-big.final .pv-grade{animation:pvbump .5s ease-out .1s}
+.pv-signal{display:flex;align-items:flex-end;gap:6px;height:90px;padding-bottom:4px;flex:none}
+.pv-signal i{position:relative;flex:none;width:16px;height:var(--h);border-radius:3px;background:var(--line);overflow:hidden}
+.pv-signal i b{position:absolute;left:0;right:0;bottom:0;height:calc(var(--f) * 100%);background:var(--sc);box-shadow:0 0 10px var(--sc);animation:pvbar .6s ease-out both}
+.pv-signal i:nth-child(2) b{animation-delay:.12s} .pv-signal i:nth-child(3) b{animation-delay:.24s} .pv-signal i:nth-child(4) b{animation-delay:.36s} .pv-signal i:nth-child(5) b{animation-delay:.48s}
+@keyframes pvbar{from{height:0}}
+.pv-verdict b{display:block;font-family:var(--f-display);font-size:1.3rem}
+.pv-verdict p{color:var(--muted);font-size:.95rem}
+.pv-stats{display:flex;flex-wrap:wrap;gap:8px}
+.pv-stats span{font-family:var(--f-mono);font-size:.76rem;border:1px solid var(--line);border-radius:4px;padding:5px 10px;background:var(--surface-2);color:var(--muted)}
+.pv-stats b{color:var(--ink);font-size:.95rem}
+.pv-stats .ok b{color:var(--ok)} .pv-stats .no b{color:var(--bad)}
+.pv-review{display:flex;flex-direction:column;gap:12px}
+.pv-rv{border:1px solid var(--line);border-radius:8px;background:var(--surface);overflow:hidden;scroll-margin-top:90px}
+.pv-rv header{display:flex;flex-wrap:wrap;align-items:center;background:var(--code);border-bottom:1px solid var(--line);font-family:var(--f-mono);font-size:.72rem;color:var(--muted)}
+.pv-rv header > span{padding:7px 12px;border-right:1px solid var(--line)}
+.pv-rv header .pv-src{margin-left:auto;border-right:0}
+.pv-tag.ok{color:var(--ok);font-weight:600} .pv-tag.no,.pv-tag.blank{color:var(--bad);font-weight:600}
+.pv-rv-b{padding:14px 16px;display:flex;flex-direction:column;gap:10px;border-left:3px solid var(--line)}
+.pv-rv.ok .pv-rv-b{border-left-color:var(--ok)} .pv-rv.no .pv-rv-b,.pv-rv.blank .pv-rv-b{border-left-color:var(--bad)}
+.pv-opts{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:5px}
+.pv-opts li{display:grid;grid-template-columns:30px minmax(0,1fr) auto;align-items:center;border:1px solid var(--line);border-radius:4px;background:var(--surface-2);font-size:.92rem;overflow:hidden}
+.pv-opts li > span:nth-child(2){padding:7px 10px}
+.pv-opts li.right{border-color:var(--ok);background:var(--ok-soft)} .pv-opts li.right .qo-k{background:var(--ok);color:var(--accent-ink)}
+.pv-opts li.wrong{border-color:var(--bad);background:var(--bad-soft)} .pv-opts li.wrong .qo-k{background:var(--bad);color:var(--accent-ink)}
+.pv-opts em{font-style:normal;font-family:var(--f-mono);font-size:.6rem;text-transform:uppercase;letter-spacing:.06em;padding:2px 6px;border-radius:3px;margin-right:8px;color:var(--accent-ink)}
+.pv-opts em.ok{background:var(--ok)} .pv-opts em.no{background:var(--bad)}
+.pv-exp summary{cursor:pointer;font-family:var(--f-mono);font-size:.74rem;color:var(--c6)}
+.pv-exp .qres-sec{padding:10px 0 0}
+#pvHist{display:flex;flex-direction:column;gap:12px}
+.pv-hstats{display:flex;flex-wrap:wrap;gap:8px}
+.pv-hstats span{font-family:var(--f-mono);font-size:.76rem;color:var(--muted);border:1px solid var(--line);border-radius:4px;padding:6px 10px;background:var(--surface)}
+.pv-hstats b{color:var(--ink);font-size:1rem;margin-left:4px}
+.pv-spark{display:flex;align-items:flex-end;gap:6px;height:84px;padding:6px 8px 0;border:1px solid var(--line);border-radius:6px;background:var(--code)}
+.pv-spark i{position:relative;flex:1;max-width:38px;height:calc(var(--v) * 62px + 4px);border-radius:3px 3px 0 0;background:var(--bad)}
+.pv-spark i.ok{background:var(--ok)}
+.pv-spark i b{position:absolute;top:-16px;left:50%;transform:translateX(-50%);font-family:var(--f-mono);font-size:.6rem;font-weight:400;color:var(--muted)}
+@media (max-width:600px){
+  .pv-node{min-width:0;padding:8px 6px}
+  .pv-node span{font-size:.78rem}
+  .pv-slots{grid-template-columns:repeat(5,minmax(0,1fr))}
+  .pv-live{grid-template-columns:minmax(0,1fr)}
+  .pv-res-top{grid-template-columns:minmax(0,1fr) auto;gap:12px}
+  .pv-log div{grid-template-columns:7ch 5ch minmax(0,1fr)}
+  .pv-log .ts{display:inline}
+  .pv-verdict{grid-column:1 / -1}
+  .pv-submit .btn{flex:1}
+  .pv-submit .qt-msg{width:100%}
+  .pv-intro .term-body .rv{grid-template-columns:minmax(0,1fr)}
+  .pv-rv header .pv-src{margin-left:0}
 }
 
 /* ---------- celular ---------- */
@@ -1734,6 +1839,25 @@ html:not(.locked) #gate:not(.ok){display:none}
   <div class="pager" data-pager="original"></div>
 </div>
 
+<!-- ============ MODO PROVA ============ -->
+<div class="view" id="v-prova" data-sess="7" data-layers="" hidden>
+  <div class="head">
+    <span class="eyebrow">Avaliação · Modo prova</span>
+    <h2>Modo Prova</h2>
+    <div class="meta"><span class="chip">10 questões aleatórias</span><span class="chip">0,5 ponto cada</span><span class="chip">Nota de 0 a 5,0</span><span class="chip">Correção ao entregar</span></div>
+    <p class="lede">Uma prova nova a cada vez: 10 questões sorteadas de todo o site, sem repetir assunto. Responda no seu ritmo, troque de resposta se quiser e entregue no final. As respostas viajam como pacotes até o servidor de correção e voltam como ACK (certo) ou NACK (errado), formando a sua nota.</p>
+  </div>
+
+  <div id="pv"></div>
+
+  <section class="blk">
+    <h3>Histórico de provas</h3>
+    <div id="pvHist"></div>
+  </section>
+
+  <div class="pager" data-pager="prova"></div>
+</div>
+
   </main>
 </div>
 <nav class="mbar" id="mbar" aria-label="Navegação entre módulos"></nav>
@@ -1754,7 +1878,8 @@ const MODS = [
   {id:"ip", n:10, t:"Endereçamento e Cálculo IP", s:5},
   {id:"questoes", n:11, t:"Questões para Estudo", s:6},
   {id:"extra", n:12, t:"Questionário Extra", s:6},
-  {id:"original", n:13, t:"Questionário Original", s:6}
+  {id:"original", n:13, t:"Questionário Original", s:6},
+  {id:"prova", n:14, t:"Modo Prova", s:7}
 ];
 const SESS = [
   {n:1, t:"Fundamentos", d:"O que é comunicar dados e como as camadas organizam tudo.", mods:["comunicacao","osi","tcpip"]},
@@ -1762,7 +1887,8 @@ const SESS = [
   {n:3, t:"Camadas 1 e 2 na prática", d:"Ethernet, o cabo par trançado e as normas de cabeamento.", mods:["ethernet","par-trancado","cabeamento"]},
   {n:4, t:"Redes sem fio", d:"O padrão 802.11, seus modos e serviços.", mods:["wifi"]},
   {n:5, t:"Endereçamento IP", d:"Binário, classes, máscara, CIDR e cálculo de rede, broadcast e hosts.", mods:["ip"]},
-  {n:6, t:"Questões e simulados", d:"Simulado com 20 questões difíceis e o questionário da aula em duas versões de 26 questões (com cenários e com o enunciado original), todos em múltipla escolha com resolução.", mods:["questoes","extra","original"]}
+  {n:6, t:"Questões e simulados", d:"Simulado com 20 questões difíceis e o questionário da aula em duas versões de 26 questões (com cenários e com o enunciado original), todos em múltipla escolha com resolução.", mods:["questoes","extra","original"]},
+  {n:7, t:"Modo Prova", d:"Prova com 10 questões sorteadas, valendo 0,5 cada, com nota de 0 a 5,0 e correção comentada no final.", mods:["prova"]}
 ];
 
 /* ---------- QUESTÕES ---------- */
@@ -1927,17 +2053,17 @@ const KEY="roteiro-redes-v1";
 let PROG={};
 try{ PROG=JSON.parse(localStorage.getItem(KEY)||"{}")||{}; }catch(e){ PROG={}; }
 function save(){ try{ localStorage.setItem(KEY, JSON.stringify(PROG)); }catch(e){} }
-function modTotal(id){ if(id==="ip") return IPMC.length + IPEX.length; return Q[id].mc.length; }
+function modTotal(id){ if(id==="prova") return 10; if(id==="ip") return IPMC.length + IPEX.length; return Q[id].mc.length; }
 function modRight(id){ const p=PROG[id]||{}; return Object.values(p).filter(v=>v===true).length; }
 
 /* ---------- NAV ---------- */
 const nav=document.getElementById("sidenav");
-const SC=["","var(--c1)","var(--c2)","var(--c3)","var(--c4)","var(--c5)","var(--c6)"];
+const SC=["","var(--c1)","var(--c2)","var(--c3)","var(--c4)","var(--c5)","var(--c6)","var(--c7)"];
 const SCSTRIPE=["",false,false,false,false,false];
 function buildNav(){
   let h=`<div class="navgroup"><a class="navlink" href="#inicio" data-nav="inicio" style="--cc:var(--accent)"><span class="port"><span class="led"></span></span><span class="n">00</span><span>Início e roteiro</span><span></span></a></div>`;
   SESS.forEach(s=>{
-    h+=`<div class="navgroup" style="--cc:${SC[s.n]}"><span class="lbl"><i class="cable"></i>${s.n===6?"Extra":"Sessão "+s.n} · ${s.t}</span>`;
+    h+=`<div class="navgroup" style="--cc:${SC[s.n]}"><span class="lbl"><i class="cable"></i>${s.n===6?"Extra":(s.n===7?"Avaliação":"Sessão "+s.n)} · ${s.t}</span>`;
     s.mods.forEach(id=>{ const m=MODS.find(x=>x.id===id);
       h+=`<a class="navlink" href="#${id}" data-nav="${id}"><span class="port"><span class="led"></span></span><span class="n">${String(m.n).padStart(2,"0")}</span><span>${m.t}</span><span class="pg" data-pg="${id}"></span></a>`; });
     h+=`</div>`;
@@ -1965,11 +2091,11 @@ const menuBtn=document.getElementById("menuBtn");
 menuBtn.addEventListener("click",()=>setDrawer(nav.dataset.open!=="true"));
 
 function buildSessions(){
-  document.getElementById("sessCards").innerHTML=SESS.map(s=>`<div class="sess" style="--cc:${SC[s.n]}"><span class="cbl"></span><div class="in"><span class="sn">${s.n===6?"EXTRA · SIMULADO":"SESSÃO "+s.n}</span><h3>${s.t}</h3><p>${s.d}</p><ol start="${MODS.find(m=>m.id===s.mods[0]).n}">${s.mods.map(id=>{const m=MODS.find(x=>x.id===id);return `<li><a href="#${id}">${m.t}</a></li>`}).join("")}</ol></div></div>`).join("");
+  document.getElementById("sessCards").innerHTML=SESS.map(s=>`<div class="sess" style="--cc:${SC[s.n]}"><span class="cbl"></span><div class="in"><span class="sn">${s.n===6?"EXTRA · SIMULADO":(s.n===7?"AVALIAÇÃO":"SESSÃO "+s.n)}</span><h3>${s.t}</h3><p>${s.d}</p><ol start="${MODS.find(m=>m.id===s.mods[0]).n}">${s.mods.map(id=>{const m=MODS.find(x=>x.id===id);return `<li><a href="#${id}">${m.t}</a></li>`}).join("")}</ol></div></div>`).join("");
   // terminal: o roteiro como um traceroute
-  const HOP=[["sessao-1.fundamentos","comunicação · OSI · TCP/IP"],["sessao-2.redes-e-equip","LAN/WAN · topologias · switch/roteador"],["sessao-3.camadas-1-e-2","Ethernet · par trançado · cabeamento"],["sessao-4.sem-fio","IEEE 802.11"],["sessao-5.enderecamento-ip","binário · máscara · sub-rede"],["extra.questoes-e-simulados","simulado + questionários da aula"]];
-  let t=`<div class="tl"><span class="pr">aluno@lab-redes:~$</span> traceroute prova-de-redes</div><div class="tl dim">traceroute to prova-de-redes (192.168.10.75), 6 hops max, 10 módulos + 72 questões</div>`;
-  SESS.forEach((s,i)=>{ const n=s.mods.length; t+=`<a class="hop" href="#${s.mods[0]}" style="--hc:${SC[s.n]}"><span>${s.n}</span><span class="hn">${HOP[i][0]}</span><span class="hm">${s.n===6?"72 questões":n+" "+(n>1?"módulos":"módulo")}</span><span class="hd dim">${HOP[i][1]}</span></a>`; });
+  const HOP=[["sessao-1.fundamentos","comunicação · OSI · TCP/IP"],["sessao-2.redes-e-equip","LAN/WAN · topologias · switch/roteador"],["sessao-3.camadas-1-e-2","Ethernet · par trançado · cabeamento"],["sessao-4.sem-fio","IEEE 802.11"],["sessao-5.enderecamento-ip","binário · máscara · sub-rede"],["extra.questoes-e-simulados","simulado + questionários da aula"],["prova.modo-prova","10 sorteadas · nota de 0 a 5,0"]];
+  let t=`<div class="tl"><span class="pr">aluno@lab-redes:~$</span> traceroute prova-de-redes</div><div class="tl dim">traceroute to prova-de-redes (192.168.10.75), 7 hops max, 10 módulos + 72 questões + prova</div>`;
+  SESS.forEach((s,i)=>{ const n=s.mods.length; t+=`<a class="hop" href="#${s.mods[0]}" style="--hc:${SC[s.n]}"><span>${s.n}</span><span class="hn">${HOP[i][0]}</span><span class="hm">${s.n===7?"10 questões":s.n===6?"72 questões":n+" "+(n>1?"módulos":"módulo")}</span><span class="hd dim">${HOP[i][1]}</span></a>`; });
   t+=`<div class="tl"><span class="pr">aluno@lab-redes:~$</span> <span class="cursor">&nbsp;</span></div>`;
   document.getElementById("termBody").innerHTML=t;
 }
@@ -2916,12 +3042,202 @@ function makeSwitchQuiz(cfg){
 }
 const ORIGQ=makeSwitchQuiz({key:"original", view:"original", prefix:"o", data:OQ, brand:"LAB-SW-26B", sub:"Questionário Original · 24 portas + 2 uplinks", extraLink:true});
 
+/* ---------- MODO PROVA: 10 questões aleatórias, 0,5 cada, nota de 0 a 5,0 ---------- */
+const PV={phase:"intro", qs:[], ans:[], cur:0, t0:0, secs:0, timer:null, confirm:false};
+const pvFmt=n=>(n*0.5).toFixed(1).replace(".",",");                 // acertos → nota
+const pvTime=s=>String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");
+const pvReduced=()=>window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+function pvShuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function pvBanks(){
+  const hard=[], easy=[];
+  QQ.forEach((it,i)=>hard.push({q:it.q,o:it.o,a:it.a,tag:it.tag,src:"Simulado",keys:["s"+i],exp:`<p><b>Pegadinha:</b> ${esc(it.t)}</p>`+it.r}));
+  EX.forEach((it,i)=>hard.push({q:it.mq,o:it.o,a:it.a,tag:it.tag,src:"Questionário Extra",keys:(it.sim||[]).map(k=>"s"+k).concat("x"+i),exp:`<p><b>Pegadinha:</b> ${esc(it.t)}</p>`+it.r}));
+  OQ.forEach((it,i)=>hard.push({q:it.q,o:it.o,a:it.a,tag:it.tag,src:"Questionário Original",keys:(it.sim||[]).map(k=>"s"+k).concat("x"+i),exp:`<p><b>Por que as outras estão erradas:</b> ${esc(it.t)}</p>`+it.r}));
+  ["comunicacao","osi","tcpip","lans-wans","interconexao","ethernet","par-trancado","cabeamento","wifi"].forEach(id=>{
+    const m=MODS.find(x=>x.id===id);
+    Q[id].mc.forEach((it,i)=>{ if(it.t==="num") return; easy.push({q:it.q,o:it.o,a:it.a,tag:m.t,src:"Módulo "+String(m.n).padStart(2,"0"),keys:["m:"+id+":"+i],exp:`<p>${esc(it.e)}</p>`}); });
+  });
+  IPMC.forEach((it,i)=>easy.push({q:it.q,o:it.o,a:it.a,tag:"Endereçamento IP",src:"Módulo 10",keys:["ip:"+i],exp:`<p>${esc(it.e)}</p>`}));
+  return {hard,easy};
+}
+function pvDraw(){
+  const {hard,easy}=pvBanks(), used=new Set(), out=[];
+  const take=(list,n)=>{ for(const it of pvShuffle(list)){ if(out.length>=n) break; if(it.keys.some(k=>used.has(k))) continue; it.keys.forEach(k=>used.add(k)); out.push(it); } };
+  take(hard,6); take(easy,10);
+  return pvShuffle(out);
+}
+function pvBankSize(){ const b=pvBanks(); return b.hard.length+b.easy.length; }
+function pvHist(){ PROG.prova=PROG.prova||{}; return PROG.prova.hist||(PROG.prova.hist=[]); }
+
+function pvRender(){
+  const box=document.getElementById("pv"); clearInterval(PV.timer);
+  if(PV.phase==="intro"){
+    const N=pvBankSize();
+    box.innerHTML=`<div class="pv-intro">
+      <div class="term"><div class="term-bar"><span class="dots"><i></i><i></i><i></i></span><span>servidor-de-provas: ~/prova.conf</span></div>
+      <div class="term-body">
+        <div class="tl"><span class="pr">aluno@lab-redes:~$</span> cat prova.conf</div>
+        <div class="rv"><span class="k">questões</span><span>10 sorteadas: 6 dos questionários difíceis + 4 dos módulos</span></div>
+        <div class="rv"><span class="k">valor</span><span>0,5 ponto cada questão</span></div>
+        <div class="rv"><span class="k">nota máxima</span><span>5,0</span></div>
+        <div class="rv"><span class="k">banco</span><span>${N} questões, sem repetir o mesmo assunto</span></div>
+        <div class="rv"><span class="k">correção</span><span>só ao entregar; dá para trocar de resposta até lá</span></div>
+        <div class="rv"><span class="k">em branco</span><span>vale zero</span></div>
+      </div></div>
+      <div class="actions"><button class="btn pri pv-go" id="pvStart">▶ Iniciar prova</button><span class="res">Cada prova sorteia questões diferentes.</span></div>
+    </div>`;
+    document.getElementById("pvStart").onclick=pvStart;
+  }
+  else if(PV.phase==="boot"){
+    const N=pvBankSize();
+    box.innerHTML=`<div class="pv-boot">
+      <div class="pv-net"><div class="pv-node"><span>Você</span><small>192.168.10.75</small></div>
+        <div class="pv-wire"><i class="pv-flow"></i></div>
+        <div class="pv-node srv"><span>Servidor de provas</span><small>10.0.0.42</small></div></div>
+      <div class="hs-log pv-log">
+        <div style="--d:0s"><span class="ts">00.00s</span><span class="pr">LINK</span><span><b>Gi0/1</b> changed state to up</span></div>
+        <div style="--d:.25s"><span class="ts">00.25s</span><span class="pr">DNS</span><span>prova.lab-redes → <b>10.0.0.42</b></span></div>
+        <div style="--d:.5s"><span class="ts">00.50s</span><span class="pr">TCP</span><span><b>SYN</b> → <b>SYN-ACK</b> → <b>ACK</b></span></div>
+        <div style="--d:.85s"><span class="ts">00.85s</span><span class="pr">GET</span><span>/prova?questoes=10 · sorteando entre <b>${N}</b></span></div>
+        <div style="--d:1.25s"><span class="ts">01.25s</span><span class="pr">200</span><span class="okk">OK · 10 questões recebidas</span></div>
+      </div></div>`;
+  }
+  else if(PV.phase==="exam"){ pvExam(); PV.timer=setInterval(()=>{ PV.secs=Math.round((Date.now()-PV.t0)/1000); const t=document.getElementById("pvTime"); if(t) t.textContent=pvTime(PV.secs); },1000); }
+  else if(PV.phase==="tx") pvTransmit();
+  else if(PV.phase==="result") pvResult();
+}
+function pvStart(){
+  PV.qs=pvDraw(); PV.ans=new Array(10).fill(null); PV.cur=0; PV.confirm=false;
+  PV.phase="boot"; pvRender();
+  document.getElementById("v-prova").scrollIntoView({block:"start"});
+  setTimeout(()=>{ PV.phase="exam"; PV.t0=Date.now(); PV.secs=0; pvRender(); }, pvReduced()?200:1900);
+}
+function pvSlots(mode){
+  return `<div class="pv-slots" role="group" aria-label="Questões da prova">${PV.qs.map((_,i)=>{
+    let st= mode==="res" ? "wait" : (PV.ans[i]!==null?"ans":"");
+    if(mode==="final") st= PV.ans[i]===null?"blank":(PV.ans[i]===PV.qs[i].a?"ok":"no");
+    return `<button class="pv-slot ${st} ${mode==="exam"&&i===PV.cur?"cur":""}" data-s="${i}" ${mode==="res"?"tabindex=\"-1\"":""}><i></i><span>PKT ${String(i+1).padStart(2,"0")}</span></button>`; }).join("")}</div>`;
+}
+function pvExam(){
+  const it=PV.qs[PV.cur], a=PV.ans[PV.cur], n=PV.ans.filter(x=>x!==null).length, blank=10-n;
+  document.getElementById("pv").innerHTML=`<div class="pv-exam">
+    <div class="pv-top">${pvSlots("exam")}
+      <div class="pv-meta"><span>tempo <b id="pvTime">${pvTime(PV.secs)}</b></span><span><b>${n}</b>/10 respondidas</span><span>vale <b>0,5</b> cada</span></div></div>
+    <article class="qf">
+      <header class="qf-h"><span class="qf-no">QUESTÃO ${String(PV.cur+1).padStart(2,"0")}<small>/10</small></span><span class="qf-f">PROTO <b>${esc(it.tag)}</b></span><span class="qf-f">ORIGEM <b>${esc(it.src)}</b></span><span class="qf-flag pv-val">VALE 0,5</span></header>
+      <div class="qf-body"><p class="qf-q">${esc(it.q)}</p>
+        <div class="qf-opts">${it.o.map((o,k)=>`<button class="qo ${a===k?"sel":""}" data-k="${k}" aria-pressed="${a===k}"><span class="qo-k">${L[k]}</span><span class="qo-t">${esc(o)}</span>${a===k?`<span class="qo-tag sel">marcada</span>`:""}</button>`).join("")}</div>
+        <p class="qf-hint">Você pode trocar a resposta até entregar. No teclado: A a D marcam, ← e → trocam de questão.</p></div>
+      <footer class="qf-nav"><button class="btn" data-n="prev" ${PV.cur===0?"disabled":""}>◀ Anterior</button><button class="btn" data-n="next" ${PV.cur===9?"disabled":""}>Próxima ▶</button></footer>
+    </article>
+    <div class="pv-submit">
+      ${PV.confirm?`<span class="qt-msg">${blank?`Você deixou <b>${blank}</b> em branco, que valem zero. Entregar mesmo assim?`:"Entregar a prova? Depois não dá para trocar as respostas."}</span><button class="btn danger" data-n="yes">Sim, entregar</button><button class="btn" data-n="no">Continuar a prova</button>`
+      :`<span class="qt-msg">${blank?`${blank} em branco`:"Todas respondidas"}</span><button class="btn pri pv-go" data-n="send">⇪ Entregar prova</button>`}
+    </div></div>`;
+  const B=document.getElementById("pv");
+  B.querySelectorAll(".qo").forEach(b=>b.onclick=()=>pvMark(+b.dataset.k));
+  B.querySelectorAll(".pv-slot").forEach(b=>b.onclick=()=>{ PV.cur=+b.dataset.s; PV.confirm=false; pvExam(); });
+  const on=(n,f)=>{ const b=B.querySelector(`[data-n="${n}"]`); if(b) b.onclick=f; };
+  on("prev",()=>{ PV.cur--; PV.confirm=false; pvExam(); }); on("next",()=>{ PV.cur++; PV.confirm=false; pvExam(); });
+  on("send",()=>{ PV.confirm=true; pvExam(); const y=document.querySelector('#pv [data-n="yes"]'); if(y) y.focus(); });
+  on("no",()=>{ PV.confirm=false; pvExam(); }); on("yes",pvSubmit);
+}
+function pvMark(k){ PV.ans[PV.cur]=k; PV.confirm=false; pvExam(); }
+function pvSubmit(){
+  clearInterval(PV.timer); PV.secs=Math.round((Date.now()-PV.t0)/1000);
+  const ok=PV.qs.filter((q,i)=>PV.ans[i]===q.a).length, blank=PV.ans.filter(x=>x===null).length;
+  const h=pvHist(); h.unshift({d:new Date().toISOString(), n:ok, b:blank, s:PV.secs}); if(h.length>20) h.length=20; save(); updateProgress();
+  PV.phase="tx"; pvRender();
+}
+function pvTransmit(){
+  const fast=pvReduced();
+  document.getElementById("pv").innerHTML=`<div class="pv-tx">
+    <p class="pv-status" id="pvStatus">Transmitindo as 10 respostas para o servidor de correção…</p>
+    <div class="pv-net"><div class="pv-node"><span>Você</span><small>192.168.10.75</small></div>
+      <div class="pv-wire tx">${PV.qs.map((_,i)=>`<i class="pv-pk" style="--d:${i*0.13}s">${String(i+1).padStart(2,"0")}</i>`).join("")}</div>
+      <div class="pv-node srv"><span>Servidor de correção</span><small>10.0.0.42</small></div></div>
+    ${pvSlots("res")}
+    <div class="pv-live"><div class="pv-big"><span class="pv-grade" id="pvGrade">0,0</span><small>/ 5,0</small></div>
+      <div class="hs-log pv-log" id="pvLog"></div></div></div>`;
+  const slots=[...document.querySelectorAll("#pv .pv-slot")], log=document.getElementById("pvLog"), g=document.getElementById("pvGrade");
+  let ok=0;
+  const step=i=>{
+    if(i>=10){ document.getElementById("pvStatus").textContent="Correção concluída."; setTimeout(()=>{ PV.phase="result"; pvRender(); }, fast?0:900); return; }
+    const right=PV.ans[i]===PV.qs[i].a, blank=PV.ans[i]===null;
+    slots[i].classList.remove("wait"); slots[i].classList.add(blank?"blank":(right?"ok":"no"));
+    if(right){ ok++; g.textContent=pvFmt(ok); g.classList.remove("bump"); void g.offsetWidth; g.classList.add("bump"); }
+    log.insertAdjacentHTML("beforeend",`<div><span class="ts">PKT ${String(i+1).padStart(2,"0")}</span><span class="pr ${right?"okk":"bad"}">${right?"ACK":"NACK"}</span><span>${right?"+0,5":(blank?"em branco · 0,0":"resposta errada · 0,0")}</span></div>`);
+    log.scrollTop=log.scrollHeight;
+    setTimeout(()=>step(i+1), fast?0:280);
+  };
+  setTimeout(()=>{ document.getElementById("pvStatus").textContent="Servidor respondendo: conferindo pacote por pacote…"; step(0); }, fast?0:2100);
+}
+function pvVerdict(ok){
+  if(ok===10) return ["Link perfeito","0% de perda de pacotes. Nota máxima!"];
+  if(ok>=8) return ["Link estável","Quase sem perda de pacotes. Revise os NACKs e você fecha a prova."];
+  if(ok>=6) return ["Link com perdas leves","A maior parte chegou. Vale revisar os módulos das questões erradas."];
+  if(ok>=4) return ["Link instável","Muita perda de pacotes. Revise os módulos indicados na correção e faça outra prova."];
+  return ["Link down","Quase nada chegou ao servidor. Volte aos módulos e tente de novo com calma."];
+}
+function pvResult(){
+  const ok=PV.qs.filter((q,i)=>PV.ans[i]===q.a).length, blank=PV.ans.filter(x=>x===null).length, wrong=10-ok-blank, nota=ok*0.5;
+  const [vt,vd]=pvVerdict(ok);
+  const bars=[1,2,3,4,5].map(k=>{ const f=Math.max(0,Math.min(1,nota-(k-1))); return `<i style="--h:${18+k*14}px;--f:${f}"><b></b></i>`; }).join("");
+  const rev=PV.qs.map((q,i)=>{ const a=PV.ans[i], st=a===null?"blank":(a===q.a?"ok":"no");
+    return `<article class="pv-rv ${st}" id="pvr-${i}">
+      <header><span class="qf-no">Q${String(i+1).padStart(2,"0")}</span><span class="pv-tag ${st}">${st==="ok"?"ACK · +0,5":(st==="no"?"NACK · 0,0":"EM BRANCO · 0,0")}</span><span>${esc(q.tag)}</span><span class="pv-src">${esc(q.src)}</span></header>
+      <div class="pv-rv-b"><p class="qf-q">${esc(q.q)}</p>
+        <ul class="pv-opts">${q.o.map((o,k)=>`<li class="${k===q.a?"right":""} ${k===a&&k!==q.a?"wrong":""}"><span class="qo-k">${L[k]}</span><span>${esc(o)}</span>${k===q.a?`<em class="ok">correta</em>`:""}${k===a&&k!==q.a?`<em class="no">sua resposta</em>`:""}${k===a&&k===q.a?`<em class="ok">sua resposta</em>`:""}</li>`).join("")}</ul>
+        <details class="pv-exp" ${st!=="ok"?"open":""}><summary>Explicação</summary><div class="qres-sec rs">${q.exp}</div></details></div></article>`; }).join("");
+  document.getElementById("pv").innerHTML=`<div class="pv-res">
+    <div class="pv-card">
+      <div class="pv-res-top">
+        <div class="pv-big final"><span class="pv-grade">${pvFmt(ok)}</span><small>/ 5,0</small><span class="pv-eq">equivale a ${(nota*2).toFixed(1).replace(".",",")} de 10</span></div>
+        <div class="pv-signal" role="img" aria-label="Sinal: nota ${pvFmt(ok)} de 5,0">${bars}</div>
+        <div class="pv-verdict"><b>${vt}</b><p>${vd}</p></div>
+      </div>
+      <div class="pv-stats"><span class="ok"><b>${ok}</b> ACK · acertos</span><span class="no"><b>${wrong}</b> NACK · erros</span><span><b>${blank}</b> em branco</span><span>tempo <b>${pvTime(PV.secs)}</b></span></div>
+      ${pvSlots("final")}
+      <div class="actions"><button class="btn pri pv-go" id="pvAgain">▶ Nova prova</button><span class="res">Clique em um pacote para ir à correção da questão.</span></div>
+    </div>
+    <h3>Correção comentada</h3>
+    <div class="pv-review">${rev}</div></div>`;
+  document.getElementById("pvAgain").onclick=pvStart;
+  document.querySelectorAll("#pv .pv-slot").forEach(b=>b.onclick=()=>document.getElementById("pvr-"+b.dataset.s).scrollIntoView({behavior:"smooth",block:"start"}));
+  pvHistRender();
+}
+function pvHistRender(){
+  const h=pvHist(), box=document.getElementById("pvHist");
+  if(!h.length){ box.innerHTML=`<p class="res">Nenhuma prova feita ainda. Seu histórico aparece aqui.</p>`; return; }
+  const best=Math.max(...h.map(x=>x.n)), avg=h.reduce((s,x)=>s+x.n,0)/h.length;
+  box.innerHTML=`<div class="pv-hstats"><span>Provas feitas <b>${h.length}</b></span><span>Melhor nota <b>${pvFmt(best)}</b></span><span>Média <b>${(avg*0.5).toFixed(1).replace(".",",")}</b></span></div>
+    <div class="pv-spark" aria-hidden="true">${h.slice(0,12).reverse().map(x=>`<i style="--v:${x.n/10}" class="${x.n>=6?"ok":"no"}"><b>${pvFmt(x.n)}</b></i>`).join("")}</div>
+    <div class="tbl keep"><table><thead><tr><th>Data</th><th class="num">Nota</th><th class="num">Acertos</th><th class="num">Em branco</th><th class="num">Tempo</th></tr></thead><tbody>
+    ${h.map(x=>{ const d=new Date(x.d); return `<tr><td>${d.toLocaleDateString("pt-BR")} ${d.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"})}</td><td class="num"><b>${pvFmt(x.n)}</b></td><td class="num">${x.n}/10</td><td class="num">${x.b}</td><td class="num">${pvTime(x.s)}</td></tr>`; }).join("")}
+    </tbody></table></div>
+    <div class="actions"><button class="btn sm" id="pvClr">Apagar histórico</button><span class="qt-confirm" hidden><span class="qt-msg">Apagar as ${h.length} provas do histórico?</span><button class="btn sm danger" id="pvClrY">Sim, apagar</button><button class="btn sm" id="pvClrN">Cancelar</button></span></div>`;
+  const c=document.getElementById("pvClr"), cf=box.querySelector(".qt-confirm");
+  c.onclick=()=>{ c.hidden=true; cf.hidden=false; }; document.getElementById("pvClrN").onclick=()=>{ cf.hidden=true; c.hidden=false; };
+  document.getElementById("pvClrY").onclick=()=>{ PROG.prova={hist:[]}; save(); updateProgress(); pvHistRender(); };
+}
+function buildProva(){ pvRender(); pvHistRender(); }
+document.addEventListener("keydown",e=>{
+  const v=document.getElementById("v-prova"); if(!v||v.hidden||PV.phase!=="exam"||e.target.matches("input,textarea")||e.metaKey||e.ctrlKey||e.altKey) return;
+  const k=e.key.toLowerCase(), m={a:0,b:1,c:2,d:3,"1":0,"2":1,"3":2,"4":3};
+  if(k in m) pvMark(m[k]);
+  else if(e.key==="ArrowRight"&&PV.cur<9){ PV.cur++; PV.confirm=false; pvExam(); }
+  else if(e.key==="ArrowLeft"&&PV.cur>0){ PV.cur--; PV.confirm=false; pvExam(); }
+});
+// progresso no menu: melhor resultado (acertos de 10)
+const _mrProva=modRight;
+modRight=function(id){ if(id==="prova"){ const h=(PROG.prova&&PROG.prova.hist)||[]; return h.length?Math.max(...h.map(x=>x.n)):0; } return _mrProva(id); };
+
 /* ---------- INIT ---------- */
 document.querySelectorAll("[data-topo]").forEach(s=>s.innerHTML=topo(s.dataset.topo));
 buildPins(); buildSessions(); buildPagers(); buildLayerMeters();
 Object.keys(Q).forEach(renderQuiz);
 buildMaskTable(); buildExamples(); buildBits(); renderBin(); renderIpMc(); renderIpEx(); newGen(); paintStreak(); runCalc();
-buildQuestoes(); buildExtra(); ORIGQ.build(); labelTables(); buildNav(); route();
+buildQuestoes(); buildExtra(); ORIGQ.build(); buildProva(); labelTables(); buildNav(); route();
 })();
 </script>
 <script>

@@ -10,6 +10,8 @@ A aba **Questionário Extra** traz as 26 perguntas do questionário da aula (end
 
 A aba **Questionário Original** traz as mesmas 26 perguntas com o enunciado exatamente igual ao do professor, em múltipla escolha: as alternativas são respostas completas, uma correta e três quase certas. Ao responder, mostra por que as outras estão erradas, as palavras-chave e a resposta-modelo.
 
+O **Modo Prova** sorteia 10 questões de todo o site (6 dos questionários difíceis e 4 dos módulos, sem repetir assunto). Cada questão vale 0,5 ponto, e a nota vai de 0 a 5,0. Dá para trocar as respostas até entregar; na entrega, as respostas viajam como pacotes até o servidor de correção e voltam como ACK ou NACK. No final aparecem a nota num medidor de sinal, a correção comentada e o histórico das provas feitas.
+
 O site é um único arquivo (`index.html`), sem dependências de build.
 
 ## Acesso e abertura
