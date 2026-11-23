@@ -1844,8 +1844,8 @@ html:not(.locked) #gate:not(.ok){display:none}
   <div class="head">
     <span class="eyebrow">Avaliação · Modo prova</span>
     <h2>Modo Prova</h2>
-    <div class="meta"><span class="chip">10 questões aleatórias</span><span class="chip">0,5 ponto cada</span><span class="chip">Nota de 0 a 5,0</span><span class="chip">Correção ao entregar</span></div>
-    <p class="lede">Uma prova nova a cada vez: 10 questões sorteadas de todo o site, sem repetir assunto. Responda no seu ritmo, troque de resposta se quiser e entregue no final. As respostas viajam como pacotes até o servidor de correção e voltam como ACK (certo) ou NACK (errado), formando a sua nota.</p>
+    <div class="meta"><span class="chip">10 questões aleatórias</span><span class="chip">Foco: sessões 2, 3, 4 e simulados</span><span class="chip">0,5 ponto cada</span><span class="chip">Nota de 0 a 5,0</span><span class="chip">Correção ao entregar</span></div>
+    <p class="lede">Uma prova nova a cada vez: 10 questões sorteadas sem repetir assunto, metade dos simulados e metade das sessões 2, 3 e 4 (tipos de rede e equipamentos, Ethernet e cabeamento, redes sem fio). Responda no seu ritmo, troque de resposta se quiser e entregue no final. As respostas viajam como pacotes até o servidor de correção e voltam como ACK (certo) ou NACK (errado), formando a sua nota.</p>
   </div>
 
   <div id="pv"></div>
@@ -3049,21 +3049,25 @@ const pvTime=s=>String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padSta
 const pvReduced=()=>window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
 function pvShuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
 function pvBanks(){
-  const hard=[], easy=[];
+  const hard=[];
   QQ.forEach((it,i)=>hard.push({q:it.q,o:it.o,a:it.a,tag:it.tag,src:"Simulado",keys:["s"+i],exp:`<p><b>Pegadinha:</b> ${esc(it.t)}</p>`+it.r}));
   EX.forEach((it,i)=>hard.push({q:it.mq,o:it.o,a:it.a,tag:it.tag,src:"Questionário Extra",keys:(it.sim||[]).map(k=>"s"+k).concat("x"+i),exp:`<p><b>Pegadinha:</b> ${esc(it.t)}</p>`+it.r}));
   OQ.forEach((it,i)=>hard.push({q:it.q,o:it.o,a:it.a,tag:it.tag,src:"Questionário Original",keys:(it.sim||[]).map(k=>"s"+k).concat("x"+i),exp:`<p><b>Por que as outras estão erradas:</b> ${esc(it.t)}</p>`+it.r}));
+  const ses={1:[],2:[],3:[],4:[],5:[]};
   ["comunicacao","osi","tcpip","lans-wans","interconexao","ethernet","par-trancado","cabeamento","wifi"].forEach(id=>{
     const m=MODS.find(x=>x.id===id);
-    Q[id].mc.forEach((it,i)=>{ if(it.t==="num") return; easy.push({q:it.q,o:it.o,a:it.a,tag:m.t,src:"Módulo "+String(m.n).padStart(2,"0"),keys:["m:"+id+":"+i],exp:`<p>${esc(it.e)}</p>`}); });
+    Q[id].mc.forEach((it,i)=>{ if(it.t==="num") return; ses[m.s].push({q:it.q,o:it.o,a:it.a,tag:m.t,src:"Sessão "+m.s+" · Módulo "+String(m.n).padStart(2,"0"),keys:["m:"+id+":"+i],exp:`<p>${esc(it.e)}</p>`}); });
   });
-  IPMC.forEach((it,i)=>easy.push({q:it.q,o:it.o,a:it.a,tag:"Endereçamento IP",src:"Módulo 10",keys:["ip:"+i],exp:`<p>${esc(it.e)}</p>`}));
-  return {hard,easy};
+  IPMC.forEach((it,i)=>ses[5].push({q:it.q,o:it.o,a:it.a,tag:"Endereçamento IP",src:"Sessão 5 · Módulo 10",keys:["ip:"+i],exp:`<p>${esc(it.e)}</p>`}));
+  const easy=[].concat(ses[1],ses[2],ses[3],ses[4],ses[5]);
+  return {hard,easy,ses};
 }
 function pvDraw(){
-  const {hard,easy}=pvBanks(), used=new Set(), out=[];
-  const take=(list,n)=>{ for(const it of pvShuffle(list)){ if(out.length>=n) break; if(it.keys.some(k=>used.has(k))) continue; it.keys.forEach(k=>used.add(k)); out.push(it); } };
-  take(hard,6); take(easy,10);
+  const {hard,ses}=pvBanks(), used=new Set(), out=[];
+  const take=(list,n)=>{ let got=0; for(const it of pvShuffle(list)){ if(got>=n) break; if(it.keys.some(k=>used.has(k))) continue; it.keys.forEach(k=>used.add(k)); out.push(it); got++; } };
+  take(hard,5);                                   // simulados e questionários
+  take(ses[2],1); take(ses[3],1); take(ses[4],1); // pelo menos 1 de cada sessão prioritária
+  take([].concat(ses[2],ses[3],ses[4]),2);        // mais 2 de qualquer uma delas (sessões 1 e 5 ficam de fora)
   return pvShuffle(out);
 }
 function pvBankSize(){ const b=pvBanks(); return b.hard.length+b.easy.length; }
@@ -3077,7 +3081,8 @@ function pvRender(){
       <div class="term"><div class="term-bar"><span class="dots"><i></i><i></i><i></i></span><span>servidor-de-provas: ~/prova.conf</span></div>
       <div class="term-body">
         <div class="tl"><span class="pr">aluno@lab-redes:~$</span> cat prova.conf</div>
-        <div class="rv"><span class="k">questões</span><span>10 sorteadas: 6 dos questionários difíceis + 4 dos módulos</span></div>
+        <div class="rv"><span class="k">questões</span><span>10 sorteadas dos simulados e das sessões 2, 3 e 4</span></div>
+        <div class="rv"><span class="k">composição</span><span>5 dos simulados e questionários · 5 das sessões 2, 3 e 4 (ao menos 1 de cada); as sessões 1 e 5 não entram</span></div>
         <div class="rv"><span class="k">valor</span><span>0,5 ponto cada questão</span></div>
         <div class="rv"><span class="k">nota máxima</span><span>5,0</span></div>
         <div class="rv"><span class="k">banco</span><span>${N} questões, sem repetir o mesmo assunto</span></div>
