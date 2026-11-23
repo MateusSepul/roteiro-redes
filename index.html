@@ -632,6 +632,28 @@ html:not(.locked) #gate:not(.ok){display:none}
   .pv-rv header .pv-src{margin-left:0}
 }
 
+/* recomendação de revisão ao fim da prova */
+.pv-rec{display:flex;flex-direction:column;gap:12px}
+.pv-rec-lead{color:var(--muted);max-width:68ch}
+.pv-rec-list{display:flex;flex-direction:column;gap:8px}
+.pv-rc{display:grid;grid-template-columns:64px minmax(0,1fr) auto;align-items:center;gap:14px;padding:12px 14px;border:1px solid var(--line);border-left:4px solid var(--rc,var(--c7));border-radius:8px;background:var(--surface)}
+.pv-rc.top{border-color:var(--c7);border-left-color:var(--rc,var(--c7));box-shadow:0 0 0 3px var(--accent-soft)}
+.pv-rc-n{display:flex;flex-direction:column;align-items:center;gap:0;font-family:var(--f-mono)}
+.pv-rc-n b{font-size:1.6rem;line-height:1;color:var(--bad)}
+.pv-rc-n span{font-size:.62rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.pv-rc-b{display:flex;flex-direction:column;gap:2px;min-width:0}
+.pv-rc-k{font-family:var(--f-mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.pv-rc-k i{font-style:normal;background:var(--c7);color:var(--accent-ink);padding:1px 6px;border-radius:3px;font-weight:600}
+.pv-rc-b > b{font-family:var(--f-display);font-size:1.05rem}
+.pv-rc-b p{font-size:.88rem;color:var(--muted)}
+.pv-rc .btn{text-decoration:none;display:inline-flex;align-items:center;white-space:nowrap}
+.pv-start{font-size:.9rem;margin-top:6px}
+.pv-start a{font-weight:600}
+@media (max-width:600px){
+  .pv-rc{grid-template-columns:48px minmax(0,1fr)}
+  .pv-rc .btn{grid-column:1 / -1;justify-content:center}
+}
+
 /* ---------- celular ---------- */
 .drawer-top{display:none;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px;padding-bottom:10px;border-bottom:1px dashed var(--line)}
 .drawer-top b{font-family:var(--f-mono);font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
@@ -3050,15 +3072,17 @@ const pvReduced=()=>window.matchMedia&&matchMedia("(prefers-reduced-motion: redu
 function pvShuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
 function pvBanks(){
   const hard=[];
-  QQ.forEach((it,i)=>hard.push({q:it.q,o:it.o,a:it.a,tag:it.tag,src:"Simulado",keys:["s"+i],exp:`<p><b>Pegadinha:</b> ${esc(it.t)}</p>`+it.r}));
-  EX.forEach((it,i)=>hard.push({q:it.mq,o:it.o,a:it.a,tag:it.tag,src:"Questionário Extra",keys:(it.sim||[]).map(k=>"s"+k).concat("x"+i),exp:`<p><b>Pegadinha:</b> ${esc(it.t)}</p>`+it.r}));
-  OQ.forEach((it,i)=>hard.push({q:it.q,o:it.o,a:it.a,tag:it.tag,src:"Questionário Original",keys:(it.sim||[]).map(k=>"s"+k).concat("x"+i),exp:`<p><b>Por que as outras estão erradas:</b> ${esc(it.t)}</p>`+it.r}));
+  // módulo de revisão de cada questão do simulado, a partir do questionário que cobre o mesmo tema
+  const simMap={}; EX.forEach((e,j)=>(e.sim||[]).forEach(k=>{ simMap[k]=e.mod?{mod:e.mod}:{orig:j}; }));
+  QQ.forEach((it,i)=>hard.push({q:it.q,o:it.o,a:it.a,tag:it.tag,src:"Simulado",rv:simMap[i]||null,keys:["s"+i],exp:`<p><b>Pegadinha:</b> ${esc(it.t)}</p>`+it.r}));
+  EX.forEach((it,i)=>hard.push({q:it.mq,o:it.o,a:it.a,tag:it.tag,src:"Questionário Extra",rv:it.mod?{mod:it.mod}:{orig:i},keys:(it.sim||[]).map(k=>"s"+k).concat("x"+i),exp:`<p><b>Pegadinha:</b> ${esc(it.t)}</p>`+it.r}));
+  OQ.forEach((it,i)=>hard.push({q:it.q,o:it.o,a:it.a,tag:it.tag,src:"Questionário Original",rv:it.mod?{mod:it.mod}:{orig:i},keys:(it.sim||[]).map(k=>"s"+k).concat("x"+i),exp:`<p><b>Por que as outras estão erradas:</b> ${esc(it.t)}</p>`+it.r}));
   const ses={1:[],2:[],3:[],4:[],5:[]};
   ["comunicacao","osi","tcpip","lans-wans","interconexao","ethernet","par-trancado","cabeamento","wifi"].forEach(id=>{
     const m=MODS.find(x=>x.id===id);
-    Q[id].mc.forEach((it,i)=>{ if(it.t==="num") return; ses[m.s].push({q:it.q,o:it.o,a:it.a,tag:m.t,src:"Sessão "+m.s+" · Módulo "+String(m.n).padStart(2,"0"),keys:["m:"+id+":"+i],exp:`<p>${esc(it.e)}</p>`}); });
+    Q[id].mc.forEach((it,i)=>{ if(it.t==="num") return; ses[m.s].push({q:it.q,o:it.o,a:it.a,tag:m.t,src:"Sessão "+m.s+" · Módulo "+String(m.n).padStart(2,"0"),rv:{mod:id},keys:["m:"+id+":"+i],exp:`<p>${esc(it.e)}</p>`}); });
   });
-  IPMC.forEach((it,i)=>ses[5].push({q:it.q,o:it.o,a:it.a,tag:"Endereçamento IP",src:"Sessão 5 · Módulo 10",keys:["ip:"+i],exp:`<p>${esc(it.e)}</p>`}));
+  IPMC.forEach((it,i)=>ses[5].push({q:it.q,o:it.o,a:it.a,tag:"Endereçamento IP",src:"Sessão 5 · Módulo 10",rv:{mod:"ip"},keys:["ip:"+i],exp:`<p>${esc(it.e)}</p>`}));
   const easy=[].concat(ses[1],ses[2],ses[3],ses[4],ses[5]);
   return {hard,easy,ses};
 }
@@ -3177,6 +3201,32 @@ function pvTransmit(){
   };
   setTimeout(()=>{ document.getElementById("pvStatus").textContent="Servidor respondendo: conferindo pacote por pacote…"; step(0); }, fast?0:2100);
 }
+function pvJoin(a){ return a.length<2?a.join(""):a.slice(0,-1).join(", ")+" e "+a[a.length-1]; }
+function pvRecs(){
+  const groups={};
+  PV.qs.forEach((q,i)=>{ if(PV.ans[i]===q.a) return;
+    const r=q.rv||{}, key=r.mod?"m:"+r.mod:"o:"+(r.orig!=null?r.orig:"x");
+    const g=groups[key]||(groups[key]={rv:r,qs:[],tags:[],blank:0});
+    g.qs.push(String(i+1).padStart(2,"0")); if(PV.ans[i]===null) g.blank++; if(!g.tags.includes(q.tag)) g.tags.push(q.tag); });
+  return Object.values(groups).map(g=>{
+    if(g.rv.mod){ const m=MODS.find(x=>x.id===g.rv.mod); return Object.assign(g,{n:m.n,s:m.s,title:m.t,href:"#"+m.id,tags:g.tags.filter(t=>t!==m.t)}); }
+    return Object.assign(g,{n:99,s:0,title:"DNS"});
+  }).sort((a,b)=>b.qs.length-a.qs.length||a.n-b.n);
+}
+function pvRecHTML(list){
+  if(!list.length) return `<section class="pv-rec"><h3>Recomendação de revisão</h3><p class="pv-rec-lead">Nenhum NACK: nada para revisar desta vez. Faça outra prova para testar outros assuntos.</p></section>`;
+  const cards=list.map((g,k)=>{
+    const qs=`${g.qs.length>1?"questões":"questão"} ${pvJoin(g.qs)} da prova${g.blank?` (${g.blank} em branco)`:""}`;
+    const kick=k===0?"<i>Comece por aqui</i>":"";
+    if(g.rv.mod) return `<div class="pv-rc ${k===0?"top":""}" style="--rc:${SC[g.s]}"><div class="pv-rc-n"><b>${g.qs.length}</b><span>${g.qs.length>1?"erros":"erro"}</span></div>
+      <div class="pv-rc-b"><span class="pv-rc-k">${kick}Sessão ${g.s} · Módulo ${String(g.n).padStart(2,"0")}</span><b>${esc(g.title)}</b><p>${g.tags.length?"Assuntos: "+esc(g.tags.join(", "))+" · ":""}${qs}</p></div>
+      <a class="btn sm" href="${g.href}">Revisar módulo →</a></div>`;
+    return `<div class="pv-rc ${k===0?"top":""}" style="--rc:var(--c6)"><div class="pv-rc-n"><b>${g.qs.length}</b><span>${g.qs.length>1?"erros":"erro"}</span></div>
+      <div class="pv-rc-b"><span class="pv-rc-k">${kick}Sem módulo próprio</span><b>DNS</b><p>${esc(g.tags.join(", "))} · ${qs}. Responda a pergunta no Questionário Original para ver a resposta-modelo completa.</p></div>
+      <button class="btn sm" data-orig="${g.rv.orig}">Ver no Questionário Original →</button></div>`;
+  }).join("");
+  return `<section class="pv-rec"><h3>Recomendação de revisão</h3><p class="pv-rec-lead">Os módulos onde houve perda de pacotes nesta prova, do que teve mais erros para o que teve menos. Revise o primeiro e depois faça outra prova.</p><div class="pv-rec-list">${cards}</div></section>`;
+}
 function pvVerdict(ok){
   if(ok===10) return ["Link perfeito","0% de perda de pacotes. Nota máxima!"];
   if(ok>=8) return ["Link estável","Quase sem perda de pacotes. Revise os NACKs e você fecha a prova."];
@@ -3185,6 +3235,7 @@ function pvVerdict(ok){
   return ["Link down","Quase nada chegou ao servidor. Volte aos módulos e tente de novo com calma."];
 }
 function pvResult(){
+  const recs=pvRecs();
   const ok=PV.qs.filter((q,i)=>PV.ans[i]===q.a).length, blank=PV.ans.filter(x=>x===null).length, wrong=10-ok-blank, nota=ok*0.5;
   const [vt,vd]=pvVerdict(ok);
   const bars=[1,2,3,4,5].map(k=>{ const f=Math.max(0,Math.min(1,nota-(k-1))); return `<i style="--h:${18+k*14}px;--f:${f}"><b></b></i>`; }).join("");
@@ -3199,15 +3250,17 @@ function pvResult(){
       <div class="pv-res-top">
         <div class="pv-big final"><span class="pv-grade">${pvFmt(ok)}</span><small>/ 5,0</small><span class="pv-eq">equivale a ${(nota*2).toFixed(1).replace(".",",")} de 10</span></div>
         <div class="pv-signal" role="img" aria-label="Sinal: nota ${pvFmt(ok)} de 5,0">${bars}</div>
-        <div class="pv-verdict"><b>${vt}</b><p>${vd}</p></div>
+        <div class="pv-verdict"><b>${vt}</b><p>${vd}</p>${recs.length?`<p class="pv-start">Comece revisando: ${recs[0].rv.mod?`<a href="${recs[0].href}">Módulo ${String(recs[0].n).padStart(2,"0")} · ${esc(recs[0].title)}</a>`:"DNS (Questionário Original)"}</p>`:""}</div>
       </div>
       <div class="pv-stats"><span class="ok"><b>${ok}</b> ACK · acertos</span><span class="no"><b>${wrong}</b> NACK · erros</span><span><b>${blank}</b> em branco</span><span>tempo <b>${pvTime(PV.secs)}</b></span></div>
       ${pvSlots("final")}
       <div class="actions"><button class="btn pri pv-go" id="pvAgain">▶ Nova prova</button><span class="res">Clique em um pacote para ir à correção da questão.</span></div>
     </div>
+    ${pvRecHTML(recs)}
     <h3>Correção comentada</h3>
     <div class="pv-review">${rev}</div></div>`;
   document.getElementById("pvAgain").onclick=pvStart;
+  document.querySelectorAll("#pv [data-orig]").forEach(b=>b.onclick=()=>{ const k=+b.dataset.orig; location.hash="original"; setTimeout(()=>ORIGQ.go(k,true),80); });
   document.querySelectorAll("#pv .pv-slot").forEach(b=>b.onclick=()=>document.getElementById("pvr-"+b.dataset.s).scrollIntoView({behavior:"smooth",block:"start"}));
   pvHistRender();
 }
