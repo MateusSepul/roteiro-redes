@@ -14,6 +14,6 @@ O **Modo Prova** sorteia 10 questões sem repetir assunto: 5 dos simulados e que
 
 O site é um único arquivo (`index.html`), sem dependências de build.
 
-## Acesso e abertura
+## Abertura
 
-O site pede uma senha antes de abrir (verificada por hash SHA-256 no navegador); depois do login, o acesso fica liberado até fechar a aba. Em seguida, uma animação de cerca de 4 segundos mostra o handshake TCP de 3 vias (SYN, SYN-ACK, ACK) entre o seu computador e o servidor, com o log de link, DHCP e DNS. Dá para pular a animação clicando na tela, no botão "Pular" ou apertando Esc.
+Ao abrir o site (uma vez por sessão), uma animação de cerca de 4 segundos mostra o handshake TCP de 3 vias (SYN, SYN-ACK, ACK) entre o seu computador e o servidor, com o log de link, DHCP e DNS. Dá para pular clicando na tela, no botão "Pular" ou apertando Esc.
