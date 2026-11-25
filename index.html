@@ -379,7 +379,7 @@ textarea{font:inherit;font-size:.95rem;width:100%;min-height:84px;padding:10px;b
 .btn .ico{display:inline-block;margin-right:6px}
 .btn:disabled{opacity:.45;cursor:default}
 .qf-nav .mid{display:flex;gap:10px}
-#qReport,#xReport,#oReport{border:1px solid var(--c6);border-radius:8px;background:var(--surface);padding:16px 18px;display:flex;flex-direction:column;gap:10px;box-shadow:0 0 0 3px var(--accent-soft)}
+#qReport,#xReport,#oReport,#pReport{border:1px solid var(--c6);border-radius:8px;background:var(--surface);padding:16px 18px;display:flex;flex-direction:column;gap:10px;box-shadow:0 0 0 3px var(--accent-soft)}
 .qr-h{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px}
 .qr-t{font-family:var(--f-display);font-weight:700;font-size:1.3rem}
 .qr-s{font-family:var(--f-mono);font-size:1.1rem;color:var(--c6);font-weight:600}
@@ -488,10 +488,10 @@ html:not(.locked) #gate:not(.ok){display:none}
 .sp.sfpq[data-state="ok"] .sp-led{background:var(--ok);box-shadow:0 0 6px var(--ok)}
 .sp.sfpq[data-state="no"] .sp-led{background:var(--bad);box-shadow:0 0 6px var(--bad)}
 .qbar.x26{grid-template-columns:repeat(26,minmax(0,1fr))}
-#xStats,#oStats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+#xStats,#oStats,#pStats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
 .xg{margin-top:10px;display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 12px}
 .xg small{font-family:var(--f-mono);font-size:.7rem;font-weight:400;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
-#xFrame,#oFrame{scroll-margin-top:90px}
+#xFrame,#oFrame,#pFrame{scroll-margin-top:90px}
 .qres-sec.og p{font-style:italic;color:var(--muted)}
 .qres-sec.kw .qres-l{color:var(--c5)}
 .xkw{display:flex;flex-wrap:wrap;gap:6px}
@@ -504,7 +504,7 @@ html:not(.locked) #gate:not(.ok){display:none}
   .sw-ports.x24{gap:5px 2px;padding:5px}
   .sw-up.sfps{flex-direction:row;justify-content:space-around}
   .sfp-cage{width:64px}
-  #xStats,#oStats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  #xStats,#oStats,#pStats{grid-template-columns:repeat(2,minmax(0,1fr))}
   .qres-sec.lk .btn{flex:1 1 auto}
 }
 
@@ -763,7 +763,7 @@ html:not(.locked) #gate:not(.ok){display:none}
 <!-- ============ INÍCIO ============ -->
 <div class="view" id="v-inicio" data-sess="" data-layers="">
   <div class="hero">
-    <span class="tagline">Redes de Computadores · 10 aulas · 5 sessões · 72 questões</span>
+    <span class="tagline">Redes de Computadores · 10 aulas · 5 sessões · 82 questões</span>
     <h1>Roteiro de <span>Redes</span></h1>
     <p class="lede">Do sinal elétrico no cabo até o cálculo de sub-rede. Cada módulo traz a explicação dos slides, os pontos que mais caem em prova e exercícios com correção na hora. O último módulo ensina o cálculo de IP passo a passo.</p>
     <div class="link-anim" aria-hidden="true"><span>PC</span><div class="wire"><span class="pkt"></span><span class="pkt b"></span></div><span>PROVA</span></div>
@@ -1845,6 +1845,27 @@ html:not(.locked) #gate:not(.ok){display:none}
   <div class="pager" data-pager="prova"></div>
 </div>
 
+<!-- ============ PROVA DA AULA ============ -->
+<div class="view" id="v-provaaula" data-sess="6" data-layers="" hidden>
+  <div class="head">
+    <span class="eyebrow">Extra · Prova aplicada em sala</span>
+    <h2>Prova da Aula</h2>
+    <div class="meta"><span class="chip">10 questões</span><span class="chip">Enunciado igual ao da prova</span><span class="chip">5 alternativas (A a E)</span><span class="chip">Com resolução</span></div>
+    <p class="lede">As 10 questões da prova aplicada em sala, com o enunciado e as cinco alternativas exatamente como no papel. Responda como se fosse a prova: ao marcar, aparecem o motivo de cada alternativa errada e a resolução, com atalho para o módulo do assunto.</p>
+  </div>
+
+  <div class="qhero">
+    <div class="sw" id="pSwitch"></div>
+    <div id="pStats"></div>
+    <div class="qtools" id="pTools"></div>
+  </div>
+
+  <div id="pFrame"></div>
+  <div id="pReport" hidden></div>
+
+  <div class="pager" data-pager="provaaula"></div>
+</div>
+
   </main>
 </div>
 <nav class="mbar" id="mbar" aria-label="Navegação entre módulos"></nav>
@@ -1866,7 +1887,8 @@ const MODS = [
   {id:"questoes", n:11, t:"Questões para Estudo", s:6},
   {id:"extra", n:12, t:"Questionário Extra", s:6},
   {id:"original", n:13, t:"Questionário Original", s:6},
-  {id:"prova", n:14, t:"Modo Prova", s:7}
+  {id:"provaaula", n:14, t:"Prova da Aula", s:6},
+  {id:"prova", n:15, t:"Modo Prova", s:7}
 ];
 const SESS = [
   {n:1, t:"Fundamentos", d:"O que é comunicar dados e como as camadas organizam tudo.", mods:["comunicacao","osi","tcpip"]},
@@ -1874,7 +1896,7 @@ const SESS = [
   {n:3, t:"Camadas 1 e 2 na prática", d:"Ethernet, o cabo par trançado e as normas de cabeamento.", mods:["ethernet","par-trancado","cabeamento"]},
   {n:4, t:"Redes sem fio", d:"O padrão 802.11, seus modos e serviços.", mods:["wifi"]},
   {n:5, t:"Endereçamento IP", d:"Binário, classes, máscara, CIDR e cálculo de rede, broadcast e hosts.", mods:["ip"]},
-  {n:6, t:"Questões e simulados", d:"Simulado com 20 questões difíceis e o questionário da aula em duas versões de 26 questões (com cenários e com o enunciado original), todos em múltipla escolha com resolução.", mods:["questoes","extra","original"]},
+  {n:6, t:"Questões e simulados", d:"Simulado com 20 questões difíceis, o questionário da aula em duas versões de 26 questões e as 10 questões da prova aplicada em sala, todos em múltipla escolha com resolução.", mods:["questoes","extra","original","provaaula"]},
   {n:7, t:"Modo Prova", d:"Prova com 10 questões sorteadas, valendo 0,5 cada, com nota de 0 a 5,0 e correção comentada no final.", mods:["prova"]}
 ];
 
@@ -2080,9 +2102,9 @@ menuBtn.addEventListener("click",()=>setDrawer(nav.dataset.open!=="true"));
 function buildSessions(){
   document.getElementById("sessCards").innerHTML=SESS.map(s=>`<div class="sess" style="--cc:${SC[s.n]}"><span class="cbl"></span><div class="in"><span class="sn">${s.n===6?"EXTRA · SIMULADO":(s.n===7?"AVALIAÇÃO":"SESSÃO "+s.n)}</span><h3>${s.t}</h3><p>${s.d}</p><ol start="${MODS.find(m=>m.id===s.mods[0]).n}">${s.mods.map(id=>{const m=MODS.find(x=>x.id===id);return `<li><a href="#${id}">${m.t}</a></li>`}).join("")}</ol></div></div>`).join("");
   // terminal: o roteiro como um traceroute
-  const HOP=[["sessao-1.fundamentos","comunicação · OSI · TCP/IP"],["sessao-2.redes-e-equip","LAN/WAN · topologias · switch/roteador"],["sessao-3.camadas-1-e-2","Ethernet · par trançado · cabeamento"],["sessao-4.sem-fio","IEEE 802.11"],["sessao-5.enderecamento-ip","binário · máscara · sub-rede"],["extra.questoes-e-simulados","simulado + questionários da aula"],["prova.modo-prova","10 sorteadas · nota de 0 a 5,0"]];
-  let t=`<div class="tl"><span class="pr">aluno@lab-redes:~$</span> traceroute prova-de-redes</div><div class="tl dim">traceroute to prova-de-redes (192.168.10.75), 7 hops max, 10 módulos + 72 questões + prova</div>`;
-  SESS.forEach((s,i)=>{ const n=s.mods.length; t+=`<a class="hop" href="#${s.mods[0]}" style="--hc:${SC[s.n]}"><span>${s.n}</span><span class="hn">${HOP[i][0]}</span><span class="hm">${s.n===7?"10 questões":s.n===6?"72 questões":n+" "+(n>1?"módulos":"módulo")}</span><span class="hd dim">${HOP[i][1]}</span></a>`; });
+  const HOP=[["sessao-1.fundamentos","comunicação · OSI · TCP/IP"],["sessao-2.redes-e-equip","LAN/WAN · topologias · switch/roteador"],["sessao-3.camadas-1-e-2","Ethernet · par trançado · cabeamento"],["sessao-4.sem-fio","IEEE 802.11"],["sessao-5.enderecamento-ip","binário · máscara · sub-rede"],["extra.questoes-e-simulados","simulados, questionários e prova da aula"],["prova.modo-prova","10 sorteadas · nota de 0 a 5,0"]];
+  let t=`<div class="tl"><span class="pr">aluno@lab-redes:~$</span> traceroute prova-de-redes</div><div class="tl dim">traceroute to prova-de-redes (192.168.10.75), 7 hops max, 10 módulos + 82 questões + prova</div>`;
+  SESS.forEach((s,i)=>{ const n=s.mods.length; t+=`<a class="hop" href="#${s.mods[0]}" style="--hc:${SC[s.n]}"><span>${s.n}</span><span class="hn">${HOP[i][0]}</span><span class="hm">${s.n===7?"10 questões":s.n===6?"82 questões":n+" "+(n>1?"módulos":"módulo")}</span><span class="hd dim">${HOP[i][1]}</span></a>`; });
   t+=`<div class="tl"><span class="pr">aluno@lab-redes:~$</span> <span class="cursor">&nbsp;</span></div>`;
   document.getElementById("termBody").innerHTML=t;
 }
@@ -2948,18 +2970,18 @@ function makeSwitchQuiz(cfg){
   const st=()=>PROG[cfg.key]||(PROG[cfg.key]={});
   const state=i=>{ const p=st(); return p[i]===true?"ok":(p[i]===false?"no":"off"); };
   function build(){
-    const rj=D.slice(0,24).map((it,i)=>`<button class="sp" data-p="${i}" aria-label="Questão ${i+1}: ${esc(it.tag)}"><span class="sp-n">${String(i+1).padStart(2,"0")}</span><span class="sp-jack"><span class="sp-led l"></span><span class="sp-led r"></span></span></button>`).join("");
-    const sfp=[24,25].map(i=>`<button class="sp sfpq" data-p="${i}" aria-label="Questão ${i+1}: ${esc(D[i].tag)}"><span class="sfp-cage"><span class="sp-led c"></span></span><span class="sp-n">${i+1} · SFP</span></button>`).join("");
+    const rj=D.slice(0,Math.min(24,N)).map((it,i)=>`<button class="sp" data-p="${i}" aria-label="Questão ${i+1}: ${esc(it.tag)}"><span class="sp-n">${String(i+1).padStart(2,"0")}</span><span class="sp-jack"><span class="sp-led l"></span><span class="sp-led r"></span></span></button>`).join("");
+    const sfp=D.slice(24).map((_,j)=>j+24).map(i=>`<button class="sp sfpq" data-p="${i}" aria-label="Questão ${i+1}: ${esc(D[i].tag)}"><span class="sfp-cage"><span class="sp-led c"></span></span><span class="sp-n">${i+1} · SFP</span></button>`).join("");
     $("Switch").innerHTML=`
      <div class="sw-top"><span class="sw-brand">${cfg.brand}<small>${cfg.sub}</small></span><span class="sw-leds"><span><i class="pwr"></i>PWR</span><span><i class="sys"></i>SYS</span></span></div>
-     <div class="sw-body"><div class="sw-ports x24">${rj}</div><div class="sw-up sfps">${sfp}</div></div>
+     <div class="sw-body"><div class="sw-ports x24">${rj}</div>${sfp?`<div class="sw-up sfps">${sfp}</div>`:""}</div>
      <div class="sw-legend"><span><i class="lg off"></i>não respondida</span><span><i class="lg ok"></i>acertou</span><span><i class="lg no"></i>errou</span><span><i class="lg cur"></i>questão atual</span></div>`;
     $("Switch").addEventListener("click",e=>{ const b=e.target.closest("[data-p]"); if(b) go(+b.dataset.p,true); });
     const f=D.findIndex((_,i)=>state(i)==="off"); cur=f<0?0:f;
     render();
     document.addEventListener("keydown",e=>{
       const v=document.getElementById("v-"+cfg.view); if(!v||v.hidden||e.target.matches("input,textarea")||e.metaKey||e.ctrlKey||e.altKey) return;
-      const k=e.key.toLowerCase(), m={a:0,b:1,c:2,d:3,"1":0,"2":1,"3":2,"4":3};
+      const k=e.key.toLowerCase(), m={a:0,b:1,c:2,d:3,e:4,"1":0,"2":1,"3":2,"4":3,"5":4};
       if(k in m) answer(m[k]); else if(e.key==="ArrowRight") go(cur+1,false); else if(e.key==="ArrowLeft") go(cur-1,false);
     });
   }
@@ -2972,7 +2994,7 @@ function makeSwitchQuiz(cfg){
      <div class="qs ok"><span>ACK · acertos</span><b>${ok}</b></div>
      <div class="qs no"><span>NACK · erros</span><b>${no}</b></div>
      <div class="qs"><span>Taxa de acerto</span><b>${done?rate+"%":"–"}</b></div>
-     <div class="qbar x26" aria-hidden="true">${D.map((_,i)=>`<i class="${state(i)}"></i>`).join("")}</div>`;
+     <div class="qbar x26" style="grid-template-columns:repeat(${N},minmax(0,1fr))" aria-hidden="true">${D.map((_,i)=>`<i class="${state(i)}"></i>`).join("")}</div>`;
     const box=$("Tools");
     box.innerHTML=`<span class="qt-msg">${done? done+" de "+N+" respondidas" : "Nenhuma questão respondida ainda"}</span>
      <button class="btn" data-r="ask" ${done?"":"disabled"}><span class="ico">↺</span>Refazer questionário</button>
@@ -3003,14 +3025,14 @@ function makeSwitchQuiz(cfg){
     if(cfg.extraLink) links.push(`<button class="btn sm" data-ex="${cur}">Versão com cenário · Questionário Extra Q${String(cur+1).padStart(2,"0")}</button>`);
     if(it.mod){ const m=MODS.find(x=>x.id===it.mod); links.push(`<a class="btn sm" href="#${it.mod}">Revisar: ${esc(m.t)}</a>`); }
     $("Frame").innerHTML=`<article class="qf">
-     <header class="qf-h"><span class="qf-no">QUESTÃO ${String(cur+1).padStart(2,"0")}<small>/${N}</small></span><span class="qf-f">PROTO <b>${esc(it.tag)}</b></span><span class="qf-f">ALT <b>4</b></span><span class="qf-flag">DIFÍCIL</span></header>
+     <header class="qf-h"><span class="qf-no">QUESTÃO ${String(cur+1).padStart(2,"0")}<small>/${N}</small></span><span class="qf-f">PROTO <b>${esc(it.tag)}</b></span><span class="qf-f">ALT <b>${it.o.length}</b></span><span class="qf-flag">${cfg.flag||"DIFÍCIL"}</span></header>
      <div class="qf-body"><p class="qf-q">${esc(it.q)}</p><div class="qf-opts">${opts}</div>
      ${answered?`<div class="qres ${ok?"ok":"no"}"><div class="qres-h"><span class="sig">${ok?"ACK":"NACK"}</span>${ok?"Correto.":"Não é essa."} Resposta correta: <b>${L[it.a]}</b></div>
        <div class="qres-sec"><span class="qres-l">▸ Por que as outras estão erradas</span><p>${esc(it.t)}</p></div>
-       <div class="qres-sec kw"><span class="qres-l">▸ Não pode faltar na resposta dissertativa</span><div class="xkw">${it.k.map(w=>`<i>${esc(w)}</i>`).join("")}</div></div>
-       <div class="qres-sec rs"><span class="qres-l">▸ Resposta-modelo</span>${it.r}</div>
+       ${it.k?`<div class="qres-sec kw"><span class="qres-l">▸ Não pode faltar na resposta dissertativa</span><div class="xkw">${it.k.map(w=>`<i>${esc(w)}</i>`).join("")}</div></div>`:""}
+       <div class="qres-sec rs"><span class="qres-l">▸ ${cfg.resLabel||"Resposta-modelo"}</span>${it.r}</div>
        ${links.length?`<div class="qres-sec lk"><div class="actions">${links.join("")}</div></div>`:""}</div>`
-     :`<p class="qf-hint">Escolha a resposta correta. No teclado: A a D para responder, ← e → para trocar de questão.</p>`}
+     :`<p class="qf-hint">Escolha a resposta correta. No teclado: A a ${L[it.o.length-1]} para responder, ← e → para trocar de questão.</p>`}
      </div>
      <footer class="qf-nav"><button class="btn" data-n="prev" ${cur===0?"disabled":""}>◀ Anterior</button>${answered?`<button class="btn" data-n="redo"><span class="ico">↺</span>Refazer esta questão</button>`:""}<button class="btn pri" data-n="next">${cur===N-1?"Ver relatório":"Próxima ▶"}</button></footer></article>`;
     const F=$("Frame");
@@ -3022,12 +3044,68 @@ function makeSwitchQuiz(cfg){
     F.querySelector('[data-n="next"]').onclick=()=>{ if(cur===N-1){ const r=$("Report"); if(!r.hidden) r.scrollIntoView({behavior:"smooth",block:"start"}); else { const f=D.findIndex((_,i)=>state(i)==="off"); if(f>=0) go(f,true); } } else go(cur+1,false); };
     stats();
   }
-  function answer(k){ const p=st(); if(p["c"+cur]!==undefined) return; p["c"+cur]=k; p[cur]=(k===D[cur].a); save(); updateProgress(); render(); }
+  function answer(k){ const p=st(); if(p["c"+cur]!==undefined||k>=D[cur].o.length) return; p["c"+cur]=k; p[cur]=(k===D[cur].a); save(); updateProgress(); render(); }
   function go(i,scroll){ if(i<0||i>N-1) return; cur=i; render(); if(scroll) $("Frame").scrollIntoView({behavior:"smooth",block:"start"}); }
   function reset(){ PROG[cfg.key]={}; save(); updateProgress(); cur=0; render(); $("Switch").scrollIntoView({behavior:"smooth",block:"start"}); }
   return {build, go};
 }
 const ORIGQ=makeSwitchQuiz({key:"original", view:"original", prefix:"o", data:OQ, brand:"LAB-SW-26B", sub:"Questionário Original · 24 portas + 2 uplinks", extraLink:true});
+/* ---------- PROVA DA AULA: as 10 questões da prova aplicada em sala ---------- */
+const PQ=[
+ {tag:"Comunicação de dados", mod:"comunicacao",
+  q:"A teoria geral da comunicação de dados estabelece que a troca de informações entre dois pontos remotos não ocorre de forma aleatória, mas requer uma infraestrutura organizada composta por elementos interconectados com funções estritamente delimitadas. Um projeto de automação bancária precisa garantir a transmissão segura de transações financeiras da agência ao servidor central.\nConsiderando os cinco componentes fundamentais de um Sistema de Comunicação de Dados (Mensagem, Emissor, Receptor, Meio e Protocolo), assinale a opção correta:",
+  o:["A Mensagem representa a infraestrutura física de cabos coaxiais responsável por regular o tempo de transmissão entre o emissor e o receptor.","O Emissor é o dispositivo físico ou lógico que origina a mensagem de dados, enquanto o Receptor é o dispositivo encarregado de capturar e processar essa mensagem.","O Meio de transmissão consiste no conjunto de convenções e regras de software que determinam a sintaxe e a semântica da comunicação.","O Protocolo é o canal físico guiado (como o cabo de par trançado) por onde a informação flui em formato de impulsos elétricos.","O Receptor tem a função exclusiva de criptografar o sinal elétrico e enviá-lo de volta ao Emissor sem entregá-lo aos aplicativos do usuário."],
+  a:1, t:"A alternativa A confunde mensagem com meio: a mensagem é a informação, não o cabo. A C e a D invertem meio e protocolo: o meio é o canal físico (cabo, fibra, ar) e o protocolo é o conjunto de regras. A E inventa uma função: o receptor recebe a mensagem e a entrega a quem pediu.",
+  r:"<ul><li><b>Mensagem:</b> a informação transmitida (texto, números, áudio, vídeo).</li><li><b>Emissor (transmissor):</b> o dispositivo que envia a mensagem.</li><li><b>Receptor:</b> o dispositivo que recebe e processa a mensagem.</li><li><b>Meio (canal):</b> o caminho físico por onde a mensagem viaja, como cabo de par trançado, fibra óptica ou ondas de rádio.</li><li><b>Protocolo:</b> o conjunto de regras que governa a comunicação, um acordo entre os dispositivos.</li></ul>"},
+ {tag:"Endereço MAC", mod:"osi",
+  q:"Para assegurar a entrega de quadros Ethernet no nível da camada de enlace de dados (camada 2 do Modelo OSI), cada interface de rede fabricada no mundo recebe um endereço físico globalmente exclusivo denominado Endereço MAC (Media Access Control), composto por 48 bits (6 bytes) gravados na memória ROM da placa.\nEm relação à estrutura interna e representação do Endereço MAC, assinale a opção correta:",
+  o:["Os 24 bits iniciais (3 bytes) do endereço MAC constituem o OUI (Organizationally Unique Identifier), atribuído pelo IEEE ao fabricante da placa de rede.","O endereço MAC é um identificador lógico reconfigurado automaticamente a cada roteador percorrido pelo pacote na Internet.","Os 48 bits do endereço MAC são divididos igualmente em 4 octetos representados em notação decimal pontuada, como 192.168.1.1.","O endereço MAC de broadcast é representado no formato hexadecimal por 00:00:00:00:00:00, fazendo com que o quadro seja descartado por todas as estações.","O fabricante da placa de rede possui liberdade para definir os 48 bits do endereço MAC sem necessidade de registro junto a órgãos de padronização."],
+  a:0, t:"O MAC é um endereço físico, gravado na placa, e não muda a cada roteador (B). A C descreve um endereço IPv4: o MAC tem 6 octetos, escritos em hexadecimal. O broadcast de MAC é FF:FF:FF:FF:FF:FF, e o quadro é aceito por todas as estações, não descartado (D). O fabricante precisa registrar seu OUI no IEEE (E).",
+  r:"<p>O endereço MAC tem <b>48 bits</b>, escritos em 6 octetos hexadecimais (ex.: <code>00:1A:2B:3C:4D:5E</code>):</p><ul><li><b>3 primeiros octetos (24 bits):</b> o OUI, que identifica o <b>fabricante</b> e é atribuído pelo IEEE;</li><li><b>3 últimos octetos:</b> identificam a <b>interface</b>, definidos pelo fabricante.</li></ul><p>O endereço de broadcast é <code>FF:FF:FF:FF:FF:FF</code>: o quadro enviado a ele é recebido por todas as estações do segmento.</p>"},
+ {tag:"Segmentação da rede", mod:"interconexao",
+  q:"Durante o redimensionamento da infraestrutura de rede de um hospital, a equipe de TI substituiu a antiga topologia em barramento baseada em Hubs por uma estrutura com Switches de Camada 2 interligados a um Roteador central. A meta era eliminar lentidões provocadas por tempestades de broadcast e colisões frequentes. Tendo em vista o impacto dos equipamentos de interconexão sobre a segmentação da rede, assinale a opção correta:",
+  o:["O Hub divide a rede em múltiplos domínios de broadcast, mas mantém um único domínio de colisão entre todas as portas.","O Switch de Camada 2 divide a rede em domínios de colisão individuais por porta, porém mantém um único domínio de broadcast para toda a VLAN.","O Roteador repassa quadros de broadcast Ethernet por todas as suas interfaces de rede de forma indiscriminada.","As Pontes (Bridges) e os Switches atuam na Camada Física (Camada 1), sendo incapazes de filtrar tráfego com base em endereços MAC.","O Roteador opera na Camada de Enlace para duplicar colisões em portas Fast Ethernet operando em modo Full-Duplex."],
+  a:1, t:"O hub não divide nada: todas as suas portas formam um único domínio de colisão e também um único domínio de broadcast (A). O roteador não repassa broadcast, ele é justamente quem separa os domínios de broadcast (C). Pontes e switches são da camada 2 e filtram pelo MAC (D). O roteador é da camada 3, e em full-duplex não há colisão (E).",
+  r:"<ul><li><b>Hub (camada 1):</b> repete o sinal para todas as portas. Um único domínio de colisão e um único domínio de broadcast.</li><li><b>Switch (camada 2):</b> encaminha pelo MAC só para a porta de destino. Cada porta é um domínio de colisão, mas o broadcast continua chegando a toda a rede (ou a toda a VLAN).</li><li><b>Roteador (camada 3):</b> não repassa broadcast entre interfaces, então cada interface é um domínio de broadcast separado.</li></ul><p>Por isso, trocar hubs por switches acaba com as colisões, e o roteador (ou as VLANs) contém as tempestades de broadcast.</p>"},
+ {tag:"Unicast, broadcast e multicast", mod:"ip",
+  q:"Os protocolos de camada de rede oferecem diferentes formas de desempenhar a entrega de datagramas dependendo do número de receptores pretendidos para a mensagem. Um serviço de transmissão de vídeo ao vivo (videoconferência) precisa enviar o mesmo fluxo de dados simultaneamente para um grupo específico de 50 computadores cadastrados sem sobrecarregar toda a sub-rede corporativa. Assinale a alternativa que associa corretamente o modo de transmissão IP à sua característica funcional:",
+  o:["A transmissão Unicast envia uma única cópia do pacote para todos os computadores da sub-rede local indiscriminadamente.","A transmissão Broadcast utiliza a notação de Classe D do IPv4 para encaminhar pacotes a um servidor central de banco de dados.","A transmissão Multicast (Classe D) permite entregar a mensagem a um grupo específico de nós receptores que pertencem ao grupo de transmissão.","A transmissão Multicast consome a mesma largura de banda que 50 transmissões Unicast separadas ao duplicar os cabos físicos.","O protocolo IPv4 proíbe a utilização de transmissões Unicast em redes locais Ethernet."],
+  a:2, t:"Unicast é um para um; quem vai para todos da rede é o broadcast (A). A classe D é a do multicast, não do broadcast (B). A vantagem do multicast é justamente economizar banda: um único fluxo, replicado só onde há receptores do grupo (D). Unicast é o modo mais comum do IPv4 (E).",
+  r:"<ul><li><b>Unicast:</b> de um remetente para um único destino.</li><li><b>Broadcast:</b> de um remetente para todos os dispositivos da rede local.</li><li><b>Multicast:</b> de um remetente para um <b>grupo</b> de dispositivos inscritos. No IPv4, usa os endereços da <b>classe D</b> (224 a 239 no 1º octeto).</li></ul><p>Na videoconferência para 50 computadores, o multicast envia um único fluxo, em vez de 50 cópias (unicast) ou de mandar para a rede inteira (broadcast).</p>"},
+ {tag:"802.11", mod:"wifi",
+  q:"Ao projetar uma rede sem fio para um evento corporativo, os analistas avaliaram duas topologias do padrão IEEE 802.11: o modo infraestrutura, composto por Pontos de Acesso (APs), e o modo Ad-hoc, utilizado para conexões temporárias ponto a ponto entre notebooks de palestrantes. Considerando a terminologia técnica e a organização dos conjuntos de serviços no padrão 802.11, assinale a afirmativa correta:",
+  o:["O conjunto BSS (Basic Service Set) no modo infraestrutura é formado por um Ponto de Acesso (AP) e pelas estações sem fio associadas a ele.","O modo IBSS (Independent Basic Service Set) exige obrigatoriamente a presença de três Pontos de Acesso conectados por fibra óptica.","O identificador SSID deve ter valores obrigatoriamente diferentes para cada Ponto de Acesso que integra o mesmo Extended Service Set (ESS).","As estações sem fio no modo Ad-hoc comunicam-se entre si através do Ponto de Acesso centralizado da rede principal.","O padrão 802.11 dispensa o uso de antenas transmissoras ao empregar cabos de par trançado blindado STP no ar."],
+  a:0, t:"O IBSS é o modo ad-hoc, que funciona sem nenhum ponto de acesso (B). Num ESS, todos os APs usam o mesmo SSID, para o usuário circular sem perder a conexão (C). No modo ad-hoc as estações falam direto entre si, sem AP (D). O 802.11 transmite por rádio; STP é cabo (E).",
+  r:"<ul><li><b>BSS:</b> uma rede comandada por um ponto de acesso (AP), com as estações associadas a ele e identificada pelo SSID.</li><li><b>ESS:</b> vários APs com o <b>mesmo SSID</b> e interseção de pelo menos 10% entre as áreas de cobertura, formando uma rede maior com mobilidade.</li><li><b>Ad-hoc (IBSS, <i>Independent</i> BSS):</b> as estações se comunicam diretamente, sem AP.</li></ul><p>Atenção: nesta questão, IBSS tem o significado da norma IEEE (<i>Independent</i>, o modo ad-hoc). O slide da Aula 14 usa a sigla com outro sentido.</p>"},
+ {tag:"Pinagem RJ-45", mod:"par-trancado",
+  q:"Na montagem de cabeamento estruturado para redes de computadores, os cabos de par trançado UTP Cat 5e/Cat 6 utilizam conectores RJ-45 (8P8C). A correta disposição dos condutores coloridos no plugue é regulada pelas normas ANSI/TIA/EIA-568 (especificações T568A e T568B). Sobre os padrões de pinagem e a confecção de cabos de rede, assinale a alternativa correta:",
+  o:["O padrão T568A e o padrão T568B utilizam as mesmas posições para os pares verde e laranja, diferindo apenas na cor da capa externa do cabo.","Um cabo direto (patch cable) possui a mesma norma de pinagem (ambas T568A ou ambas T568B) em ambas as extremidades do cabo.","Um cabo cruzado (crossover) é confeccionado montando-se a norma T568A em uma ponta e mantendo os condutores sem crimpagem na outra ponta.","A inversão dos fios azul e castanho entre as pontas é a responsável por converter uma conexão half-duplex em full-duplex.","As normas T568A e T568B dispensam a utilização de alicates de crimpagem ao fixar os condutores com solda de estanho."],
+  a:1, t:"A diferença entre T568A e T568B é exatamente a troca de posição dos pares verde e laranja (A). O cabo cruzado tem T568A numa ponta e T568B na outra, com as duas pontas crimpadas (C). Os pares azul e marrom ficam nas mesmas posições nas duas normas, e a pinagem não define o duplex (D). A fixação no RJ-45 é feita com alicate de crimpagem, não com solda (E).",
+  r:"<ul><li><b>T568A:</b> branco-verde, verde, branco-laranja, azul, branco-azul, laranja, branco-marrom, marrom.</li><li><b>T568B:</b> branco-laranja, laranja, branco-verde, azul, branco-azul, verde, branco-marrom, marrom.</li></ul><p><b>Cabo direto:</b> a mesma norma nas duas pontas (A–A ou B–B). <b>Cabo cruzado (crossover):</b> T568A numa ponta e T568B na outra.</p>"},
+ {tag:"TCP/IP", mod:"tcpip",
+  q:"A arquitetura de rede TCP/IP, desenvolvida a partir de pesquisas da ARPANET, estruturou-se em um modelo prático de 4 camadas (ou 5 camadas na visão acadêmica expandida), permitindo a interconexão de sistemas heterogêneos pela Internet. Assinale a opção que descreve corretamente a atribuição da camada correspondente no modelo TCP/IP:",
+  o:["A Camada de Aplicação (como HTTP, FTP e SMTP) trata do suporte diretamente aos programas de usuário final e aos serviços de rede.","A Camada de Transporte é responsável por definir os padrões mecânicos dos conectores e os níveis de voltagem dos sinais elétricos.","A Camada de Internet (IP) garante a entrega confiável e ordenada de mensagens através do envio obrigatório de confirmações ACK na camada física.","A Camada de Interface com a Rede executa a tradução de sintaxe de códigos ASCII para EBCDIC sem utilizar endereços MAC.","A Camada de Transporte é a única camada que realiza o roteamento de pacotes entre redes geograficamente distantes."],
+  a:0, t:"Conectores e voltagem são da parte física, na camada de acesso à rede (B). Entrega confiável e ordenada, com ACK, é função do TCP, na camada de Transporte; o IP não garante entrega (C). Tradução de códigos como ASCII e EBCDIC é função da camada de Apresentação do OSI (D). Quem faz o roteamento é a camada Internet (E).",
+  r:"<ol><li><b>Aplicação:</b> serviços usados pelos programas (HTTP, FTP, SMTP, DNS).</li><li><b>Transporte:</b> conversa entre origem e destino; o TCP é confiável e ordenado, o UDP é mais leve.</li><li><b>Internet:</b> endereçamento IP e roteamento dos pacotes entre redes.</li><li><b>Acesso à rede (Host/Rede):</b> transmissão pelo meio físico (Ethernet, Wi-Fi).</li></ol>"},
+ {tag:"Cabeçalho IPv4", mod:"ip",
+  q:"O cabeçalho do datagrama IPv4 possui um formato estruturado em palavras de 32 bits, contendo diversos campos de controle indispensáveis para o processamento do pacote pelos roteadores na camada de rede. Sobre a função específica dos campos do cabeçalho IPv4, assinale a opção correta:",
+  o:["O campo Version (4 bits) indica a versão do protocolo IP utilizada no datagrama (por exemplo, valor 4 para IPv4).","O campo IHL (Internet Header Length) indica a velocidade de transmissão da placa de rede em gigabits por segundo.","O campo Protocol identifica o endereço MAC físico da placa de rede do servidor de destino.","O campo Type of Service (ToS) é utilizado exclusivamente para armazenar a senha de criptografia da rede sem fio.","O tamanho do cabeçalho IPv4 sem a área de opções é dinâmico e varia entre 2 e 8 bytes."],
+  a:0, t:"O IHL indica o tamanho do próprio cabeçalho, contado em palavras de 32 bits, e nada tem a ver com velocidade (B). O campo Protocol diz qual protocolo vem em cima, como 6 para TCP e 17 para UDP; endereço MAC nem existe no cabeçalho IP (C). O ToS serve para prioridade e qualidade de serviço (D). Sem opções, o cabeçalho tem tamanho fixo de 20 bytes; com opções chega a 60 (E).",
+  r:"<p>Principais campos do cabeçalho IPv4:</p><ul><li><b>Version (4 bits):</b> a versão do IP, valor 4.</li><li><b>IHL (4 bits):</b> tamanho do cabeçalho em palavras de 32 bits (mínimo 5 = 20 bytes).</li><li><b>Type of Service:</b> prioridade e QoS do pacote.</li><li><b>Total Length:</b> tamanho total do datagrama.</li><li><b>TTL:</b> número máximo de saltos; cada roteador diminui 1.</li><li><b>Protocol:</b> protocolo da camada de cima (6 = TCP, 17 = UDP).</li><li><b>Header Checksum</b>, <b>endereço IP de origem</b> e <b>endereço IP de destino</b>.</li></ul><p>Esse assunto não aparece nos slides das aulas, então vale guardar esta lista.</p>"},
+ {tag:"Ethernet", mod:"ethernet",
+  q:"Ao longo das últimas décadas, a arquitetura Ethernet passou por transformações profundas para acompanhar o aumento da demanda por largura de banda, evoluindo do Ethernet padrão (10 Mbps) ao Fast Ethernet (100 Mbps), Gigabit Ethernet (1 Gbps) e 10G Ethernet (10 Gbps). Considerando a evolução das especificações técnicas do padrão Ethernet, assinale a afirmativa correta:",
+  o:["O Fast Ethernet (100Base-TX) utiliza cabos de par trançado Cat 5 ou superior para atingir a taxa de 100 Mbps.","O Gigabit Ethernet exige a substituição do formato do quadro Ethernet clássico por um novo quadro proprietário incompatível com a camada de enlace.","O 10G Ethernet opera prioritariamente em meio compartilhado utilizando Hubs coaxiais com algoritmo CSMA/CD ativado.","A transição do Ethernet tradicional para o Fast Ethernet reduziu a velocidade de transmissão pela metade para conter aquecimentos na rede.","O padrão 100Base-FX utiliza cabos coaxiais finos (RG-58) com impedância de 50 ohms para conexões sem fio."],
+  a:0, t:"O Gigabit manteve o formato do quadro Ethernet, justamente para ser compatível com a base instalada (B). O 10G só funciona em full-duplex e não usa CSMA/CD nem hubs (C). O Fast Ethernet aumentou a velocidade de 10 para 100 Mbps (D). O \"FX\" de 100Base-FX indica fibra óptica, e não há nada sem fio nele (E).",
+  r:"<ul><li><b>Ethernet:</b> 10 Mbps, half-duplex com CSMA/CD.</li><li><b>Fast Ethernet:</b> 100 Mbps; 100Base-TX usa par trançado Cat 5 ou superior, e 100Base-FX usa fibra. Trouxe o full-duplex e os pause frames.</li><li><b>Gigabit Ethernet:</b> 1 Gbps, mantendo o quadro Ethernet; frame burst em half-duplex e flow control em full-duplex.</li><li><b>10G Ethernet:</b> 10 Gbps, só full-duplex e sem CSMA/CD; usado em backbones e data centers.</li></ul>"},
+ {tag:"Modelos computacionais", mod:"lans-wans",
+  q:"A arquitetura de software e o modo como o processamento é distribuído na rede definem o modelo computacional adotado por uma organização. O entendimento desses modelos é vital para estruturar sistemas corporativos eficientes.\nEm relação aos modelos computacionais de rede, assinale a alternativa correta:",
+  o:["No modelo Cliente/Servidor, o servidor centraliza a prestação de serviços ou recursos (como arquivos e bancos de dados), atendendo às requisições dos clientes.","No modelo Ponto-a-Ponto (P2P), exige-se um servidor centralizador obrigatório e dedicado para autorizar cada troca de arquivos entre nós.","O modelo de Computação Centralizada utiliza microcomputadores autônomos onde cada estação executa seus programas sem depender do mainframe.","No modelo Cliente/Servidor, os clientes são impedidos de processar qualquer informação localmente, atuando apenas como visores passivos.","O modelo P2P é o único recomendado para gerenciar dados confidenciais de grandes instituições bancárias devido à sua alta centralização de segurança."],
+  a:0, t:"No ponto-a-ponto não existe servidor: qualquer máquina pode ser cliente ou servidor (B). Na computação centralizada, terminais sem processamento (\"terminais burros\") dependem do computador central; a C descreve o contrário. No cliente/servidor, os clientes também processam; quem não processa são os terminais da computação centralizada (D). O P2P tem segurança fraca e administração descentralizada (E).",
+  r:"<ul><li><b>Computação centralizada:</b> um computador central faz todo o processamento, e os terminais só têm teclado e monitor.</li><li><b>Cliente/servidor:</b> o servidor oferece os serviços e recursos, e os clientes (que também têm processamento próprio) fazem pedidos. Administração centralizada, mais segurança, custo mais alto.</li><li><b>Ponto-a-ponto:</b> sem servidor; cada máquina é cliente ou servidor conforme a situação. Simples e barato, mas com segurança fraca.</li></ul>"}
+];
+Q.provaaula={mc:PQ, disc:[]};
+const PROVAQ=makeSwitchQuiz({key:"provaaula", view:"provaaula", prefix:"p", data:PQ, brand:"LAB-SW-10", sub:"Prova da Aula · 10 portas", flag:"PROVA", resLabel:"Resolução", extraLink:false});
+
 
 /* ---------- MODO PROVA: 10 questões aleatórias, 0,5 cada, nota de 0 a 5,0 ---------- */
 const PV={phase:"intro", qs:[], ans:[], cur:0, t0:0, secs:0, timer:null, confirm:false};
@@ -3042,6 +3120,7 @@ function pvBanks(){
   QQ.forEach((it,i)=>hard.push({q:it.q,o:it.o,a:it.a,tag:it.tag,src:"Simulado",rv:simMap[i]||null,keys:["s"+i],exp:`<p><b>Pegadinha:</b> ${esc(it.t)}</p>`+it.r}));
   EX.forEach((it,i)=>hard.push({q:it.mq,o:it.o,a:it.a,tag:it.tag,src:"Questionário Extra",rv:it.mod?{mod:it.mod}:{orig:i},keys:(it.sim||[]).map(k=>"s"+k).concat("x"+i),exp:`<p><b>Pegadinha:</b> ${esc(it.t)}</p>`+it.r}));
   OQ.forEach((it,i)=>hard.push({q:it.q,o:it.o,a:it.a,tag:it.tag,src:"Questionário Original",rv:it.mod?{mod:it.mod}:{orig:i},keys:(it.sim||[]).map(k=>"s"+k).concat("x"+i),exp:`<p><b>Por que as outras estão erradas:</b> ${esc(it.t)}</p>`+it.r}));
+  PQ.forEach((it,i)=>hard.push({q:it.q,o:it.o,a:it.a,tag:it.tag,src:"Prova da Aula",rv:{mod:it.mod},keys:["pa"+i],exp:`<p><b>Por que as outras estão erradas:</b> ${esc(it.t)}</p>`+it.r}));
   const ses={1:[],2:[],3:[],4:[],5:[]};
   ["comunicacao","osi","tcpip","lans-wans","interconexao","ethernet","par-trancado","cabeamento","wifi"].forEach(id=>{
     const m=MODS.find(x=>x.id===id);
@@ -3260,7 +3339,7 @@ document.querySelectorAll("[data-topo]").forEach(s=>s.innerHTML=topo(s.dataset.t
 buildPins(); buildSessions(); buildPagers(); buildLayerMeters();
 Object.keys(Q).forEach(renderQuiz);
 buildMaskTable(); buildExamples(); buildBits(); renderBin(); renderIpMc(); renderIpEx(); newGen(); paintStreak(); runCalc();
-buildQuestoes(); buildExtra(); ORIGQ.build(); buildProva(); labelTables(); buildNav(); route();
+buildQuestoes(); buildExtra(); ORIGQ.build(); PROVAQ.build(); buildProva(); labelTables(); buildNav(); route();
 })();
 </script>
 <script>
