@@ -12,6 +12,8 @@ A aba **Questionário Original** traz as mesmas 26 perguntas com o enunciado exa
 
 A aba **Prova da Aula** traz as 10 questões da prova aplicada em sala, com o enunciado e as cinco alternativas (A a E) como no papel. Ao responder, mostra por que as outras alternativas estão erradas e a resolução, com atalho para o módulo do assunto. Essas questões também entram no sorteio do Modo Prova.
 
+A aba **Super Simulado** traz 50 questões novas no mesmo estilo da prova (enunciado com cenário e cinco alternativas, de A a E), cobrindo os módulos 01 a 04: Comunicação de Dados, Modelo OSI, Arquitetura TCP/IP e LANs, WANs e Topologias. Cada questão vale 0,2 ponto. No final aparecem a nota de 0 a 10 e o desempenho em cada módulo, com atalho para revisar. Só as 12 questões do módulo 04 entram no sorteio do Modo Prova, porque a sessão 1 fica de fora da prova.
+
 O **Modo Prova** sorteia 10 questões sem repetir assunto: 5 dos simulados e questionários e 5 das sessões 2, 3 e 4 (tipos de rede e equipamentos, Ethernet e cabeamento, redes sem fio), com pelo menos uma de cada sessão. As sessões 1 e 5 não entram na prova. Cada questão vale 0,5 ponto, e a nota vai de 0 a 5,0. Dá para trocar as respostas até entregar; na entrega, as respostas viajam como pacotes até o servidor de correção e voltam como ACK ou NACK. No final aparecem a nota num medidor de sinal, uma recomendação de revisão (os módulos ligados às questões erradas ou em branco, do que teve mais erros para o que teve menos, com atalho para cada um), a correção comentada e o histórico das provas feitas.
 
 O site é um único arquivo (`index.html`), sem dependências de build.
